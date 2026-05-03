@@ -61,7 +61,7 @@ const staffDatabase = [
     { 
         id: 'esmee', category: 'host', image: 'Image/1.png', serviceType: 'standard', name: '斯咪',
         race: 'miqote', height: '159.2cm', tags: ['小惡魔', '悠哉', '求知慾'],
-        motto: '「真沒辦法，像你這樣弱～弱的人，就讓我來服務吧♥」', rpStyle: '鏡像', sexualPref: 'Any', rolePref: 'Bottom, Submissive', filterRoles: ['BOTTOM'],
+        motto: '「真沒辦法，像你這樣弱～弱的人，就讓我來服務吧♥」', rpStyle: '鏡像', sexualPref: 'Male (Standard/Midnight)<br>Female (Standard Only)', rolePref: 'Bottom, Submissive', filterRoles: ['BOTTOM'],
         story: '來自格里達尼亞邊境的某個小聚落，性格其實不壞，因為聚落裡的長者與主事人都是女性，所以會對其保有一定程度的尊重。\n但對於有興趣的人總是會忍不住的想調侃或玩弄一下。\n老是拐著彎說話，反而不擅長應對直球反應。 \n\n生長的聚落在靈災後急需金錢所以隻身來到海霧村，開始接觸與前半生守規矩過活相反的日子。\n\n對城市的夜晚感到好奇而意外加入Noctis。\n大多時候喜歡觀察人群與衣著時尚，似乎也喜歡照顧人。',
         kinks: '輕度壓迫或請託', limits: '髒髒的東西'
     },
