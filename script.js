@@ -103,13 +103,13 @@ const staffDatabase = [
     { 
         id: 'selfor', category: 'host', image: 'Image/1.png', serviceType: 'standard', name: '瑟歐菲爾',
         race: 'viera', height: '183.8cm (不包含耳朵)', tags: ['溫和', '敏銳', '略帶疏離感的優雅'],
-        motto: '「旅途教會我如何忍受孤獨，卻沒教我如何在黑夜裡，<br>拒絕一個同樣寂寞的靈魂。」', rpStyle: '鏡像 / 輕', sexualPref: 'Male', rolePref: 'Switch', filterRoles: ['SWITCH'],
+        motto: '「旅途教會我如何忍受孤獨，卻沒教我如何在黑夜裡，<br>拒絕一個同樣寂寞的靈魂。」', rpStyle: '鏡像 / 輕', sexualPref: 'Any', rolePref: 'Switch', filterRoles: ['SWITCH'],
         story: '出生於森林的維艾拉族，是一名浪跡於世界各地的旅人。因為長年的漂泊而習慣了孤獨，也練就了感受他人情緒的敏銳直覺。\n\n為了籌措下一段旅程的旅費而在 NOCTIS 暫時停駐。\n\n不擅長花言巧語，有時說話帶著些許拘謹的迂迴，溫和卻不易深交。對他而言，這裡只是漫長旅途中的一個驛站，他並不尋求歸宿，只願在離去前的每一場相遇中，為那些同樣寂寞的人提供一絲能驅散寒冷的溫暖。',
         kinks: '西裝/制服、修長的手指、動物耳朵、近距離的氣味嗅聞', limits: '深吻、血腥 、不對等關係。'
     },
     { 
         id: 'silas', category: 'host', image: 'Image/1.png', serviceType: 'standard', name: 'Silas',
-        race: 'hyur', height: '185cm', tags: ['溫柔', '小笨蛋', '大狗系', '反差感', '純愛'],
+        race: 'hyur', height: '178cm', tags: ['溫柔', '小笨蛋', '大狗系', '反差感', '純愛'],
         motto: '「沒關係，你可以慢慢說，我會一直在這裡聽。」', rpStyle: '鏡像 / 輕', sexualPref: 'Male', rolePref: 'Switch, Soft Dom', filterRoles: ['SWITCH'],
         story: '出生於森林之中的青年，從小習慣被樹影與風聲包圍，對世界各地的故事與森林外面的世界抱有憧憬。\n\n曾經執著於變強，在冒險的路途中經歷了各種悲歡離合、失去、挫折與成長。 \n今晚的他比起英雄，更是一個願意停下腳步聽眼前的你說話的人。 \n\n看似穩重可靠，熟了之後卻會露出有點笨拙又可愛的一面。',
         kinks: '無', limits: 'ERP、血腥、排泄、極端暴力、未成年、非合意行為、羞辱、獵奇內容'
