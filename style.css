@@ -1,0 +1,2681 @@
+/* --- 解決背景斷層：確保全店永遠是黑色的 --- */
+html, body {
+    margin: 0;
+    padding: 0;
+    background-color: #000 !important;
+    min-height: 100%;
+    /* 💥 刪除了 height: 100vh 跟 overflow: hidden 的強制鎖定 */
+}
+
+/* =========================================
+   🎬 NOCTIS 最終修正：入口視覺系統
+   ========================================= */
+
+/* 1. 基礎底層：深邃純黑畫布 */
+#noctis-curtain {
+    position: fixed;
+    top: 0; left: 0; width: 100%; height: 100vh;
+    z-index: 9999;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: #000 !important; 
+    overflow: hidden; 
+}
+
+/* 2. 煙霧層：確保在背景之上，但在門片之下 */
+#noctis-curtain::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; width: 100%; height: 100%;
+    z-index: 2; /* 💥 關鍵層級 */
+    pointer-events: none;
+    box-shadow: 
+        inset 0 0 150px rgba(138, 43, 226, 0.4),
+        inset 0 0 250px rgba(212, 175, 55, 0.2);
+    animation: edgeSmoke 8s infinite alternate ease-in-out;
+}
+
+@keyframes edgeSmoke {
+    from { opacity: 0.4; }
+    to { opacity: 0.8; }
+}
+/* 3. 門片層：純黑且置於煙霧之上，點擊後拉開 */
+.curtain-part {
+    position: absolute;
+    top: 0; width: 50%; height: 100%;
+    background: #000 !important; /* 💥 必須是純黑實色 */
+    z-index: 5; /* 💥 關鍵層級：壓在煙霧上 */
+    transition: transform 1.5s cubic-bezier(0.77, 0, 0.175, 1);
+}
+.curtain-part.left { left: 0; width: 50.1%; }
+.curtain-part.right { right: 0; }
+
+/* 4. 內容層：Logo 與按鈕，永遠保持在最頂端 */
+.curtain-content {
+    position: relative;
+    z-index: 100; /* 💥 關鍵層級：最高，保證看得見 */
+    text-align: center;
+    background: transparent !important;
+}
+
+/* =========================================
+   ⚡ Logo 霸氣覺醒與間歇閃爍特效
+   ========================================= */
+/* --- 修正：Logo 容器也必須透明 --- */
+.logo-wrapper {
+    margin-bottom: 40px;
+    position: relative;
+    z-index: 10;
+    background: transparent !important; /* 💥 確保這裡沒有顏色 */
+    filter: drop-shadow(0 0 30px rgba(138, 43, 226, 0.8));
+}
+
+.neon-logo {
+    /* 💥 強制放大：如果 1200px 出不來，我們用 min-width 逼它變大 */
+    width: 90vw; 
+    max-width: 1200px;
+    min-width: 800px; /* 💥 在電腦螢幕上絕對不能小於這個尺寸 */
+    height: auto;
+    
+    /* 💥 閃爍動畫：10秒一輪 */
+    animation: randomFlicker 10s infinite;
+}
+
+/* 💥 間歇性通電特效：包含開頭大閃爍、中間穩定呼吸、三不五時短路 */
+@keyframes randomFlicker {
+    /* 開局強烈通電 */
+    0% { opacity: 0; filter: brightness(0); }
+    1% { opacity: 1; filter: brightness(2.5) drop-shadow(0 0 40px #b86bff); transform: scale(1.02); }
+    2% { opacity: 0.1; filter: brightness(0); }
+    3% { opacity: 1; filter: brightness(1.8) drop-shadow(0 0 30px #b86bff); }
+    4% { opacity: 0.4; filter: brightness(0.5); }
+    5% { opacity: 1; filter: brightness(1) drop-shadow(0 0 20px rgba(184, 107, 255, 0.6)); transform: scale(1); }
+
+    /* 穩定呼吸 */
+    25% { filter: brightness(1.2) drop-shadow(0 0 30px rgba(184, 107, 255, 0.9)); transform: scale(1.01); }
+    50% { filter: brightness(1) drop-shadow(0 0 20px rgba(184, 107, 255, 0.6)); transform: scale(1); }
+
+    /* 💥 三不五時的強烈短路 (滋~滋~) */
+    60% { opacity: 1; filter: brightness(1); }
+    61% { opacity: 0.3; filter: brightness(0.3); transform: translateX(-2px); } /* 💥 加上輕微位移，更有故障感 */
+    62% { opacity: 1; filter: brightness(2) drop-shadow(0 0 40px #b86bff); transform: translateX(2px) scale(1.02); }
+    63% { opacity: 1; filter: brightness(1) drop-shadow(0 0 20px rgba(184, 107, 255, 0.6)); transform: translateX(0) scale(1); }
+
+    /* 繼續穩定呼吸 */
+    80% { filter: brightness(1.1) drop-shadow(0 0 25px rgba(184, 107, 255, 0.7)); transform: scale(1.01); }
+    100% { filter: brightness(1) drop-shadow(0 0 20px rgba(184, 107, 255, 0.6)); transform: scale(1); }
+}
+
+/* 左右兩片門 */
+.curtain-part {
+    position: absolute;
+    top: 0; width: 50%; height: 100%;
+    background: #0a0a0a;
+    z-index: 1;
+    transition: transform 1.5s cubic-bezier(0.77, 0, 0.175, 1); /* 高級的滑動曲線 */
+}
+/* 30行：移除 border-right，並讓左門稍微寬一點點點蓋住縫隙 */
+.curtain-part.left { 
+    left: 0; 
+    border-right: none; 
+    width: 50.1%; /* 💥 關鍵：多出 0.1% 確保完全蓋住 */
+}
+/* 31行：移除 border-left */
+.curtain-part.right { 
+    right: 0; 
+    border-left: none; 
+}
+
+/* 布幕中間的內容 */
+.curtain-content {
+    position: relative;
+    z-index: 10;
+    text-align: center;
+    transition: opacity 0.5s ease;
+}
+
+.fallback-logo {
+    font-size: 3rem;
+    color: #8a2be2;
+    text-shadow: 0 0 15px rgba(138, 43, 226, 0.8);
+    letter-spacing: 10px;
+    margin-bottom: 10px;
+}
+
+/* --- 1. 放大後的年齡確認文字 --- */
+.construction-text {
+    font-size: 1.8rem;       /* 從原本的大小顯著放大 */
+    color: rgba(255, 255, 255, 0.7); 
+    letter-spacing: 0.4rem;  /* 增加字距營造高級感 */
+    text-transform: uppercase;
+    font-weight: 300;
+    margin-bottom: 20px;
+    /* 加入淡淡的呼吸感 */
+    animation: textFade 3s ease-in-out infinite;
+}
+
+/* =========================================
+   🏹 吸引點擊：上指向誘導組件 (修正版)
+   ========================================= */
+.enter-trigger {
+    margin-top: 60px; /* 增加與 Logo 的間距 */
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    z-index: 100;
+}
+
+/* 上箭頭修正與動畫 */
+.arrow-box {
+    font-size: 3rem; /* 放大箭頭 */
+    color: #b86bff;
+    text-shadow: 0 0 20px rgba(184, 107, 255, 0.8);
+    /* 💥 指向上方的動畫：從下往上推動點擊慾望 */
+    animation: arrowPushUp 1.5s infinite ease-in-out;
+    margin-bottom: 20px;
+}
+
+/* 誘導文字顯著放大 */
+.induce-text {
+    color: #fff; /* 💥 改為純白 */
+    font-size: 1.5rem; /* 稍微再大一點點 */
+    letter-spacing: 15px;
+    text-transform: uppercase;
+    font-weight: 300;
+    /* 💥 加上發光，確保在煙霧中清晰可見 */
+    text-shadow: 0 0 10px rgba(184, 107, 255, 0.8); 
+    transition: all 0.5s ease;
+}
+
+/* 懸停互動加強 */
+.enter-trigger:hover .arrow-box {
+    color: #fff;
+    text-shadow: 0 0 30px #b86bff, 0 0 60px #b86bff;
+}
+
+.enter-trigger:hover .induce-text {
+    color: #fff;
+    letter-spacing: 25px; /* 💥 懸停時劇烈展開，吸引感滿分 */
+    text-shadow: 0 0 15px rgba(184, 107, 255, 0.8);
+}
+
+/* 💥 動畫定義：向上指引 */
+@keyframes arrowPushUp {
+    0%, 100% { transform: translateY(0); opacity: 0.5; }
+    50% { transform: translateY(-20px); opacity: 1; } /* 向上跳動 */
+}
+
+/* 讓原本的按鈕樣式失效 (如果還有殘留的話) */
+.enter-btn {
+    border: none !important;
+    background: none !important;
+    box-shadow: none !important;
+}
+
+/* 💥 JS 觸發的開門動畫 */
+.curtain-open .curtain-part.left { transform: translateX(-100%); }
+.curtain-open .curtain-part.right { transform: translateX(100%); }
+/* --- 基礎背景設定 --- */
+body, html { margin: 0; padding: 0; box-sizing: border-box; }
+
+#noctis-main {
+    background-color: transparent; 
+    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    color: #fff;
+    
+    /* 💥 恢復為最小高度 100vh，允許內容往下生長，並把 overflow: hidden 拿掉 */
+    min-height: 100vh; 
+    
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    z-index: 5; 
+}
+
+/* --- 導覽列 --- */
+.top-dandy-nav {
+    position: fixed;
+    top: 0; width: 100%;
+    background: rgba(0, 0, 0, 0.85);
+    backdrop-filter: blur(10px);
+    z-index: 1000;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.nav-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px 50px;
+    max-width: 1400px;
+    margin: 0 auto;
+}
+
+.brand {
+    font-size: 1.5rem;
+    letter-spacing: 5px;
+    font-weight: 800;
+    color: #8a2be2;
+}
+
+.nav-menu {
+    display: flex;
+    list-style: none;
+    gap: 40px;
+    margin: 0; padding: 0;
+}
+
+.nav-menu a {
+    text-decoration: none;
+    color: #fff;
+    font-size: 0.8rem;
+    letter-spacing: 2px;
+    transition: 0.3s;
+}
+
+.nav-menu a:hover {
+    color: #8a2be2;
+    text-shadow: 0 0 8px #8a2be2;
+}
+
+/* =========================================
+   🎬 Hero 視覺區：文字在左，長方形框在右
+   ========================================= */
+
+/* 修改 1：鎖死 Hero 高度 */
+.hero-section {
+    position: relative;
+    /* 💥 恢復強制佔滿整個螢幕高度 */
+    height: 100vh !important; 
+    width: 100%;
+    background: #000;
+    
+    display: flex;
+    /* 💥 只要沒有其他干擾，這行就是「永遠垂直置中」的絕對魔法 */
+    align-items: center !important; 
+    justify-content: space-between;
+    
+    /* 💥 殺掉那個害您無法置中的 padding-top，強制恢復上下為 0 */
+    padding: 0 10% !important; 
+    
+    box-sizing: border-box; 
+    overflow: hidden; 
+}
+/* --- 左側：文字區塊 --- */
+.hero-text {
+    position: relative;
+    z-index: 20;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start; /* 強制靠左 */
+    text-align: left;
+    width: 100%; /* 確保它能盡量撐開 */
+    max-width: 60%; /* 💥 從 50% 放大到 60%，給名人堂釋放空間！ */
+}
+
+/* =========================================
+   📺 SLOGAN 霓虹閃爍特效 (模擬影片效果)
+   ========================================= */
+.hero-slogan {
+    /* ... 你原本的字體、大小、顏色設定保持不變 ... */
+    color: #fff;
+    /* 💥 初始狀態：先給予基礎的霓虹光暈 */
+    text-shadow: 
+        0 0 8px rgba(138, 43, 226, 0.6),
+        0 0 15px rgba(138, 43, 226, 0.4);
+    
+    /* 💥 應用新的閃爍動畫：
+       - 2s: 動畫總長度（閃爍+穩定）
+       - linear: 均勻速度
+       - infinite: 無限循環（如果你希望它一直閃）
+       - (可選) 2s: 延遲，比如門打開後 2 秒才開始閃
+    */
+    animation: neonFlicker 2s linear infinite; 
+}
+
+/* 💥 動畫核心：不規則閃爍頻率設計 */
+@keyframes neonFlicker {
+    /* 0%-10%: 快速閃爍階段 (通電瞬間) */
+    0%, 2%, 4%, 6%, 8%, 10% {
+        opacity: 1;
+        text-shadow: 
+            0 0 8px rgba(138, 43, 226, 0.8),
+            0 0 15px rgba(138, 43, 226, 0.6),
+            0 0 30px #8a2be2;
+    }
+    1%, 3%, 5%, 7%, 9% {
+        opacity: 0.4; /* 快速變暗，模擬接觸不良 */
+        text-shadow: none; /* 瞬間失去光暈 */
+    }
+
+    /* 10%-15%: 稍微停頓變暗 (醞釀穩定) */
+    11%, 15% {
+        opacity: 0.6;
+        text-shadow: 0 0 10px rgba(138, 43, 226, 0.4);
+    }
+
+    /* 15%-20%: 再不規則閃兩下 */
+    16%, 18%, 20% {
+        opacity: 1;
+        text-shadow: 
+            0 0 8px rgba(138, 43, 226, 0.8),
+            0 0 15px rgba(138, 43, 226, 0.6),
+            0 0 30px #8a2be2;
+    }
+    17%, 19% {
+        opacity: 0.7;
+        text-shadow: 0 0 10px rgba(138, 43, 226, 0.5);
+    }
+
+    /* 20%-100%: 最終穩定亮起 (伴隨極微小顫動) */
+    21%, 100% {
+        opacity: 1;
+        text-shadow: 
+            0 0 8px rgba(138, 43, 226, 0.8),
+            0 0 15px rgba(138, 43, 226, 0.6),
+            0 0 30px #8a2be2;
+    }
+}
+
+/* 副標題呼吸特效 */
+.slogan-sub {
+    font-size: 1.2rem;
+    letter-spacing: 0.8rem;
+    color: rgba(255, 255, 255, 0.6);
+    margin-top: 30px;
+    margin-left: 5px;
+    font-weight: 300;
+    text-align: left; /* 強制靠左 */
+    animation: subPureGlow 6s ease-in-out infinite;
+    will-change: opacity, text-shadow;
+}
+/* --- 📍 主頁專屬座標牌 --- */
+.hero-location {
+    margin-top: 25px; /* 與上方副標題拉開一點優雅的距離 */
+    display: inline-flex;
+    align-items: center;
+    padding: 8px 20px;
+    
+    /* 淡淡的紫色背景與霓虹邊框 */
+    background: rgba(138, 43, 226, 0.05); 
+    border: 1px solid rgba(138, 43, 226, 0.4); 
+    border-radius: 2px;
+    box-shadow: 0 0 15px rgba(138, 43, 226, 0.15);
+    
+    /* 微微的互動感 */
+    transition: all 0.3s ease;
+}
+
+/* 滑鼠懸停時發出更亮的紫光 */
+.hero-location:hover {
+    background: rgba(138, 43, 226, 0.15);
+    border-color: #b86bff;
+    box-shadow: 0 0 20px rgba(138, 43, 226, 0.4);
+    transform: translateX(5px); /* 輕微向右浮動 */
+}
+
+.hero-location .loc-icon {
+    color: #d4af37; /* 用金色星號點綴，抓住眼球 */
+    margin-right: 12px;
+    font-size: 0.9rem;
+    animation: locationPulse 3s infinite; /* 讓星星微微閃爍 */
+}
+
+.hero-location .loc-text {
+    color: #fff;
+    font-size: 0.95rem;
+    letter-spacing: 4px; /* 拉寬字距，增加呼吸感與高級感 */
+    text-shadow: 0 0 5px rgba(255, 255, 255, 0.3);
+}
+
+/* 金色星號的呼吸動畫 */
+@keyframes locationPulse {
+    0%, 100% { opacity: 0.6; text-shadow: 0 0 5px #d4af37; }
+    50% { opacity: 1; text-shadow: 0 0 15px #d4af37, 0 0 25px #d4af37; }
+}
+
+/* --- 右側：長方形圖片框 (橫向寬版) --- */
+.hero-slider {
+    position: relative;
+    z-index: 10;
+    
+    /* 💥 核心修改：使用相對寬度與比例 */
+    width: 55vw;             /* 寬度佔螢幕寬度的 55%，確保永遠留空間給左側文字 */
+    max-width: 1200px;       /* 設定最大上限，防止在超大螢幕上變得太誇張 */
+    min-width: 400px;        /* 設定最小下限，防止在小螢幕縮得太小看不清 */
+    
+    /* 💥 自動維持 15:9 的長方形比例 (原 1500x900 比例) */
+    aspect-ratio: 15 / 9;    
+    height: auto;            /* 讓高度由比例自動計算 */
+    
+    flex-shrink: 0; 
+    border: 2px solid #8a2be2; 
+    box-shadow: 0 0 15px rgba(138, 43, 226, 0.6);
+    border-radius: 8px; 
+    overflow: hidden;
+}
+/* --- 2. 圖片滑動邏輯 --- */
+.slide {
+    position: absolute;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    background-size: cover;
+    background-position: center;
+    
+    /* 預設狀態：縮在右邊看不見的地方 */
+    transform: translateX(100%); 
+    transition: transform 1.2s cubic-bezier(0.4, 0, 0.2, 1); /* 使用更順滑的曲線 */
+    z-index: 1;
+}
+/* 當前顯示狀態：滑入中間 */
+.slide.active {
+    transform: translateX(0);
+    z-index: 2;
+}
+
+/* 移出狀態：往左滑走 */
+.slide.exit {
+    transform: translateX(-100%);
+    z-index: 1;
+}
+
+.slide.active {
+    opacity: 1 !important; /* 只顯示這張 */
+}
+
+/* --- 背景遮罩氛圍：整體均勻壓暗 --- */
+.slider-overlay {
+    position: absolute;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    
+    /* 💥 核心修改：使用純色半透明黑，取代漸層光圈 */
+    background: rgba(0, 0, 0, 0.4); 
+    
+    z-index: 5;
+    pointer-events: none;
+}
+
+/* =========================================
+   ⚡ 動畫定義區
+   ========================================= */
+
+@keyframes gentleShort {
+    0%, 40% { opacity: 1; text-shadow: 0 0 8px rgba(138, 43, 226, 0.8), 0 0 20px rgba(138, 43, 226, 0.4); }
+    42% { opacity: 0.3; text-shadow: none; }
+    44% { opacity: 1; }
+    46%, 70% { opacity: 1; }
+    72% { opacity: 0.1; text-shadow: none; color: #222; }
+    75% { opacity: 0.8; text-shadow: 0 0 15px #8a2be2; color: #fff; }
+    78% { opacity: 0.1; text-shadow: none; color: #222; }
+    82% { opacity: 1; text-shadow: 0 0 8px rgba(138, 43, 226, 0.8), 0 0 30px #8a2be2; color: #fff; }
+    90% { opacity: 0.6; }
+    92% { opacity: 1; }
+}
+
+@keyframes subPureGlow {
+    0%, 100% { opacity: 0.3; text-shadow: 0 0 0px rgba(138, 43, 226, 0); filter: blur(1px); }
+    50% { opacity: 0.9; text-shadow: 0 0 10px rgba(138, 43, 226, 0.6), 0 0 25px rgba(138, 43, 226, 0.3); filter: blur(0); }
+}
+
+/* =========================================
+   👔 CAST 網格系統 (保留原本的)
+   ========================================= */
+
+.cast-section {
+    padding: 100px 50px;
+    max-width: 1400px;
+    margin: 0 auto;
+}
+
+.cast-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 30px;
+    margin-top: 50px;
+}
+
+.cast-card {
+    position: relative;
+    overflow: hidden;
+    transition: 0.5s;
+}
+
+.cast-img-wrapper {
+    aspect-ratio: 3 / 4;
+    background: #1a1a1a;
+    overflow: hidden;
+}
+
+.cast-img-wrapper img {
+    width: 100%; height: 100%;
+    object-fit: cover;
+    filter: grayscale(100%);
+    transition: 0.8s;
+}
+
+.cast-card:hover .cast-img-wrapper img {
+    filter: grayscale(0%);
+    transform: scale(1.05);
+}
+
+.cast-info {
+    padding: 15px 0;
+    border-bottom: 1px solid #333;
+}
+
+.name {
+    font-size: 1.2rem;
+    letter-spacing: 2px;
+    margin-top: 5px;
+}
+
+.rank {
+    font-size: 0.7rem;
+    color: #8a2be2;
+}
+/* =========================================
+   ⚡ 瞬間隱形魔法 (解決閃爍問題)
+   ========================================= */
+/* 當 html 被貼上 skip-curtain 標籤時，布幕連 0.1 秒都不准出現 */
+.skip-curtain #noctis-curtain {
+    display: none !important;
+}
+
+/* 同時，強制讓主內容區瞬間現身 */
+.skip-curtain #noctis-main {
+    display: block !important;
+}
+
+/* =========================================
+   🎵 BGM 音樂控制開關
+   ========================================= */
+.bgm-control-btn {
+    position: fixed;
+    top: 25px;
+    right: 25px;
+    z-index: 10001; /* 確保它永遠在最上層 */
+    padding: 8px 18px;
+    
+    background: rgba(0, 0, 0, 0.5); /* 半透明黑底 */
+    backdrop-filter: blur(5px);     /* 毛玻璃特效 */
+    
+    border: 1px solid rgba(138, 43, 226, 0.5);
+    border-radius: 2px;
+    
+    color: rgba(255, 255, 255, 0.8);
+    font-size: 0.8rem;
+    letter-spacing: 3px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+/* 滑鼠移過去發光 */
+.bgm-control-btn:hover {
+    background: rgba(138, 43, 226, 0.2);
+    border-color: #8a2be2;
+    color: #fff;
+    box-shadow: 0 0 15px rgba(138, 43, 226, 0.4);
+}
+
+/* 當音樂關閉時的「暗色狀態」 */
+.bgm-control-btn.muted {
+    border-color: #555;
+    color: #888;
+    background: rgba(0, 0, 0, 0.8);
+    box-shadow: none;
+}
+.bgm-control-btn.muted:hover {
+    border-color: #888;
+    background: rgba(255, 255, 255, 0.1);
+}
+/* =========================================
+   🤵 Noctis Host Section 精準修復
+   ========================================= */
+
+/* 1. 確保大廳區塊是垂直排列並強行置中 */
+.staff-section {
+    padding: 150px 20px 80px;
+    background: #000;
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* 讓標題、定義、網格全部在大方向上置中 */
+    width: 100%;
+    box-sizing: border-box;
+}
+
+/* 2. 標題與紫色背光[cite: 6] */
+.host-title-container {
+    width: 100%;
+    max-width: 1200px;
+    text-align: center;
+}
+.host-title {
+    color: #8a2be2;
+    font-size: 3rem;
+    letter-spacing: 15px;
+    text-shadow: 0 0 25px rgba(138, 43, 226, 0.7);
+    margin: 0 0 20px 0;
+}
+.title-divider {
+    border: none;
+    height: 1px;
+    background: linear-gradient(to right, transparent, rgba(138, 43, 226, 0.5), transparent);
+    width: 85%;
+    margin: 0 auto 50px;
+}
+
+/* 3. 服務定義卡片 (對齊 1200px 邊界)[cite: 6] */
+.service-guide-v2 {
+    width: 100%;
+    max-width: 1200px;
+    display: flex;
+    gap: 30px;
+    margin-bottom: 40px;
+}
+.guide-card {
+    flex: 1;
+    background: rgba(255, 255, 255, 0.03);
+    border-left: 2px solid #8a2be2;
+    padding: 25px;
+}
+.gold-mark { color: #d4af37; font-weight: bold; margin-right: 8px; }
+.guide-card h3 { font-size: 1.1rem; letter-spacing: 4px; color: #fff; margin: 0; display: inline-block; }
+.midnight h3 { color: #b86bff; }
+.card-content p { font-size: 0.85rem; color: rgba(255, 255, 255, 0.6); line-height: 1.8; margin-top: 15px; }
+
+/* 4. 下拉索引區[cite: 6] */
+.filter-dropdown-row {
+    width: 100%;
+    max-width: 1200px;
+    display: flex;
+    gap: 40px;
+    margin-bottom: 30px;
+    justify-content: flex-start; /* 與照片牆左邊界對齊 */
+}
+.noctis-select {
+    background: #000; color: #fff; border: 1px solid rgba(138, 43, 226, 0.5);
+    padding: 6px 12px; font-size: 0.8rem; outline: none;
+}
+
+/* 5. 照片牆 4x4 + 1[cite: 6] */
+.host-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr); /* 固定 4 欄[cite: 6] */
+    gap: 30px;
+    width: 100%;
+    max-width: 1200px;
+}
+
+.staff-card {
+    position: relative;
+    background: #111;
+    border: 1px solid rgba(138, 43, 226, 0.4);
+    aspect-ratio: 3 / 4;
+    cursor: pointer;
+    overflow: hidden;
+    transition: 0.4s;
+}
+
+/* --- 1. 廢除死板置中，改用動態標籤 --- */
+.host-grid .staff-card.last-centered {
+    grid-column: 2 / 4 !important; /* 佔據中間兩格 */
+    justify-self: center !important;
+    width: 100% !important;
+    max-width: 280px !important;
+}
+
+/* --- 2. 順手整好你的下拉選單排版 (防止文字重疊) --- */
+.filter-dropdown-row {
+    width: 100%;
+    max-width: 1200px;
+    display: flex;
+    flex-wrap: wrap; /* 防止太擠時重疊 */
+    gap: 30px;
+    margin-bottom: 30px;
+}
+
+.noctis-select {
+    min-width: 120px; /* 鎖定最小寬度，防止選單縮得太小 */
+}
+
+/* --- 3. 確保紫色霓虹框永遠存在 --- */
+.staff-card {
+    border: 1px solid #8a2be2 !important; 
+    box-shadow: 0 0 15px rgba(138, 43, 226, 0.4) !important;
+    background: #111 !important;
+}
+
+/* 酒杯與月亮[cite: 6] */
+.staff-card::after { position: absolute; top: 15px; right: 15px; font-size: 1.5rem; z-index: 10; }
+.staff-card.type-standard::after { content: '🍷'; }
+.staff-card.type-midnight::after { content: '🌙'; }
+
+.staff-info {
+    position: absolute; bottom: 0; width: 100%; padding: 15px;
+    background: linear-gradient(transparent, rgba(0,0,0,0.95));
+    text-align: center;
+}
+.name { font-size: 1.1rem; color: #fff; margin: 0; white-space: nowrap; }
+/* =========================================
+   👑 NOCTIS 最終修復：17人完美網格
+   ========================================= */
+
+/* 2. 搵返消失嘅紫色霓虹框[cite: 6] */
+.staff-card {
+    border: 1px solid #8a2be2 !important; /* 實色紫色邊框[cite: 6] */
+    box-shadow: 0 0 15px rgba(138, 43, 226, 0.4) !important; /* 霓虹光暈[cite: 6] */
+    background: #000 !important;
+    aspect-ratio: 3 / 4 !important;
+    position: relative !important;
+    overflow: hidden !important;
+}
+
+/* 3. 修正卡片內資訊排版，防止重疊[cite: 6] */
+.staff-info {
+    position: absolute !important;
+    bottom: 0 !important;
+    width: 100% !important;
+    padding: 15px 0 !important;
+    background: linear-gradient(transparent, rgba(0, 0, 0, 0.95)) !important;
+    text-align: center !important;
+    z-index: 5 !important;
+}
+
+.name {
+    font-size: 1.1rem !important;
+    letter-spacing: 2px !important;
+    color: #fff !important;
+    margin: 0 !important;
+}
+
+/* 🍷 同 🌙 標記位置修正[cite: 6] */
+.staff-card::after {
+    position: absolute !important;
+    top: 10px !important;
+    right: 10px !important;
+    font-size: 1.3rem !important;
+    z-index: 10 !important;
+}
+/* =========================================
+   👑 NOCTIS 最終修復：配色與網格精準控制
+   ========================================= */
+/* 2. 恢復紫色霓虹邊框 */
+.staff-card {
+    border: 1px solid #8a2be2 !important; /* 顯眼的紫色框 */
+    box-shadow: 0 0 15px rgba(138, 43, 226, 0.4) !important; /* 霓虹光暈 */
+    background: #111 !important;
+    aspect-ratio: 3 / 4 !important;
+    position: relative !important;
+    overflow: hidden !important;
+}
+
+/* 3. 配色調整：STANDARD 改紫色，MIDNIGHT 改金色 */
+
+/* --- STANDARD (紫色系) --- */
+.guide-card.standard { border-left: 3px solid #8a2be2 !important; }
+.guide-card.standard h3 { color: #8a2be2 !important; }
+.guide-card.standard .card-content p { color: #b86bff !important; } /* 淺紫註解文字 */
+
+/* --- MIDNIGHT (金色系) --- */
+.guide-card.midnight { border-left: 3px solid #d4af37 !important; }
+.guide-card.midnight h3 { color: #d4af37 !important; }
+.guide-card.midnight .card-content p { color: #d4af37 !important; } /* 金色註解文字 */
+.guide-card.midnight .gold-mark { color: #fff !important; } /* 把註解符號轉白，突顯金色文字 */
+
+/* 4. 修正圖標大小與位置[cite: 6] */
+.staff-card::after {
+    position: absolute !important;
+    top: 15px !important;
+    right: 15px !important;
+    font-size: 1.4rem !important;
+    z-index: 10;
+}
+/* 只有當 JS 判斷需要置中時才生效 */
+.staff-card.dynamic-center {
+    grid-column: 2 / 4 !important; /* 佔據中間兩格 */
+    justify-self: center !important;
+    width: 100% !important;
+}
+/* 只有當 JS 數完人數發現餘 1 時，才會動態加上這個 class[cite: 6] */
+.staff-card.dynamic-center {
+    grid-column: 2 / 4 !important; 
+    justify-self: center !important;
+    width: 100% !important;
+    max-width: 280px !important;
+}
+/* =========================================
+   ✨ 圖標霓虹特效 (酒杯與彎月)
+   ========================================= */
+
+/* 1. 基礎定位與大小控制 */
+.staff-card::after {
+    position: absolute !important;
+    top: 15px !important;
+    right: 15px !important;
+    font-size: 1.4rem !important;
+    z-index: 10 !important;
+    transition: all 0.4s ease !important; /* 讓發光有呼吸感 */
+    pointer-events: none;
+}
+
+/* 2. 🍷 STANDARD：紫色微醺光暈 */
+.staff-card.type-standard::after {
+    content: '🍷' !important;
+    /* 多層陰影：由內而外發散紫色光芒 */
+    text-shadow: 
+        0 0 5px #fff,               /* 最核心的白光 */
+        0 0 10px #8a2be2,           /* 第一層紫光 */
+        0 0 20px #8a2be2,           /* 第二層擴散紫光 */
+        0 0 30px rgba(138, 43, 226, 0.5); /* 最外層氛圍光 */
+}
+
+/* 3. 🌙 MIDNIGHT：深夜神祕光暈[cite: 6] */
+.staff-card.type-midnight::after {
+    content: '🌙' !important;
+    /* 月亮的發光可以稍微帶點粉紫色，更具魅惑感[cite: 6] */
+    text-shadow: 
+        0 0 5px #fff,
+        0 0 10px #b86bff,
+        0 0 20px #b86bff,
+        0 0 40px rgba(184, 107, 255, 0.4);
+}
+
+/* 4. 💥 互動加強：滑鼠移上去時，霓虹燈會「通電」變更亮[cite: 6] */
+.staff-card:hover::after {
+    transform: scale(1.2) rotate(5deg) !important; /* 輕微放大並旋轉 */
+    text-shadow: 
+        0 0 8px #fff,
+        0 0 15px #8a2be2,
+        0 0 30px #8a2be2,
+        0 0 50px #8a2be2;
+    filter: brightness(1.2); /* 增加亮度[cite: 3] */
+}
+/* --- Midnight 警告文字加強 --- */
+.guide-card.midnight .card-content p {
+    color: #d4af37 !important; /* 金色底色 */
+}
+
+/* 針對「私密房間」這幾個字特別加強 */
+.guide-card.midnight .card-content p strong,
+.guide-card.midnight .card-content p b {
+    color: #ff4d4d; /* 警示紅，或是用亮金色 #fff5ad */
+    text-shadow: 0 0 10px rgba(255, 77, 77, 0.5);
+    font-weight: bold;
+    border-bottom: 1px solid #ff4d4d;
+    margin: 0 2px;
+}
+.r18-tag {
+    font-size: 0.6rem !important;
+    color: #fff !important;
+    /* 💥 漸層邊框效果 */
+    background: linear-gradient(#111, #111) padding-box,
+                linear-gradient(to right, #8a2be2, #ff0055) border-box;
+    border: 1px solid transparent !important;
+    padding: 2px 8px !important;
+    border-radius: 20px; /* 膠囊形狀 */
+    margin-left: 10px;
+    letter-spacing: 1px;
+    font-weight: bold;
+    box-shadow: 0 0 12px rgba(255, 0, 85, 0.3);
+    vertical-align: middle;
+}
+/* 讓警告文字看起來像溫馨提示而非罰款通知[cite: 6] */
+.room-notice {
+    display: block;
+    margin-top: 10px;
+    font-size: 0.75rem;
+    color: rgba(212, 175, 55, 0.8); /* 沉穩的金褐色[cite: 6] */
+    border-top: 1px solid rgba(212, 175, 55, 0.2);
+    padding-top: 10px;
+    font-style: italic; /* 斜體增加優雅感 */
+}
+/* --- 自由選擇權備註樣式 --- */
+.freedom-note {
+    margin-top: 15px;
+    font-size: 0.75rem;
+    color: rgba(255, 255, 255, 0.5); /* 淡淡的白色，不要搶戲 */
+    line-height: 1.6;
+    padding-left: 15px;
+    border-left: 1px solid rgba(138, 43, 226, 0.3); /* 細微的紫邊[cite: 6] */
+    font-style: italic;
+}
+
+.freedom-note b {
+    color: #8a2be2; /* 強調 Standard 時用紫色[cite: 6] */
+    text-shadow: 0 0 5px rgba(138, 43, 226, 0.5);
+    font-weight: normal;
+}
+
+/* 之前建議的房間通知，顏色微調以區分 */
+.room-notice {
+    display: block;
+    margin-top: 12px;
+    font-size: 0.7rem;
+    color: #d4af37; /* 金色警告[cite: 6] */
+    letter-spacing: 1px;
+}
+/* 2. Standard 專屬紫色註解樣式[cite: 6] */
+.guide-card.standard {
+    border-left: 3px solid #8a2be2 !important;
+}
+
+.opt-out-note {
+    margin-top: 15px;
+    font-size: 0.75rem;
+    color: rgba(138, 43, 226, 0.8); /* 使用紫色作為核心提醒色[cite: 6] */
+    line-height: 1.6;
+    padding-left: 15px;
+    border-left: 1px solid rgba(138, 43, 226, 0.3);
+    font-style: italic;
+}
+
+.opt-out-note b {
+    color: #fff;
+    text-shadow: 0 0 5px #8a2be2;
+    font-weight: normal;
+}
+/* =========================================
+   🎛️ NOCTIS 索引中控台：高級感升級
+   ========================================= */
+
+/* 強制讓索引列置中，不要亂跑 */
+.filter-dropdown-row {
+    width: 100%;
+    max-width: 1200px;
+    display: flex;
+    justify-content: center; /* 💥 關鍵：全部在中間集合 */
+    gap: 40px; /* 選單之間的距離 */
+    margin: 30px auto;
+    padding: 0 20px;
+}
+
+.dropdown-item {
+    display: flex;
+    align-items: center; /* 讓標籤跟選單垂直對齊 */
+}
+
+/* 霓虹標籤字體：亮紫色 + 呼吸發光 */
+.noctis-label {
+    font-size: 0.8rem !important;
+    font-weight: 900;
+    letter-spacing: 4px;
+    color: #b86bff !important; /* 亮紫色 */
+    text-shadow: 0 0 8px rgba(138, 43, 226, 0.6);
+    margin-right: 15px;
+    animation: labelPulse 4s infinite ease-in-out; /* 呼吸效果 */
+}
+
+/* 下拉選單樣式優化 */
+.noctis-select {
+    background: rgba(0, 0, 0, 0.7) !important;
+    color: #fff !important;
+    border: 1px solid rgba(138, 43, 226, 0.4) !important;
+    padding: 6px 12px !important;
+    font-size: 0.8rem;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.noctis-select:hover {
+    border-color: #8a2be2 !important;
+    box-shadow: 0 0 10px rgba(138, 43, 226, 0.4);
+}
+
+/* 呼吸動畫定義 */
+@keyframes labelPulse {
+    0%, 100% { opacity: 0.8; text-shadow: 0 0 5px #8a2be2; }
+    50% { opacity: 1; text-shadow: 0 0 15px #8a2be2, 0 0 25px #b86bff; }
+}
+/* =========================================
+   👑 NOCTIS 個人檔案頁面樣式
+   ========================================= */
+.profile-page { background: #000; color: #fff; }
+
+.profile-container {
+    max-width: 1200px;
+    margin: 150px auto 80px;
+    padding: 0 40px;
+    display: grid;
+    grid-template-columns: 1.2fr 1fr; /* 左圖右字 */
+    gap: 60px;
+}
+
+/* --- 左側：形象照與座右銘 --- */
+.profile-visual {
+    position: sticky;
+    top: 150px;
+}
+.profile-img-box {
+    border: 1px solid #8a2be2;
+    box-shadow: 0 0 30px rgba(138, 43, 226, 0.3);
+    aspect-ratio: 3 / 4;
+    overflow: hidden;
+    position: relative;
+}
+.profile-img-box img {
+    width: 100%; height: 100%; object-fit: cover;
+}
+.motto-box {
+    margin-top: 25px;
+    text-align: center;
+    font-style: italic;
+    color: rgba(138, 43, 226, 0.9);
+    letter-spacing: 3px;
+    font-size: 1.1rem;
+}
+
+/* --- 右側：資訊區 --- */
+.profile-info h1 {
+    font-size: 3.5rem;
+    letter-spacing: 10px;
+    color: #fff;
+    margin: 0 0 10px 0;
+    text-shadow: 0 0 20px #8a2be2;
+}
+.profile-tags { margin-bottom: 30px; }
+.tag {
+    display: inline-block;
+    padding: 4px 12px;
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    font-size: 0.7rem;
+    margin-right: 10px;
+    letter-spacing: 2px;
+}
+
+/* 數值表格 */
+.stats-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+    border-top: 1px solid #222;
+    padding-top: 20px;
+    margin-bottom: 40px;
+}
+.stat-item label { color: #8a2be2; font-size: 0.7rem; letter-spacing: 2px; display: block; }
+.stat-item span { font-size: 1rem; letter-spacing: 1px; }
+
+/* 服務分級對比 */
+.service-details {
+    display: grid;
+    gap: 20px;
+}
+.service-box {
+    padding: 25px;
+    background: rgba(255, 255, 255, 0.03);
+    border-left: 3px solid #8a2be2;
+}
+.service-box.midnight { border-left-color: #d4af37; } /* Midnight 金色 */
+
+.service-box h3 { margin: 0 0 15px 0; font-size: 0.9rem; letter-spacing: 3px; }
+.service-box p { font-size: 0.85rem; color: rgba(255, 255, 255, 0.7); line-height: 1.7; }
+/* --- 人物誌區塊樣式 --- */
+.profile-bio {
+    margin-bottom: 40px;
+    padding: 20px;
+    background: rgba(138, 43, 226, 0.05); /* 極淡的紫色底，增加空間感 */
+    border-radius: 4px;
+}
+
+.bio-title {
+    font-size: 0.75rem;
+    letter-spacing: 4px;
+    color: #8a2be2;
+    margin-bottom: 15px;
+    font-weight: 800;
+    text-transform: uppercase;
+    display: flex;
+    align-items: center;
+}
+
+.bio-title::after {
+    content: "";
+    flex: 1;
+    height: 1px;
+    background: linear-gradient(to right, rgba(138, 43, 226, 0.5), transparent);
+    margin-left: 20px;
+}
+
+.bio-text {
+    font-size: 0.9rem;
+    line-height: 1.8;
+    color: rgba(255, 255, 255, 0.8); /* 稍微降一點亮度，看起來更高級 */
+    text-align: justify;
+    letter-spacing: 1px;
+    white-space: pre-wrap; /* 💥 讓你在資料庫寫的換行能正確顯示 */
+}
+/* --- 1. 性格標籤：紫色邊框與霓虹發光[cite: 1] --- */
+.tag-neon {
+    display: inline-block;
+    padding: 6px 16px;
+    border: 1px solid #8a2be2;
+    background: rgba(138, 43, 226, 0.15);
+    color: #fff;
+    font-size: 0.75rem;
+    letter-spacing: 2px;
+    margin-right: 12px;
+    margin-bottom: 10px;
+    border-radius: 2px;
+    box-shadow: 0 0 12px rgba(138, 43, 226, 0.4);
+    text-shadow: 0 0 5px #fff;
+}
+
+/* --- 2. 數值區塊：拉開垂直距離[cite: 1] --- */
+.stat-item label {
+    color: #8a2be2;
+    font-size: 0.7rem;
+    letter-spacing: 2px;
+    display: block;
+    margin-bottom: 12px; /* 💥 增加標題與數值的間距 */
+}
+
+/* --- 5. 同步大廳的 Standard 樣式[cite: 1] --- */
+.service-details-v2 .guide-card {
+    background: rgba(255, 255, 255, 0.03);
+    border-left: 3px solid #8a2be2;
+    padding: 25px;
+    margin-top: 20px;
+}
+.service-details-v2 .card-header { display: flex; align-items: center; margin-bottom: 10px; }
+/* --- 照片下方的台詞樣式 --- */
+.motto-box {
+    margin-top: 30px;
+    text-align: center;
+    font-size: 1rem;
+    line-height: 1.6;
+    letter-spacing: 2px;
+    
+    /* 💥 讓台詞顏色帶一點紫色光輝 */
+    color: #b86bff; 
+    text-shadow: 0 0 8px rgba(138, 43, 226, 0.5);
+    font-style: italic;
+    
+    padding: 0 20px;
+}
+/* --- 1. 返回按鈕樣式 --- */
+.back-nav {
+    margin-bottom: 20px;
+    text-align: left;
+}
+.back-btn {
+    color: rgba(255, 255, 255, 0.6);
+    text-decoration: none;
+    font-size: 0.75rem;
+    letter-spacing: 3px;
+    border: 1px solid rgba(138, 43, 226, 0.3);
+    padding: 8px 15px;
+    transition: 0.3s;
+}
+.back-btn:hover {
+    color: #fff;
+    border-color: #8a2be2;
+    background: rgba(138, 43, 226, 0.1);
+    box-shadow: 0 0 15px rgba(138, 43, 226, 0.3);
+}
+
+/* --- 2. 左右箭頭導覽樣式[cite: 1] --- */
+.profile-pagination {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 40px;
+    gap: 30px;
+}
+.nav-arrow {
+    color: #b86bff;
+    text-decoration: none;
+    font-size: 0.85rem;
+    letter-spacing: 2px;
+    font-weight: 800;
+    transition: 0.3s;
+}
+.nav-arrow:hover {
+    color: #fff;
+    text-shadow: 0 0 10px #8a2be2, 0 0 20px #8a2be2;
+}
+.nav-divider {
+    color: rgba(138, 43, 226, 0.3);
+}
+.nav-spacer {
+    width: 60px; /* 當箭頭消失時佔位用，保持中間那條線不歪掉 */
+}
+/* --- 職員頁面背景 --- */
+.members-page { background-color: #000; }
+
+/* --- Secret Menu 彈窗樣式 --- */
+.secret-overlay {
+    display: none; /* 預設隱藏 */
+    position: fixed;
+    top: 0; left: 0; width: 100%; height: 100%;
+    background: rgba(0, 0, 0, 0.95);
+    z-index: 10002;
+    justify-content: center;
+    align-items: center;
+}
+
+.secret-content {
+    border: 2px solid #d4af37; /* 金色邊框 */
+    padding: 50px;
+    background: #0a0a0a;
+    box-shadow: 0 0 30px rgba(212, 175, 55, 0.4);
+    text-align: center;
+    position: relative;
+    max-width: 500px;
+    width: 90%;
+}
+
+.secret-title {
+    color: #d4af37;
+    letter-spacing: 5px;
+    margin-bottom: 30px;
+    text-shadow: 0 0 10px #d4af37;
+}
+
+.secret-list {
+    list-style: none; padding: 0;
+    text-align: left;
+}
+
+.secret-list li {
+    margin-bottom: 20px;
+    display: flex;
+    justify-content: space-between;
+    color: #fff;
+    border-bottom: 1px solid #333;
+    padding-bottom: 10px;
+}
+
+.secret-list .price { color: #d4af37; font-weight: bold; }
+
+.close-secret {
+    position: absolute; top: 20px; right: 20px;
+    color: #555; font-size: 1.5rem; cursor: pointer;
+}
+/* --- 3. 壓縮 Management 與 Support 之間的距離 --- */
+#grid-manager {
+    margin: 20px 0;      /* 💥 從 40px 縮小，讓店長跟下方員工靠更近[cite: 4] */
+    display: flex;
+    justify-content: center;
+}
+
+.boss-card {
+    width: 320px !important; /* 💥 比普通卡片更大 */
+    height: 426px !important; /* 維持 3:4 比例 */
+    border: 2px solid #d4af37 !important; /* 💥 金色邊框 */
+    box-shadow: 0 0 25px rgba(212, 175, 55, 0.4), 
+                inset 0 0 20px rgba(138, 43, 226, 0.2) !important;
+    cursor: help !important; /* 提示有隱藏要素 */
+    transition: 0.5s ease;
+}
+
+.boss-card:hover {
+    transform: scale(1.05);
+    box-shadow: 0 0 50px rgba(212, 175, 55, 0.6) !important;
+}
+
+/* 讓店長的職稱發金光 */
+.boss-rank {
+    color: #d4af37 !important;
+    text-shadow: 0 0 10px #d4af37;
+    font-weight: 900;
+    letter-spacing: 5px;
+}
+/* --- 1. 壓縮頂部間距 --- */
+.members-page .staff-section {
+    padding-top: 100px; /* 💥 從 150px 縮小，讓內容往上提 */
+    padding-bottom: 40px;
+}
+
+/* 確保導覽列在成員頁面也保持高級質感[cite: 1] */
+.top-dandy-nav {
+    position: fixed;
+    top: 0; 
+    width: 100%;
+    background: rgba(0, 0, 0, 0.85);
+    backdrop-filter: blur(10px);
+    z-index: 1000;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+/* --- 店長專屬：霸氣大卡片 --- */
+#grid-manager {
+    display: flex;
+    justify-content: center;
+    margin: 40px 0;
+}
+.boss-rank {
+    color: #d4af37 !important;
+    font-weight: 900;
+    letter-spacing: 5px;
+    text-shadow: 0 0 10px #d4af37;
+}
+/* 確保普通職員有紫色霓虹框[cite: 1] */
+.staff-card.type-standard {
+    border: 1px solid #8a2be2 !important;
+    box-shadow: 0 0 15px rgba(138, 43, 226, 0.4) !important;
+    background: #111 !important;
+}
+
+/* 確保職員頁面網格正常顯示[cite: 1] */
+.host-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 30px;
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+/* --- 困惑表情特效[cite: 1] --- */
+.confused-emote {
+    font-size: 3rem;
+    color: #d4af37;
+    text-shadow: 0 0 10px #d4af37;
+    padding: 10px;
+}
+
+@keyframes emoteFade {
+    0%, 100% { opacity: 0.5; transform: scale(1); }
+    50% { opacity: 1; transform: scale(1.1); }
+}
+
+/* 確保普通職員框框顯現[cite: 1] */
+.staff-card.type-standard {
+    border: 1px solid #8a2be2 !important;
+    box-shadow: 0 0 15px rgba(138, 43, 226, 0.4) !important;
+    background: #111 !important;
+}
+/* --- 💥 職員頁面圖標精準控制邏輯 --- */
+
+/* 1. 在職員一覽頁面，預設隱藏所有卡片的右上角圖標 (::after) */
+.members-page .staff-card::after {
+    display: none !important;
+}
+
+/* 2. 強制幫店長 (boss-card) 把月亮補回來[cite: 4] */
+.members-page .boss-card::after {
+    display: block !important; /* 恢復顯示 */
+    content: '🌙' !important;   /* 指定為月亮圖標 */
+    
+    /* 複用你原本設計的高級霓虹發光特效[cite: 4] */
+    text-shadow: 
+        0 0 5px #fff,
+        0 0 10px #b86bff,
+        0 0 20px #b86bff,
+        0 0 40px rgba(184, 107, 255, 0.4);
+    
+    /* 確保位置與公關頁面一致[cite: 4] */
+    position: absolute !important;
+    top: 15px !important;
+    right: 15px !important;
+    font-size: 1.4rem !important;
+    z-index: 10 !important;
+}
+/* --- 💥 職員一覽：6 欄縮小版網格系統 --- */
+.members-page #grid-support {
+    display: grid;
+    /* 💥 強制改為 6 欄排列 */
+    grid-template-columns: repeat(6, 1fr) !important; 
+    gap: 15px; /* 縮小間距，讓排版更緊湊 */
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+/* --- 3. 資訊文字微調：防止照片縮小後文字爆開 --- */
+.members-page .staff-card .name {
+    font-size: 1 rem !important; /* 字體稍微調小以配合小框 */
+}
+.members-page .staff-card .boss-rank, 
+.members-page .staff-card .rank {
+    font-size: 0.6rem !important;
+    letter-spacing: 1px;
+}
+/* --- 💥 職員一覽：分層尺寸系統 --- */
+
+/* 1. 店長卡片：維持與「公關頁面」一樣的標準大小 (約 4 欄寬度) */
+.members-page .boss-card {
+    width: 280px !important;    /* 💥 恢復為公關頁面的標準寬度 */
+    height: auto !important;
+    aspect-ratio: 3 / 4 !important;
+    
+    border: 2px solid #d4af37 !important;
+    box-shadow: 0 0 15px rgba(212, 175, 55, 0.4) !important;
+    margin: 0 auto;             /* 確保在大容器中置中[cite: 4] */
+}
+
+/* 💥 店長名字字體：維持原本大小[cite: 4] */
+.members-page .boss-card .name {
+    font-size: 1.1rem !important; 
+    letter-spacing: 2px;
+}
+
+/* 💥 店長職稱字體：維持發光與大小[cite: 4] */
+.members-page .boss-card .boss-rank {
+    font-size: 0.9rem !important;
+    letter-spacing: 4px;
+    color: #d4af37 !important;
+}
+
+/* 2. 支援團隊：改為 6 欄精簡網格[cite: 4] */
+.members-page #grid-support {
+    display: grid;
+    grid-template-columns: repeat(6, 1fr) !important; 
+    gap: 15px;
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+/* 💥 一般職員字體：為了配合 6 欄寬度而稍微縮小[cite: 4] */
+.members-page #grid-support .name {
+    font-size: 0.9rem !important; 
+}
+.members-page #grid-support .rank {
+    font-size: 0.65rem !important;
+}
+/* =========================================
+   🍷 NOCTIS 服務與收費頁面專屬樣式
+   ========================================= */
+
+/* --- 1. 頁面主容器與標題 --- */
+.service-page-container {
+    max-width: 1100px;
+    margin: 150px auto 50px;
+    padding: 0 20px;
+    padding-bottom: 150px !important; /* 底部空間，讓頁面有餘裕 */
+}
+
+/* 裝飾性底部線條 */
+.service-page-container::after {
+    content: "";
+    display: block;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, #8a2be2, transparent);
+    box-shadow: 0 0 10px #8a2be2;
+    margin: 20px auto 0 !important; /* 壓縮後的間距 */
+    width: 60px !important;         /* 精緻短線 */
+}
+
+.charge-section {
+    margin-top: 0 !important;
+    padding-top: 0 !important;
+}
+
+.charge-section:last-of-type {
+    margin-bottom: 50px !important;  
+}
+
+.section-title {
+    color: #fff;
+    letter-spacing: 5px;
+    text-align: center;
+    text-shadow: 0 0 10px rgba(138, 43, 226, 0.5);
+    margin-top: 20px !important; 
+    margin-bottom: 30px !important; /* 壓縮標題下方的間距 */
+}
+
+/* --- 2. HOST PACKAGES 宿命指名區塊 --- */
+.package-grid {
+    display: flex !important;       /* 強制開啟彈性佈局 */
+    justify-content: center !important; 
+    align-items: stretch;           
+    gap: 40px;                      
+    max-width: 1200px;              
+    margin: 40px auto 30px !important; /* 壓縮後的底部間距 */
+    flex-wrap: wrap;                
+}
+
+.package-card {
+    flex: 1;                        
+    max-width: 450px;               /* 限制單個框框寬度 */
+    min-width: 320px;               
+    padding: 40px;
+    background: rgba(255, 255, 255, 0.03);
+    border-radius: 4px;
+    text-align: left;               
+    display: flex;
+    flex-direction: column;
+    justify-content: center;        /* 內容垂直置中 */
+    min-height: 300px;              
+    transition: 0.3s;
+}
+
+/* 紫色與金色的強效霓虹效果 */
+.standard-neon {
+    border: 2px solid #8a2be2 !important;
+    box-shadow: 0 0 15px rgba(138, 43, 226, 0.5), inset 0 0 15px rgba(138, 43, 226, 0.2) !important;
+    background: linear-gradient(145deg, #0a0a0a, #1a0a2a) !important;
+}
+
+.midnight-neon {
+    border: 2px solid #d4af37 !important;
+    box-shadow: 0 0 25px rgba(212, 175, 55, 0.4), inset 0 0 20px rgba(212, 175, 55, 0.1) !important;
+    background: linear-gradient(145deg, #0a0a0a, #2a200a) !important;
+}
+
+/* 價格與文字細節 */
+.price-tag {
+    font-size: 2rem;
+    color: #fff;
+    margin: 20px 0;
+    font-weight: bold;
+}
+
+.price-tag .unit { 
+    font-size: 0.9rem; 
+    color: #888; 
+}
+
+.service-ref {
+    color: rgba(255, 255, 255, 0.9);
+    font-size: 0.95rem;
+    margin: 20px 0 10px 0;
+    letter-spacing: 1px;
+}
+
+/* 斜體小註解 */
+.mini-note {
+    margin: 0 !important;
+    padding: 0 !important;
+    list-style: none !important;
+}
+
+.mini-note i {
+    font-size: 0.75rem;
+    color: rgba(255, 255, 255, 0.5); 
+    letter-spacing: 1px;
+    line-height: 1.5;
+    display: block;
+    font-style: italic;
+    margin-top: 15px;
+}
+
+.standard-neon .mini-note i { color: rgba(184, 107, 255, 0.7); }
+.midnight-neon .mini-note i { color: rgba(212, 175, 55, 0.7); }
+
+/* --- 3. SPACE RENTAL 空間租借區塊 --- */
+.space-grid {
+    display: flex !important;
+    justify-content: center !important; 
+    gap: 25px;                         
+    max-width: 1200px;                 
+    margin: 0 auto !important;         
+    flex-wrap: wrap;                   
+}
+
+.space-card {
+    flex: 1;
+    max-width: 350px;                  /* 保持方塊感 */
+    min-width: 280px;
+    background: rgba(255, 255, 255, 0.03);
+    padding: 35px 20px;
+    text-align: center;                
+    border-radius: 4px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+/* 紫色呼吸燈特效 */
+@keyframes purpleBreath {
+    0%, 100% { 
+        border: 1px solid rgba(138, 43, 226, 0.3);
+        box-shadow: 0 0 10px rgba(138, 43, 226, 0.1); 
+    }
+    50% { 
+        border: 1px solid #8a2be2;
+        box-shadow: 0 0 25px rgba(138, 43, 226, 0.5), inset 0 0 10px rgba(138, 43, 226, 0.2); 
+    }
+}
+
+/* --- 💜 包廂長亮紫光 (原呼吸燈) --- */
+.breathing-purple {
+    /* 💥 拔除動畫，改成固定發光 */
+    animation: none !important; 
+    
+    border: 1px solid #8a2be2 !important;
+    box-shadow: 0 0 25px rgba(138, 43, 226, 0.5), inset 0 0 10px rgba(138, 43, 226, 0.2) !important;
+    background: #000;
+    transition: 0.3s ease;
+}
+
+/* 💥 加碼小細節：滑鼠移過去時會變得更亮一點，增加互動感 */
+.breathing-purple:hover {
+    border: 1px solid #b86bff !important;
+    box-shadow: 0 0 35px rgba(138, 43, 226, 0.7), inset 0 0 15px rgba(138, 43, 226, 0.4) !important;
+    transform: translateY(-2px);
+}
+
+/* VIP 金色強效霓虹 */
+.vip-gold-neon {
+    border: 2px solid #d4af37 !important;
+    box-shadow: 0 0 20px rgba(212, 175, 55, 0.4), inset 0 0 10px rgba(212, 175, 55, 0.1) !important;
+    background: #0a0a0a !important;
+}
+
+/* 空間文字樣式微調 */
+.space-card h4 {
+    font-size: 1.2rem;
+    color: #fff;
+    margin-bottom: 10px;
+}
+
+.capacity {
+    font-size: 0.8rem;
+    color: rgba(255,255,255,0.6);
+    margin-bottom: 15px;
+    letter-spacing: 2px;
+}
+
+.space-price {
+    font-size: 1.4rem;
+    font-weight: bold;
+    color: #fff;
+}
+
+.space-price .unit { font-size: 0.8rem; color: #888; }
+
+.space-card .mini-note i {
+    font-size: 0.7rem;
+    color: rgba(212, 175, 55, 0.7);
+    margin-top: 15px;
+}
+
+/* 底部店長溫馨提示 (選填) */
+.owner-note {
+    margin-top: 40px;
+    padding: 20px;
+    border-left: 2px solid #555;
+    color: #aaa;
+    font-style: italic;
+    font-size: 0.85rem;
+}
+/* --- 💥 強制壓縮兩大區塊的間距 --- */
+
+/* 1. 把上方套餐網格的底部間距徹底縮到最小 */
+.package-grid {
+    margin-bottom: 10px !important; 
+}
+
+/* 2. 把第一個區塊（宿命指名）的底部清空 */
+.charge-section:first-of-type {
+    margin-bottom: 0 !important;
+    padding-bottom: 0 !important;
+}
+
+/* 3. 把第二個區塊（空間租借）的頂部清空 */
+.charge-section:nth-of-type(2) {
+    margin-top: 0 !important;
+    padding-top: 0 !important;
+}
+
+/* 4. 強制讓「SPACE RENTAL」標題貼近上面的框框 */
+.charge-section:nth-of-type(2) .section-title {
+    margin-top: 30px !important; /* 您可以微調這個數字，越小靠越近 */
+}
+/* =========================================
+   🌟 一般服務頁面：SPECIAL MENU 專屬樣式
+   ========================================= */
+
+.special-menu-container {
+    max-width: 1200px;
+    margin: 0 auto 60px; /* 與下方的空間租借拉開一點距離 */
+}
+
+/* --- A. 單點菜單清單 (酒水、Lap Dance) --- */
+.menu-list {
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 4px;
+    padding: 30px 40px;
+    margin-bottom: 30px;
+}
+
+.menu-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 0;
+    border-bottom: 1px dashed rgba(255, 255, 255, 0.2); /* 精品酒單常見的虛線分隔 */
+}
+
+.menu-item:last-child {
+    border-bottom: none;
+}
+
+.item-name {
+    font-size: 1.1rem;
+    color: #fff;
+    letter-spacing: 2px;
+}
+
+.item-price {
+    font-size: 1.2rem;
+    font-weight: bold;
+    color: #d4af37; /* 金色價格 */
+}
+
+.item-price .unit {
+    font-size: 0.8rem;
+    color: #888;
+    font-weight: normal;
+}
+
+.highlight-text {
+    color: #b86bff !important; /* 聯絡調酒師的字樣用紫色突顯 */
+    font-size: 1rem;
+    font-style: italic;
+}
+
+/* --- B. 頂級尊榮方案卡片 (VIP PASS, BAR BUYOUT) --- */
+.premium-cards {
+    display: flex;
+    gap: 30px;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.premium-card {
+    flex: 1;
+    min-width: 350px;
+    max-width: 580px; /* 控制最大寬度，不會拉得太細長 */
+    background: linear-gradient(145deg, #0a0a0a, #1a1500); /* 微微的黑金漸層底 */
+    border: 1px solid #d4af37;
+    border-top: 4px solid #d4af37;
+    padding: 35px;
+    border-radius: 4px;
+    box-shadow: 0 0 20px rgba(212, 175, 55, 0.15);
+    transition: 0.3s;
+}
+
+.premium-card:hover {
+    box-shadow: 0 0 30px rgba(212, 175, 55, 0.4);
+    transform: translateY(-3px);
+}
+
+.card-head {
+    border-bottom: 1px solid rgba(212, 175, 55, 0.3);
+    padding-bottom: 20px;
+    margin-bottom: 20px;
+}
+
+.card-head h4 {
+    font-size: 1.5rem;
+    color: #fff;
+    margin: 0 0 10px 0;
+    letter-spacing: 3px;
+    text-shadow: 0 0 10px rgba(212, 175, 55, 0.5);
+}
+
+.card-head .price {
+    font-size: 1.8rem;
+    font-weight: bold;
+    color: #d4af37;
+}
+
+/* VIP 專屬條列式福利清單 */
+.perk-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.perk-list li {
+    font-size: 0.9rem;
+    color: rgba(255, 255, 255, 0.8);
+    line-height: 1.8;
+    margin-bottom: 12px;
+    padding-left: 20px;
+    position: relative;
+    text-align: left;
+}
+
+/* 用金色的菱形取代傳統的黑點 */
+.perk-list li::before {
+    content: "✦";
+    color: #d4af37;
+    position: absolute;
+    left: 0;
+    font-size: 1rem;
+}
+
+.perk-list li b {
+    color: #d4af37; /* 重點福利字眼標成金色 */
+    font-weight: normal;
+}
+
+.perk-desc {
+    font-size: 0.95rem;
+    color: rgba(255, 255, 255, 0.8);
+    line-height: 1.8;
+    letter-spacing: 1px;
+    text-align: left;
+}
+/* =========================================
+   🏰 頂級全館包場 (Exclusive Buyout) 專屬佈局
+   ========================================= */
+
+.exclusive-card {
+    flex: 1 1 100%; /* 💥 關鍵：強制換行並佔據 100% 寬度 */
+    margin-top: 20px;
+    border: 2px solid #d4af37 !important; /* 加粗金色邊框 */
+    box-shadow: 0 0 30px rgba(212, 175, 55, 0.2) !important;
+    background: linear-gradient(145deg, #0a0a0a, #1f1800) !important; /* 更深邃的黃金漸層 */
+}
+
+.exclusive-card:hover {
+    box-shadow: 0 0 50px rgba(212, 175, 55, 0.5) !important;
+}
+
+/* 讓福利清單在大螢幕上變成左右兩排，看起來更像高級契約 */
+.exclusive-list {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 15px 40px; /* 上下間距 15px，左右間距 40px */
+    padding: 0 20px;
+}
+
+/* 在手機螢幕上自動切換回單排 */
+@media (max-width: 768px) {
+    .exclusive-list {
+        grid-template-columns: 1fr;
+        padding: 0;
+    }
+}
+/* =========================================
+   🏆 首頁專屬：嵌入式名人堂 (左右排版完美適配版)
+   ========================================= */
+
+.embedded-fame-board {
+    position: relative;
+    margin-top: 40px; 
+    
+    /* 💥 關鍵修復：讓它完全貼合左側容器，不強制設定最小寬度 */
+    width: 100%; 
+    max-width: 600px; 
+    /* 💥 調整內邊距：上下改小(20px)，左右拉寬(40px) */
+    padding: 20px 40px;
+    min-width: auto; /* 取消 320px 的限制，允許它隨螢幕縮小 */
+    box-sizing: border-box; /* 確保 Padding 不會把框框撐破 */
+    
+    z-index: 5;
+    background: linear-gradient(145deg, rgba(5, 5, 5, 0.9), rgba(26, 21, 0, 0.6)); 
+    border: 1px solid rgba(212, 175, 55, 0.15); 
+    padding: 30px 35px; /* 稍微縮減預設內距 */
+    backdrop-filter: blur(12px);
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.9), inset 0 0 30px rgba(212, 175, 55, 0.05);
+}
+
+/* 針對筆電螢幕 (小於 1366px) 的極致壓縮 */
+@media screen and (max-width: 1366px) {
+    .embedded-fame-board {
+        padding: 20px 25px; /* 💥 筆電上大幅縮小內部留白，為文字爭取空間 */
+        margin-top: 25px;
+    }
+    
+    .fame-title {
+        font-size: 1.05rem;   /* 再稍微縮小一點點 */
+        letter-spacing: 4px;  /* 字距縮小到 4px，確保單行絕對塞得下 */
+    }
+    
+    .fame-category {
+        font-size: 0.75rem;
+        margin-bottom: 10px;
+    }
+
+    .mini-fame-list li {
+        font-size: 0.95rem; /* 名字稍微縮小 */
+        margin-bottom: 8px;
+    }
+}
+
+/* 💥 視覺核心：高級四角金屬包邊特效 (左上與右下) */
+.embedded-fame-board::before,
+.embedded-fame-board::after {
+    content: '';
+    position: absolute;
+    width: 45px;
+    height: 45px;
+    pointer-events: none;
+    transition: all 0.5s ease;
+}
+
+.embedded-fame-board::before {
+    top: -2px; left: -2px;
+    border-top: 2px solid #d4af37;
+    border-left: 2px solid #d4af37;
+    box-shadow: -5px -5px 15px rgba(212, 175, 55, 0.4);
+}
+
+.embedded-fame-board::after {
+    bottom: -2px; right: -2px;
+    border-bottom: 2px solid #d4af37;
+    border-right: 2px solid #d4af37;
+    box-shadow: 5px 5px 15px rgba(212, 175, 55, 0.4);
+}
+
+/* 讓面板有微微的呼吸互動感 */
+.embedded-fame-board:hover::before { width: 60px; height: 60px; box-shadow: -5px -5px 25px rgba(212, 175, 55, 0.7); }
+.embedded-fame-board:hover::after { width: 60px; height: 60px; box-shadow: 5px 5px 25px rgba(212, 175, 55, 0.7); }
+
+.fame-header {
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+/* 原本的標題設定 */
+.fame-title {
+    color: #fff;
+    font-size: 1.4rem;
+    letter-spacing: 10px;
+    font-weight: 900;
+    text-shadow: 0 0 10px #d4af37, 0 0 25px #d4af37; 
+    display: inline-block;
+    border-bottom: 1px solid rgba(212, 175, 55, 0.5);
+    padding-bottom: 10px;
+    
+    /* 💥 加入這行：強制星號跟文字綁在同一行，絕對不准換行 */
+    white-space: nowrap; 
+}
+
+.fame-body {
+    display: flex;
+    flex-direction: column;
+    gap: 30px; 
+}
+
+/* 分類小標題 */
+.fame-category {
+    font-size: 0.8rem;
+    letter-spacing: 4px;
+    display: block;
+    margin-bottom: 15px;
+    font-weight: bold;
+    border-left: 3px solid;
+    padding-left: 10px;
+}
+.buyout-text { color: #d4af37; border-color: #d4af37; text-shadow: 0 0 10px rgba(212, 175, 55, 0.4); }
+.vip-text { color: #b86bff; border-color: #b86bff; text-shadow: 0 0 10px rgba(138, 43, 226, 0.4); }
+
+/* 名單排版 */
+.mini-fame-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.mini-fame-list li {
+    font-size: 1.1rem; /* 名字稍微放大 */
+    letter-spacing: 2px;
+    margin-bottom: 12px;
+    display: flex;
+    align-items: center;
+    transition: 0.3s;
+    cursor: default;
+}
+
+/* 💥 名字互動特效：滑過去會向右移並變亮 */
+.mini-fame-list li:hover {
+    transform: translateX(10px);
+}
+
+.mini-fame-list li .date {
+    font-size: 0.75rem;
+    color: rgba(255, 255, 255, 0.4);
+    margin-right: 15px;
+    font-family: monospace; 
+}
+
+/* 名字發光與斜體 */
+.guest-name { font-style: italic; font-weight: normal; transition: 0.3s; }
+.buyout-list .guest-name { color: #e6c855; text-shadow: 0 0 8px rgba(212, 175, 55, 0.6); }
+.vip-list .guest-name { color: #d199ff; text-shadow: 0 0 8px rgba(138, 43, 226, 0.6); }
+
+/* 懸停最高亮度 */
+.buyout-list li:hover .guest-name { color: #fff; text-shadow: 0 0 15px #d4af37, 0 0 30px #d4af37; }
+.vip-list li:hover .guest-name { color: #fff; text-shadow: 0 0 15px #8a2be2, 0 0 30px #8a2be2; }
+/* =========================================
+   🔒 名人堂：虛位以待 (未解鎖狀態)
+   ========================================= */
+
+.awaiting-text {
+    color: rgba(255, 255, 255, 0.2) !important; /* 暗灰色，表現出空缺感 */
+    text-shadow: none !important;
+    font-style: normal !important;
+    letter-spacing: 8px !important;
+    font-size: 0.95rem !important;
+    font-weight: 300 !important;
+}
+
+/* 覆蓋掉原本的向右滑動，改為原地閃爍微光 */
+.mini-fame-list li:has(.awaiting-text):hover {
+    transform: none !important; 
+}
+
+/* 滑鼠懸停時的暗示性微光 */
+.buyout-list li:hover .awaiting-text,
+.vip-list li:hover .awaiting-text {
+    color: rgba(212, 175, 55, 0.6) !important;
+    text-shadow: 0 0 10px rgba(212, 175, 55, 0.3) !important;
+}
+/* =========================================
+   🥂 指名服務頁面：加值服務三宮格 (Add-on Grid)
+   ========================================= */
+
+.addon-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr); /* 電腦版分成三等份 */
+    gap: 20px;
+    margin-top: 20px;
+}
+
+/* 加值卡片的基礎微調：解決沒有底色、文字貼邊的問題 */
+.addon-card {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    padding: 35px 30px !important; /* 💥 增加四周留白，文字不再死貼邊緣 */
+    background: linear-gradient(145deg, rgba(15, 15, 15, 0.8), rgba(5, 5, 5, 0.9)) !important; /* 💥 補上厚實的半透明漸層黑底 */
+    border-radius: 4px;
+    backdrop-filter: blur(8px);
+}
+
+.addon-card .card-head {
+    border-bottom: 1px dashed rgba(255, 255, 255, 0.2);
+    padding-bottom: 15px;
+    text-align: center;
+}
+
+/* 🤍 1. 延長時間 (低調銀灰框) */
+.addon-silver {
+    border: 1px solid #666 !important;
+    box-shadow: 0 0 15px rgba(255, 255, 255, 0.05) !important;
+}
+
+/* 💛 2. 尊榮香檳秀 (強化霸氣金框) */
+.addon-gold {
+    border: 2px solid #d4af37 !important; /* 💥 邊框加粗一倍 */
+    box-shadow: 0 0 30px rgba(212, 175, 55, 0.35), inset 0 0 15px rgba(212, 175, 55, 0.15) !important; /* 💥 增強外發光，並加入內發光增加立體感 */
+}
+
+/* 📱 手機版自動切換為直排 */
+@media (max-width: 900px) {
+    .addon-grid {
+        grid-template-columns: 1fr;
+    }
+}
+/* =========================================
+   🏰 預約終端機 (Reservation System)
+   ========================================= */
+
+.reservation-section {
+    display: flex;
+    justify-content: center;
+    /* 💥 將上方的 padding 增加到 120px 或 150px，避開頂部導覽列 */
+    padding: 120px 20px 60px; 
+}
+
+.booking-container {
+    width: 100%;
+    max-width: 650px; /* 給表單足夠的霸氣寬度 */
+    background: linear-gradient(145deg, rgba(10, 10, 10, 0.8), rgba(20, 15, 0, 0.6));
+    border: 1px solid rgba(212, 175, 55, 0.2);
+    box-shadow: 0 0 40px rgba(0, 0, 0, 0.9), inset 0 0 20px rgba(212, 175, 55, 0.05);
+    padding: 50px;
+    border-radius: 2px;
+    backdrop-filter: blur(15px);
+}
+
+/* 表單輸入框 */
+.form-group {
+    margin-bottom: 30px;
+    text-align: left;
+}
+
+.form-group label {
+    display: block;
+    color: #d4af37;
+    font-size: 0.95rem;
+    letter-spacing: 2px;
+    margin-bottom: 12px;
+}
+
+.form-group input[type="text"], 
+.form-group textarea {
+    width: 100%;
+    box-sizing: border-box; /* 💥 讓寬度計算包含邊框，防止撐破外框 */
+    max-width: 100%;        /* 二重保險 */
+    padding: 15px 20px;
+    background: rgba(0, 0, 0, 0.5);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    color: #fff;
+    font-size: 1rem;
+    font-family: inherit;
+    transition: all 0.3s ease;
+    border-radius: 2px;
+}
+/* 移除右下角那個醜醜的拉伸手把，避免客人亂拉破壞排版 */
+#notes {
+    resize: none; 
+}
+.form-group input[type="text"]:focus, 
+.form-group textarea:focus {
+    outline: none;
+    border-color: #d4af37;
+    box-shadow: 0 0 15px rgba(212, 175, 55, 0.3);
+    background: rgba(20, 15, 0, 0.8);
+}
+
+/* =========================================
+   🔘 動態按鈕樣式 (隱藏原本的 Radio/Checkbox)
+   ========================================= */
+.date-group, .time-group, .pr-group {
+    display: grid;
+    gap: 15px;
+}
+
+.time-group { grid-template-columns: 1fr 1fr; }
+.pr-group { grid-template-columns: repeat(3, 1fr); }
+
+.select-item {
+    position: relative;
+    display: block;
+    cursor: pointer;
+}
+
+/* 把醜醜的圓點和方框徹底隱藏 */
+.select-item input {
+    position: absolute;
+    opacity: 0;
+    cursor: pointer;
+}
+
+/* 繪製高級按鈕面板 */
+.select-box {
+    display: block;
+    padding: 12px 10px;
+    text-align: center;
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    color: #888;
+    border-radius: 2px;
+    transition: all 0.3s ease;
+    font-size: 0.9rem;
+    letter-spacing: 1px;
+}
+
+/* 懸停效果 */
+.select-item:hover input:not(:disabled) ~ .select-box {
+    border-color: rgba(212, 175, 55, 0.5);
+    color: #fff;
+}
+
+/* 💥 被勾選時的炸裂特效 */
+.select-item input:checked ~ .select-box {
+    background: rgba(212, 175, 55, 0.15);
+    border-color: #d4af37;
+    color: #d4af37;
+    box-shadow: 0 0 15px rgba(212, 175, 55, 0.4), inset 0 0 8px rgba(212, 175, 55, 0.2);
+    font-weight: bold;
+    text-shadow: 0 0 5px rgba(212, 175, 55, 0.5);
+}
+
+/* 🔒 鎖定/反灰狀態 (被人約走時) */
+.select-item input:disabled ~ .select-box {
+    background: rgba(0, 0, 0, 0.6);
+    border-color: rgba(255, 255, 255, 0.03);
+    color: #333;
+    cursor: not-allowed;
+    text-decoration: line-through; /* 劃掉的名字更有無情拒絕感 */
+}
+
+/* =========================================
+   送出按鈕
+   ========================================= */
+.submit-btn {
+    width: 100%;
+    margin-top: 20px;
+    padding: 18px;
+    background: transparent;
+    border: 2px solid #d4af37;
+    color: #d4af37;
+    font-size: 1.1rem;
+    letter-spacing: 6px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: 0.4s ease;
+}
+
+.submit-btn:hover {
+    background: #d4af37;
+    color: #000;
+    box-shadow: 0 0 30px rgba(212, 175, 55, 0.6);
+}
+
+.price-row {
+    display: flex;
+    justify-content: space-between;
+    color: #aaa;
+    margin-bottom: 10px;
+}
+/* =========================================
+   💰 結帳金額專屬面板
+   ========================================= */
+.price-summary-box {
+    margin-top: 35px;
+    background: rgba(10, 10, 10, 0.6); /* 稍微深一點的內嵌底色 */
+    border: 1px solid rgba(212, 175, 55, 0.3); /* 乾淨的金邊，沒有突出的角落 */
+    padding: 25px 30px;
+    border-radius: 4px;
+    box-shadow: inset 0 0 15px rgba(212, 175, 55, 0.05); /* 只有內發光，不會衝出外層容器 */
+}
+
+/* 確保裡面的分隔線排版整齊 */
+.price-summary-box hr {
+    border: 0;
+    border-top: 1px dashed rgba(212, 175, 55, 0.3);
+    margin: 15px 0;
+}
+/* =========================================
+   💜 MIDNIGHT 服務專屬選取特效
+   ========================================= */
+.midnight-item input:checked ~ .select-box {
+    background: rgba(138, 43, 226, 0.15) !important;
+    border-color: #b86bff !important;
+    color: #fff !important;
+    box-shadow: 0 0 20px rgba(138, 43, 226, 0.4), inset 0 0 10px rgba(138, 43, 226, 0.2) !important;
+}
+
+.midnight-item input:checked ~ .select-box b {
+    color: #fff !important;
+    text-shadow: 0 0 10px #b86bff, 0 0 20px #b86bff;
+}
+.time-notice-box {
+    animation: noticeGlow 4s infinite ease-in-out;
+}
+
+@keyframes noticeGlow {
+    0%, 100% { border-left-color: rgba(138, 43, 226, 0.5); box-shadow: none; }
+    50% { border-left-color: #b86bff; box-shadow: -5px 0 15px rgba(138, 43, 226, 0.2); }
+}
+.custom-select {
+    width: 100%;
+    padding: 12px;
+    background: #1a1a1a;
+    border: 1px solid #444;
+    color: #fff;
+    border-radius: 4px;
+    outline: none;
+    cursor: pointer;
+}
+.custom-select:focus {
+    border-color: #8a2be2; /* 紫色發光 */
+}
+input[name="prs"]:disabled + .select-box {
+    background: #111 !important;
+    border-color: #222 !important;
+    color: #444 !important;
+    cursor: not-allowed;
+    opacity: 0.5;
+}
+/* 彈窗背景遮罩 */
+#age-verify-overlay {
+    position: fixed;
+    top: 0; left: 0; width: 100%; height: 100%;
+    background: rgba(0, 0, 0, 0.85);
+    backdrop-filter: blur(8px);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 10000; /* 必須高於幕布的 9999 */
+}
+
+/* 彈窗主體 */
+.age-verify-card {
+    background: rgba(15, 15, 15, 0.95);
+    border: 1px solid rgba(184, 107, 255, 0.3);
+    padding: 40px;
+    width: 90%;
+    max-width: 450px;
+    text-align: center;
+    box-shadow: 0 20px 50px rgba(0,0,0,0.8), 0 0 15px rgba(138, 43, 226, 0.2);
+    border-radius: 2px;
+}
+
+.verify-header h3 {
+    color: #fff;
+    letter-spacing: 5px;
+    margin: 15px 0;
+    font-size: 1.2rem;
+}
+
+.verify-body p {
+    color: rgba(255, 255, 255, 0.7);
+    line-height: 1.8;
+    font-size: 0.9rem;
+    margin-bottom: 30px;
+    letter-spacing: 1px;
+}
+
+/* 彈窗按鈕 */
+.verify-footer {
+    display: flex;
+    gap: 20px;
+    justify-content: center;
+}
+
+.verify-btn {
+    padding: 10px 30px;
+    background: transparent;
+    cursor: pointer;
+    transition: all 0.3s;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    font-size: 0.8rem;
+}
+
+.verify-btn.primary {
+    border: 1px solid #b86bff;
+    color: #fff;
+    box-shadow: 0 0 10px rgba(184, 107, 255, 0.3);
+}
+
+.verify-btn.primary:hover {
+    background: #b86bff;
+    box-shadow: 0 0 20px rgba(184, 107, 255, 0.6);
+}
+
+.verify-btn.secondary {
+    border: 1px solid #444;
+    color: #888;
+}
+
+.verify-btn.secondary:hover {
+    border-color: #ff4d4d;
+    color: #ff4d4d;
+}
+/* 🍷 NOCTIS 勸退窗背景遮罩 */
+#age-denied-overlay {
+    position: fixed;
+    top: 0; left: 0; width: 100%; height: 100%;
+    background: rgba(0, 0, 0, 0.9); /* 比進入窗稍微再深一點 */
+    backdrop-filter: blur(12px); /* 模糊度加強，增加隔絕感 */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 10001; /* 確保它能蓋在進入窗之上 */
+}
+
+/* 強化勸退窗的紅色霓虹邊框 */
+#age-denied-overlay .age-verify-card {
+    border: 1px solid rgba(255, 77, 77, 0.3);
+    box-shadow: 0 0 30px rgba(255, 77, 77, 0.1);
+    animation: deniedFadeIn 0.5s ease;
+}
+
+@keyframes deniedFadeIn {
+    from { opacity: 0; transform: scale(0.9); }
+    to { opacity: 1; transform: scale(1); }
+}
+/* 💥 終極核彈置中：無視一切干擾，強制釘死在螢幕正中間 💥 */
+.hero-section {
+    position: fixed !important; /* 直接把它從網頁流裡拔出來，不受任何外力干擾 */
+    top: 0 !important;
+    left: 0 !important;
+    width: 100vw !important;
+    height: 100vh !important;
+    margin: 0 !important;
+    padding: 0 10% !important;
+    
+    display: flex !important;
+    align-items: center !important; /* 物理絕對垂直置中 */
+    justify-content: space-between !important;
+    
+    box-sizing: border-box !important;
+    background: #000 !important;
+    z-index: 10 !important;
+}
+/* =========================================
+   🥂 香檳榜專屬樣式 (玫瑰粉金)
+   ========================================= */
+.champagne-text { 
+    color: #ff85a2; 
+    border-color: #ff85a2; 
+    text-shadow: 0 0 10px rgba(255, 133, 162, 0.4); 
+}
+
+.champagne-list .guest-name { 
+    color: #ffb3c6; 
+    text-shadow: 0 0 8px rgba(255, 133, 162, 0.6); 
+}
+
+/* 懸停最高亮度 */
+.champagne-list li:hover .guest-name { 
+    color: #fff; 
+    text-shadow: 0 0 15px #ff85a2, 0 0 30px #ff85a2; 
+}
+
+/* 💥 排行榜金額數字的專屬樣式 */
+.score-text {
+    font-family: monospace;
+    font-size: 0.8rem;
+    margin-left: auto; /* 強制把金額推到最右邊對齊 */
+    letter-spacing: 1px;
+}
+
+.champagne-list .score-text { 
+    color: #ff85a2; 
+    text-shadow: 0 0 5px rgba(255, 133, 162, 0.3);
+}
+/* =========================================
+   🥂 香檳秀雙軌制定價面板 (玫瑰粉金升級版)
+   ========================================= */
+.champagne-tiers {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: 25px 0 15px;
+    background: rgba(0, 0, 0, 0.4); 
+    padding: 15px 10px;
+    border-radius: 4px;
+    /* 💥 邊框改為玫瑰粉金 */
+    border: 1px solid rgba(255, 133, 162, 0.25);
+    box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.8);
+}
+
+.tier-box {
+    text-align: center;
+    flex: 1;
+    padding: 0 5px; /* 給予內部一點呼吸空間 */
+}
+
+/* 💥 單支璀璨：加入淡淡的粉金微光，不再黯淡無光 */
+.tier-name {
+    display: block;
+    font-size: 0.9rem;
+    color: #fce4ec; /* 淺粉白 */
+    text-shadow: 0 0 5px rgba(255, 133, 162, 0.4);
+    margin-bottom: 8px;
+    letter-spacing: 2px;
+    line-height: 1.4;
+}
+
+.tier-name small {
+    font-family: monospace;
+    font-size: 0.7rem;
+    color: rgba(255, 133, 162, 0.7); /* 英文副標改為玫瑰金 */
+}
+
+.tier-price {
+    display: block;
+    font-size: 1.2rem;
+    color: #fff;
+    font-weight: bold;
+    text-shadow: 0 0 8px rgba(255, 133, 162, 0.5);
+    /* 💥 救命關鍵：強制文字絕對不准換行！ */
+    white-space: nowrap !important; 
+}
+
+/* 稍微縮小 Gil 的字體，確保 1,000,000 塞得下 */
+.tier-price .unit {
+    font-size: 0.75rem;
+    font-weight: normal;
+    opacity: 0.8;
+}
+
+/* 中間的分隔線：改為玫瑰金漸層 */
+.tier-divider {
+    width: 1px;
+    height: 50px;
+    background: linear-gradient(to bottom, transparent, rgba(255, 133, 162, 0.5), transparent);
+    margin: 0 5px;
+}
+
+/* 💥 香檳塔專屬霸氣發光特效 (高階玫瑰金) */
+.tier-box.ultimate .tier-name {
+    color: #ff85a2;
+    text-shadow: 0 0 10px rgba(255, 133, 162, 0.6);
+    font-weight: bold;
+}
+
+.tier-box.ultimate .tier-price {
+    /* 字體微調到 1.35rem 配合不換行指令，達到完美比例 */
+    font-size: 1.35rem; 
+    color: #ffb3c6;
+    /* 雙層玫瑰金爆發光暈 */
+    text-shadow: 0 0 15px rgba(255, 133, 162, 0.8), 0 0 25px rgba(255, 133, 162, 0.4);
+}
+
+.addon-divider {
+    border: 0;
+    border-top: 1px dashed rgba(255, 133, 162, 0.3);
+    margin: 20px 0;
+}
+/* =========================================
+   🎬 全新入場動畫：Welcome 展開特效
+   ========================================= */
+#welcome-gate {
+    position: fixed;
+    top: 0; left: 0; width: 100%; height: 100vh;
+    background: #000; /* 純黑背景，完美遮擋主頁 */
+    z-index: 9999; /* 層級必須高於主網頁，低於年齡彈窗 */
+    display: none; /* 預設隱藏，由 JS 呼叫 */
+    justify-content: center;
+    align-items: center;
+    transition: opacity 1s ease;
+}
+
+.welcome-box {
+    position: relative;
+    height: 70px;
+    width: 0; /* 💥 初始寬度為 0，隱藏在中心點 */
+    
+    /* 上下發光的紫色邊框，充滿科技感 */
+    border-top: 1px solid #8a2be2;
+    border-bottom: 1px solid #8a2be2;
+    box-shadow: 0 -10px 15px -10px rgba(138, 43, 226, 0.4), 
+                0 10px 15px -10px rgba(138, 43, 226, 0.4);
+    
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden; /* 💥 關鍵：把超出框框的文字藏起來 */
+    
+    /* 展開的高級滑順曲線，耗時 1.5 秒 */
+    transition: width 1.5s cubic-bezier(0.77, 0, 0.175, 1); 
+}
+
+/* JS 加上 expand 類別後的狀態：展開到 350px */
+.welcome-box.expand {
+    width: 350px; 
+}
+
+.welcome-text {
+    font-family: 'Cinzel', serif; 
+    color: #fff;
+    font-size: 1.5rem; 
+    letter-spacing: 25px; 
+    margin-right: -25px; 
+    font-weight: 700;
+    white-space: nowrap; 
+    text-shadow: 0 0 10px #b86bff, 0 0 25px #8a2be2; 
+    opacity: 0; /* 剛開始是隱形的 */
+    transition: opacity 0.8s ease 0.3s; 
+}
+
+/* 讓它現形！ */
+.welcome-box.expand .welcome-text {
+    opacity: 1; 
+}
+
+/* JS 加上 expand 類別後的狀態：展開到更寬的尺寸 */
+.welcome-box.expand {
+    width: 550px; /* 💥 從 350px 放大，讓拉寬字距後的 WELCOME 能夠完整露出來 */
+}
+/* =========================================
+   🏰 預約終端：左右獨立雙面板排版
+   ========================================= */
+
+/* 1. 💥 拆掉最外層的框中框，讓外圍變透明 */
+.booking-container {
+    background: transparent !important;
+    border: none !important;
+    box-shadow: none !important;
+    padding: 0 !important;
+    max-width: 1200px; /* 放寬一點，讓兩個面板有足夠空間 */
+    margin: 0 auto;
+}
+
+/* 2. 佈局設定：讓兩個框並排，中間留空隙 */
+.booking-split-layout {
+    display: flex;
+    gap: 40px; /* 左右兩個獨立框之間的距離 */
+    align-items: flex-start; 
+}
+
+/* 3. 🟢 左邊面板：獨立的黑金框 */
+.booking-left-panel {
+    flex: 5.5; 
+    background: rgba(10, 10, 10, 0.85); /* 獨立的黑底 */
+    border: 1px solid rgba(212, 175, 55, 0.2); /* 獨立的金邊 */
+    padding: 40px;
+    border-radius: 4px;
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.5);
+}
+
+/* 4. 🔴 右邊面板：獨立的黑金框 (帶懸浮功能) */
+.booking-right-panel {
+    flex: 4.5;
+    position: sticky;
+    top: 100px; 
+    background: rgba(10, 10, 10, 0.85); /* 獨立的黑底 */
+    border: 1px solid rgba(212, 175, 55, 0.2); /* 獨立的金邊 */
+    padding: 40px;
+    border-radius: 4px;
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.5);
+}
+
+/* 📱 手機版防護機制：螢幕太小時，上下排列 */
+@media (max-width: 900px) {
+    .booking-split-layout {
+        flex-direction: column; 
+        gap: 30px;
+    }
+    .booking-left-panel, .booking-right-panel {
+        flex: 1;
+        width: 100%;
+        position: static; 
+    }
+}
+.custom-select {
+    width: 100%;
+    box-sizing: border-box;
+    background: rgba(0, 0, 0, 0.5);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    color: #fff;
+    padding: 12px;
+    border-radius: 2px;
+    font-family: inherit;
+    cursor: pointer;
+}

@@ -1,0 +1,109 @@
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NOCTIS - 公關陣容</title>
+    <!-- 💥 確保呢句無寫錯名，且 style.css 同 html 係喺同一個資料夾 -->
+    <link rel="stylesheet" href="style.css">
+</head>
+<div id="noctis-main">
+    <header class="top-dandy-nav">
+        <div class="nav-container">
+            <div class="brand">NOCTIS</div>
+          <ul class="nav-menu">
+    <li><a href="index.html">首頁</a></li>
+    <li><a href="notice.html">注意事項</a></li>
+    <!-- 💥 將「關於我們」改為「一般服務」 -->
+    <li><a href="general.html">各項服務</a></li> 
+    <!-- 💥 將「服務與收費」改為「指名服務」 -->
+    <li><a href="service.html">指名服務</a></li> 
+    <li><a href="staff.html">公關陣容</a></li>
+    <li><a href="members.html">職員一覽</a></li>
+    <li><a href="booking.html">預約</a></li>
+    <li><a href="gallery.html">活動花絮</a></li>
+</ul>
+        </div>
+    </header>
+
+    <section class="staff-section">
+        <!-- 1. 標題與分界線 -->
+        <div class="host-title-container">
+            <h2 class="host-title">HOST / 公關陣容</h2>
+            <hr class="title-divider">
+        </div>
+
+        <!-- 2. 服務定義區 -->
+        <!-- 2. 服務定義區 -->
+        <div class="service-guide-v2">
+            <div class="guide-card standard">
+                <div class="card-header">
+                    <span class="gold-mark">※</span><span class="service-icon" style="margin-right: 8px;">🍷</span>
+                    <!-- 💥 補上微醺邂逅 -->
+                    <h3>STANDARD <span style="font-size: 0.85rem; color: #aaa; margin-left: 8px; letter-spacing: 2px;">微醺邂逅</span></h3>
+                </div>
+                <div class="card-content">
+                    <p>以靈魂與詩意編織的浪漫邂逅。此服務內容 <b>預設包含輕微調情與親暱互動</b>，<br>旨在營造極具張力的曖昧氛圍。</p>
+                    <p class="opt-out-note">
+                        若您偏好純粹的友誼談心，請務必於預約時勾選「不需要調情」，<br>否則公關將根據氛圍默認進行互動。<br>為確保完整體驗，預約Standard服務必須同時預約包廂，<br>如有必要或想要更私隱的地方，您亦可預約私密房間(Private Room)。
+                    </p>
+                </div>
+            </div>
+            <div class="guide-card midnight">
+                <div class="card-header">
+                    <span class="gold-mark">※</span><span class="service-icon" style="margin-right: 8px;">🌙</span>
+                    <!-- 💥 補上深夜沉浸 -->
+                    <h3>MIDNIGHT <span style="font-size: 0.85rem; color: #b86bff; margin-left: 8px; letter-spacing: 2px;">深夜沉浸</span> <span class="r18-tag">R18</span></h3>
+                </div>
+                <div class="card-content">
+                    <p>專為渴求極致沉浸的您而設。<br>除具備 Standard 全方位服務外，此服務包含深度感官沉浸的互動，<br>涉及情感佔有以及專屬於深夜的感官敘事。</p>
+                    <p class="freedom-note">
+                        客人的自主權始終是我們的首選。即使預約標記為 Midnight 的公關，您仍可隨心選擇僅享受 <b>Standard</b> 服務，無需感到任何壓力。
+                    </p>
+                    <span class="room-notice">為了守護這段私密時光，預訂Midnight服務必須同時預約私密房間 (Private Room)。</span>
+                </div>
+            </div>
+        </div>
+
+       <!-- 3. 下拉選單索引區 (霓虹標籤完整版) -->
+<div class="filter-dropdown-row">
+    <div class="dropdown-item">
+        <label class="noctis-label">TYPE</label> 
+        <select id="filter-type" class="noctis-select">
+            <option value="all">全部類型</option>
+            <!-- 💥 選單雙語化 -->
+            <option value="standard">STANDARD / 微醺</option>
+            <option value="midnight">MIDNIGHT / 深夜</option>
+        </select>
+    </div>
+
+    <div class="dropdown-item">
+        <label class="noctis-label">RACE</label> <!-- 💥 加上了 class 且去掉了冒號 -->
+        <select id="filter-race" class="noctis-select">
+            <option value="all">全部種族</option>
+            <option value="miqote">貓魅族</option>
+            <option value="aura">敖龍族</option>
+            <option value="viera">維埃拉族</option>
+            <option value="elezen">精靈族</option>
+            <option value="hyur">人族</option>
+        </select>
+    </div>
+
+    <div class="dropdown-item">
+        <label class="noctis-label">ROLE</label>
+        <select id="filter-role" class="noctis-select">
+            <option value="all">全部屬性</option>
+            <option value="TOP">TOP</option>
+            <option value="BOTTOM">BOTTOM</option>
+            <option value="SWITCH">SWITCH</option>
+        </select>
+    </div>
+</div>
+
+        <!-- 4. 照片牆網格 -->
+        <div id="grid-host" class="host-grid">
+            <!-- JS 會在這裡動態生成卡片 -->
+        </div>
+    </section>
+</div>
+<script src="script.js"></script>
+</body>
+</html>

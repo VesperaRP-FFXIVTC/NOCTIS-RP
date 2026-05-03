@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NOCTIS</title>
+    <!-- 💥 引入高階電影感字體 Cinzel -->
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="style.css">
+
+    <script>
+        if (sessionStorage.getItem('noctisEntered') === 'true') {
+            // 如果來過，就在最頂層貼上一個「跳過布幕」的標籤
+            document.documentElement.classList.add('skip-curtain');
+        }
+    </script>
+</head>
+<body>
+<!-- 🏰 NOCTIS 專屬身份驗證彈窗 -->
+<div id="age-verify-overlay" style="display: none;">
+    <div class="age-verify-card">
+        <div class="verify-header">
+            <span class="verify-icon">✦</span>
+            <h3>NOCTIS ACCESS</h3>
+            <span class="verify-icon">✦</span>
+        </div>
+        <div class="verify-body">
+            <p>本場域涉及成人感官敘事與情感探索。<br>您是否已年滿 18 歲，並準備好進入深夜的禁忌邊界？</p>
+        </div>
+        <div class="verify-footer">
+            <button id="verify-cancel" class="verify-btn secondary">離開</button>
+            <button id="verify-confirm" class="verify-btn primary">確認進入</button>
+        </div>
+    </div>
+</div>
+<!-- 🍷 NOCTIS 勸退彈窗 (未成年) -->
+<div id="age-denied-overlay" style="display: none;">
+    <div class="age-verify-card" style="border-color: rgba(255, 77, 77, 0.3);">
+        <div class="verify-header">
+            <span style="color: #ff4d4d;">✦</span>
+            <h3 style="text-shadow: 0 0 10px rgba(255, 77, 77, 0.5);">ACCESS DENIED</h3>
+            <span style="color: #ff4d4d;">✦</span>
+        </div>
+        <div class="verify-body">
+            <p>在歲月尚未賦予您足夠的厚度前，請止步於此。</p>
+            <p style="font-size: 0.8rem; color: #ff4d4d; margin-top: 10px;">期待您成年後，再次光臨 NOCTIS。</p>
+        </div>
+        <div class="verify-footer">
+            <button id="denied-close" class="verify-btn secondary" style="border-color: #ff4d4d; color: #ff4d4d;">願您好夢</button>
+        </div>
+    </div>
+</div>
+<audio id="bg-music" src="Audio/noctis-bgm.mp3" loop crossorigin="anonymous"></audio>
+
+<!-- 💥 全新入場動畫：Welcome 展開框 (加在這裡！) -->
+    <div id="welcome-gate">
+        <div class="welcome-box">
+            <span class="welcome-text">W E L C O M E</span>
+        </div>
+    </div>
+
+<div id="noctis-curtain">
+    <!-- 💥 關鍵：把門片移到前面，讓它們在底層 -->
+    <div class="curtain-part left"></div>
+    <div class="curtain-part right"></div>
+
+    <!-- 💥 關鍵：把 Logo 內容移到最後，確保它在最表層 -->
+    <div class="curtain-content">
+        <div class="logo-wrapper">
+            <img src="Image/Noctis_Logo.png" alt="NOCTIS Logo" class="neon-logo">
+        </div>
+
+        <div class="enter-trigger" id="enter-btn">
+            <div class="arrow-box">
+                <span class="induce-arrow">▲</span>
+            </div>
+            <div class="induce-text">點 擊 進 入</div>
+        </div>
+    </div>
+</div>
+
+        <!-- 💥 改造後：指向性誘導組件 -->
+<div class="enter-trigger" id="enter-btn">
+    <div class="arrow-box">
+        <span class="induce-arrow">▲</span> <!-- 💥 改成上箭頭 -->
+    </div>
+    <div class="induce-text">點 擊 進 入</div>
+</div>
+    
+    <div class="curtain-part left"></div>
+    <div class="curtain-part right"></div>
+</div>
+
+    <div id="noctis-main" style="display: none;">
+        
+        <header class="top-dandy-nav">
+            <div class="nav-container">
+                <div class="brand">NOCTIS</div>
+              <ul class="nav-menu">
+    <li><a href="index.html">首頁</a></li>
+    <li><a href="notice.html">注意事項</a></li>
+    <!-- 💥 將「關於我們」改為「一般服務」 -->
+    <li><a href="general.html">各項服務</a></li> 
+    <!-- 💥 將「服務與收費」改為「指名服務」 -->
+    <li><a href="service.html">指名服務</a></li> 
+    <li><a href="staff.html">公關陣容</a></li>
+    <li><a href="members.html">職員一覽</a></li>
+    <li><a href="booking.html">預約</a></li>
+    <li><a href="gallery.html">活動花絮</a></li>
+</ul>
+            </div>
+        </header>
+
+        <section class="hero-section">
+            <div class="hero-text">
+    <h1 class="hero-slogan">DROWN<br>IN THE<br>NIGHT</h1>
+    <div class="slogan-sub">與 夜 色 一 同 沉 淪</div>
+
+    <!-- 📍 NOCTIS 專屬座標牌 (加在這裡) -->
+    <div class="hero-location">
+        <span class="loc-icon">✦</span>
+        <span class="loc-text">泰坦｜海霧村｜1區5號</span>
+    </div>
+
+    <!-- 🏆 💥 全新嵌入式名人堂 (直接浮現在網頁上) -->
+    <div class="embedded-fame-board">
+        <div class="fame-header">
+            <span class="fame-title">✦ HALL OF FAME ✦</span>
+        </div>
+        
+        <div class="fame-body">
+            <!-- 🍾 BAR BUYOUT 傳奇榜 -->
+            <div class="fame-block">
+                <span class="fame-category buyout-text">🍾 BAR BUYOUT</span>
+                <ul class="mini-fame-list buyout-list">
+                    <!-- 💥 等待解鎖的狀態 -->
+                    <li><b class="guest-name awaiting-text">[ 虛 位 以 待 ]</b></li>
+                </ul>
+            </div>
+
+            <!-- 👑 VIP PASS 貴賓榜 -->
+            <div class="fame-block">
+                <span class="fame-category vip-text">👑 VIP PASS</span>
+                <ul class="mini-fame-list vip-list">
+                    <!-- 💥 等待解鎖的狀態 -->
+                    <li><b class="guest-name awaiting-text">[ 虛 位 以 待 ]</b></li>
+                </ul>
+            </div>
+            <!-- 💥 新增：🥂 CHAMPAGNE CALL 香檳榜 -->
+            <div class="fame-block">
+                <span class="fame-category champagne-text">🥂 CHAMPAGNE CALL</span>
+                <ul class="mini-fame-list champagne-list">
+                    <!-- 這是日後有客人上榜時的寫法範例，我先幫您放一個虛位以待 -->
+                    <!-- <li><b class="guest-name">某某某</b> <span class="score-text">1,100,000 Gil</span></li> -->
+                    <li><b class="guest-name awaiting-text">[ 虛 位 以 待 ]</b></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+
+            <div class="hero-slider">
+                <div class="slide active" style="background-image: url('Image/testing1.png');"></div>
+                <div class="slide" style="background-image: url('Image/testing2.png');"></div>
+                <div class="slide" style="background-image: url('Image/testing3.png');"></div>
+                <div class="slider-overlay"></div>
+            </div>
+        </section>
+<div id="bgm-control" class="bgm-control-btn">
+        <span id="bgm-status">BGM: ON</span>
+    </div>
+    </div>
+    <script src="script.js" defer></script>
+
+</body>
+</html>

@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+    <meta charset="UTF-8">
+    <title>NOCTIS - 公關檔案</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body class="profile-page">
+    <div id="noctis-main">
+        <!-- 導覽列可以從 index.html 直接複製過來 -->
+
+        <section class="profile-container" id="profile-content">
+            <!-- JS 會在這裡動態填入內容 -->
+        </section>
+    </div>
+
+    <!-- 💥 確保 script.js 在最下面，且包含 staffDatabase -->
+    <script src="script.js"></script>
+    <script>
+        // 初始化個人頁面邏輯
+        document.addEventListener('DOMContentLoaded', () => {
+            const params = new URLSearchParams(window.location.search);
+            const staffId = params.get('id');
+            renderProfile(staffId);
+        });
+    </script>
+</body>
+</html>

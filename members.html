@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+    <meta charset="UTF-8">
+    <title>NOCTIS - 職員團隊</title>
+    <!-- 💥 確保正確引入樣式表 -->
+    <link rel="stylesheet" href="style.css">
+</head>
+<body class="members-page">
+
+    <!-- 💥 1. 導覽列區塊：加在這裡 -->
+    <<header class="top-dandy-nav">
+        <div class="nav-container">
+            <div class="brand">NOCTIS</div>
+           <ul class="nav-menu">
+    <li><a href="index.html">首頁</a></li>
+    <!-- 💥 將「關於我們」改為「一般服務」 -->
+     <li><a href="notice.html">注意事項</a></li>
+    <li><a href="general.html">各項服務</a></li> 
+    <!-- 💥 將「服務與收費」改為「指名服務」 -->
+    <li><a href="service.html">指名服務</a></li> 
+    <li><a href="staff.html">公關陣容</a></li>
+    <li><a href="members.html">職員一覽</a></li>
+    <li><a href="booking.html">預約</a></li>
+    <li><a href="gallery.html">活動花絮</a></li>
+</ul>
+        </div>
+    </header>
+
+    <div id="noctis-main">
+        <section class="staff-section">
+            <div class="host-title-container">
+                <h2 class="host-title">MANAGER</h2>
+                <hr class="title-divider">
+            </div>
+            <!-- 管理層容器 (店長) -->
+            <div id="grid-manager" class="host-grid"></div>
+
+            <div class="host-title-container" style="margin-top: 80px;">
+                <h2 class="host-title">STAFF</h2>
+                <hr class="title-divider">
+            </div>
+            <!-- 支援團隊容器 (調酒師等) -->
+            <div id="grid-support" class="host-grid"></div>
+        </section>
+    </div>
+
+    <!-- 店長的 Secret Menu 彈窗 (保持不變) -->
+    <div id="secret-menu-overlay" class="secret-overlay">
+        <div class="secret-content">
+            <span class="close-secret">&times;</span>
+            <h2 class="secret-title">INU'S SECRET MENU</h2>
+            <ul class="secret-list">
+                <li><span>禁忌調酒：溺水之月</span> <span class="price">80,000G</span></li>
+                <li><span>店長陪聊 (15min)</span> <span class="price">150,000G</span></li>
+                <li><span>指定神祕禮品</span> <span class="price">???</span></li>
+            </ul>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // 💥 啟動職員頁面渲染邏輯
+            if (typeof renderMembersPage === 'function') {
+                renderMembersPage();
+            }
+        });
+    </script>
+</body>
+</html>

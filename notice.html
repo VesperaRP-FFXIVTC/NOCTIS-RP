@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>注意事項 | NOCTIS</title>
+    <link rel="stylesheet" href="style.css">
+    <header class="top-dandy-nav">
+            <div class="nav-container">
+                <div class="brand">NOCTIS</div>
+             <ul class="nav-menu">
+    <li><a href="index.html">首頁</a></li>
+    <!-- 💥 將「關於我們」改為「一般服務」 -->
+     <li><a href="notice.html">注意事項</a></li>
+    <li><a href="general.html">各項服務</a></li> 
+    <!-- 💥 將「服務與收費」改為「指名服務」 -->
+    <li><a href="service.html">指名服務</a></li> 
+    <li><a href="staff.html">公關陣容</a></li>
+    <li><a href="members.html">職員一覽</a></li>
+    <li><a href="booking.html">預約</a></li>
+    <li><a href="gallery.html">活動花絮</a></li>
+</ul>
+            </div>
+        </header>
+    <style>
+        /* --- 注意事項專屬排版 (樣式維持原本的高級感不變) --- */
+        .notice-container {
+            max-width: 900px;
+            margin: 150px auto 100px;
+            padding: 0 40px;
+        }
+
+        .notice-title {
+            text-align: center;
+            color: #d4af37;
+            font-size: 2.5rem;
+            letter-spacing: 10px;
+            margin-bottom: 50px;
+            text-shadow: 0 0 20px rgba(212, 175, 55, 0.4);
+        }
+
+        .rule-block {
+            background: rgba(255, 255, 255, 0.02);
+            border-left: 3px solid #8a2be2;
+            padding: 25px 35px;
+            margin-bottom: 30px;
+            transition: all 0.3s ease;
+        }
+
+        .rule-block:hover {
+            background: rgba(138, 43, 226, 0.05);
+            border-left-color: #b86bff;
+            box-shadow: 0 0 20px rgba(138, 43, 226, 0.1);
+            transform: translateX(5px);
+        }
+
+        /* 針對 Midnight 條款的金色特殊強調 */
+        .rule-block.highlight-rule {
+            border-left: 3px solid #d4af37;
+            background: linear-gradient(90deg, rgba(212, 175, 55, 0.05), transparent);
+        }
+        .rule-block.highlight-rule:hover {
+            border-left-color: #fff;
+            box-shadow: 0 0 20px rgba(212, 175, 55, 0.2);
+        }
+
+        .rule-title {
+            color: #fff;
+            font-size: 1.2rem;
+            letter-spacing: 3px;
+            margin: 0 0 15px 0;
+            display: flex;
+            align-items: center;
+        }
+
+        .rule-title::before {
+            content: "✦";
+            color: #8a2be2;
+            margin-right: 15px;
+            font-size: 1rem;
+        }
+        
+        .highlight-rule .rule-title::before {
+            color: #d4af37; 
+        }
+
+        .rule-text {
+            color: rgba(255, 255, 255, 0.7);
+            line-height: 1.8;
+            font-size: 0.95rem;
+            letter-spacing: 1px;
+            margin: 0;
+        }
+
+        .rule-text strong {
+            color: #b86bff;
+            font-weight: normal;
+        }
+
+        .highlight-rule .rule-text strong {
+            color: #d4af37; 
+            text-shadow: 0 0 8px rgba(212, 175, 55, 0.6);
+        }
+    </style>
+</head>
+<body>
+
+    <header class="top-dandy-nav">
+        <!-- (請在這裡貼上您原本的導覽列 <div class="nav-container">...</div>) -->
+    </header>
+
+    <div class="notice-container">
+        <h1 class="notice-title">注意事項</h1>
+
+        <div class="rule-block">
+            <h3 class="rule-title">成人取向聲明</h3>
+            <p class="rule-text">本店為成人取向俱樂部，場內任何行為皆不會特別受到限制，亦有可能出現較成熟、私密的話題內容。<br>請斟酌自身接受度再行入場，<strong>亦不建議現實未成年者參與</strong>。<br><br>為保障店家和賓客的安全、聲譽及任何潛在的輿論風險，<br><strong>拉拉菲爾族將不能夠預約本店的公關服務</strong>，不便之處，敬請原諒。</p>
+        </div>
+   
+
+        <div class="rule-block">
+            <h3 class="rule-title">環境與標誌</h3>
+            <p class="rule-text">入店後請收起武器及寵物，以維持整體空間的沉浸感。<br><br>「RP」標誌為本店公關專屬識別。如賓客自身有 RP 需求，請使用<strong>「魔晶石鑲嵌」</strong>標誌進行區分。</p>
+        </div>
+
+        <!-- 💥 核心重點：退去 AI 味的 ERP 與 Midnight 描述 -->
+        <div class="rule-block highlight-rule">
+            <h3 class="rule-title">互動與界線</h3>
+            <p class="rule-text">本店遵守基礎規範，不主動提供任何 <strong>ERP</strong> 相關服務。</p>
+        </div>
+
+        <div class="rule-block">
+            <h3 class="rule-title">隱私與留影</h3>
+            <p class="rule-text">嚴禁錄影、直播或以任何形式紀錄並對外公開店內活動內容。<br><br>拍照留念不在此限，但與公關互動過程中若需合影，<strong>請務必先徵得對方同意</strong>。<br><br>如您的照片涉及<strong>「魔法」一類的超自然內容</strong>，請不要將其流出到任何公眾社交平台。</p>
+        </div>
+
+        <div class="rule-block">
+            <h3 class="rule-title">社交與禮儀</h3>
+            <p class="rule-text">請維持基本社交禮儀，請關閉情感動作的文字提示及使用無意義文字大量洗頻。<br><br>自訂情感動作則不在此限，但在使用前請先尊重他人。</p>
+        </div>
+
+         <div class="rule-block highlight-rule">
+            <h3 class="rule-title">無線網絡</h3>
+            <p class="rule-text">本店提供<strong>無線網絡 (Wi-Fi) 連接</strong>，請遵守相關使用規則，勿進行任何違法或不當行為。<br><br>如有需要，請直接向店長查詢。</p>
+        </div>
+
+
+</body>
+</html>

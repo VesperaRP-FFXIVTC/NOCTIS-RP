@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NOCTIS - 頁面名稱</title> <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <div id="noctis-main">
+        <header class="top-dandy-nav">
+            <div class="nav-container">
+                <div class="brand">NOCTIS</div>
+                <<ul class="nav-menu">
+    <li><a href="index.html">首頁</a></li>
+    <!-- 💥 將「關於我們」改為「一般服務」 -->
+     <li><a href="notice.html">注意事項</a></li>
+    <li><a href="general.html">各項服務</a></li> 
+    <!-- 💥 將「服務與收費」改為「指名服務」 -->
+    <li><a href="service.html">指名服務</a></li> 
+    <li><a href="staff.html">公關陣容</a></li>
+    <li><a href="members.html">職員一覽</a></li>
+    <li><a href="booking.html">預約</a></li>
+    <li><a href="gallery.html">活動花絮</a></li>
+</ul>
+            </div>
+        </header>
+<!-- 🏰 預約魔王城：NOCTIS 專屬預約終端 -->
+        <section class="reservation-section">
+            <div class="booking-container">
+                <div style="text-align: center; margin-bottom: 40px;">
+                    <h1 class="fame-title" style="font-size: 2.2rem; border: none;">RESERVATION</h1>
+                    <p style="color: #888; letter-spacing: 4px; font-size: 0.85rem;">NOCTIS 頂級席位劃位終端</p>
+                </div>
+
+                <form id="bookingForm">
+    <!-- 💥 新增外層雙欄容器 -->
+    <div class="booking-split-layout">
+
+        <!-- 🟢 左邊區域：基礎設定 -->
+        <div class="booking-left-panel">
+            <!-- 1. 貴賓身分 -->
+            <div class="form-group">
+                <label>✦ 角色名稱 / 暱稱</label>
+                <input type="text" id="name" name="name" required placeholder="例如：Inu@泰坦">
+            </div>
+            <div class="form-group">
+                <label>✦ 聯絡方式 (Discord ID)</label>
+                <input type="text" id="contact-info" name="contact" required placeholder="請留下您的 Discord ID，以便發送預約確認">
+            </div>
+
+            <!-- 2. 服務類型選擇 (包含 Midnight 隱藏條約) -->
+            <div class="form-group">
+                <label>✦ 服務類型 / SERVICE TYPE</label>
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px;">
+                    <!-- STANDARD 選項 -->
+                    <label class="select-item">
+                        <input type="radio" name="serviceTier" value="standard" checked>
+                        <div class="select-box" style="padding: 20px 10px;">
+                            <b style="font-size: 1.2rem; letter-spacing: 2px;">STANDARD</b><br>
+                            <span style="font-size: 0.8rem; color: #888; margin-top: 5px; display: inline-block;">微醺邂逅・含輕度調情</span>
+                        </div>
+                    </label>
+
+                    <!-- MIDNIGHT 選項 -->
+                    <label class="select-item midnight-item">
+                        <input type="radio" name="serviceTier" value="midnight">
+                        <div class="select-box" style="padding: 20px 10px;">
+                            <b style="font-size: 1.2rem; letter-spacing: 2px; color: #b86bff;">MIDNIGHT</b><br>
+                            <span style="font-size: 0.8rem; color: #888; margin-top: 5px; display: inline-block;">深夜沉浸・私密感官敘事</span>
+                        </div>
+                    </label>
+
+                    <!-- Midnight 注意事項 -->
+                    <div id="midnight-notice" style="display: none; width: 100%; grid-column: 1 / -1; flex-basis: 100%; box-sizing: border-box; margin-top: 25px; padding: 30px 40px; background: linear-gradient(145deg, rgba(138, 43, 226, 0.1), rgba(0, 0, 0, 0.7)); border: 1px solid rgba(184, 107, 255, 0.3); border-left: 4px solid #b86bff; backdrop-filter: blur(15px); border-radius: 2px; box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5); animation: noticeSlideIn 0.8s cubic-bezier(0.16, 1, 0.3, 1);">
+                        <div style="display: flex; align-items: center; margin-bottom: 18px;">
+                            <span style="color: #b86bff; font-size: 1.2rem; text-shadow: 0 0 12px #b86bff;">✦</span>
+                            <h4 style="margin: 0 0 0 15px; color: #fff; letter-spacing: 6px; font-size: 1rem; font-weight: 900; text-shadow: 0 0 10px rgba(184, 107, 255, 0.7);">MIDNIGHT 注意事項</h4>
+                        </div>
+                        <p style="color: rgba(255, 255, 255, 0.9); font-size: 0.9rem; line-height: 2.2; margin: 0; letter-spacing: 2px; text-align: justify;">
+                            您正試圖觸碰深夜的禁忌邊界。由於此服務涉及深層的感官敘事與沉重的情感佔有，為了守護這份靈魂共鳴的純粹，<b style="color: #fff; border-bottom: 1px solid #b86bff; padding-bottom: 2px;">Midnight 僅開放「絕對一對一」預約</b>。在此時段，公關的世界將只為您一人存在。
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 3. 動態生成的日期與時段 -->
+            <div class="form-group">
+                <label>✦ 預約日期 <span style="font-size: 0.75rem; color: #555;"></span></label>
+                <div id="dynamic-date-container" class="date-group"></div>
+            </div>
+
+            <div class="form-group">
+                <label>✦ 預約時段 <span style="font-size: 0.75rem; color: #555;">(請先選擇日期)</span></label>
+                <div id="dynamic-time-container" class="time-group"></div>
+            </div>
+
+            <!-- 4. 預約總人數與營運準則 -->
+            <div class="form-group" style="margin-top: 25px;">
+                <label class="item-title">✦ 預約總人數</label>
+                <select id="guest-count" name="guestCount" class="custom-select" disabled>
+                    <option value="1" selected>1 位 (試營運期間，僅開放一對一專屬預約)</option>
+                </select>
+                <p id="pr-required-notice" style="color: #d4af37; font-size: 0.85rem; margin-top: 8px; letter-spacing: 1px;">
+                    ✦ 試營運期間 (5/29 起)，為確保極致的沉浸體驗，全場次僅提供一對一指名服務。
+                </p>
+            </div>
+
+            <div class="service-policy-box" style="margin: 25px 0; padding: 25px; border-left: 3px solid #d4af37; background: rgba(212, 175, 55, 0.03); border-radius: 4px;">
+                <p style="color: rgba(255, 255, 255, 0.9); font-size: 0.9rem; line-height: 1.8; margin: 0; letter-spacing: 1.5px;">
+                    <span style="color: #d4af37; font-weight: bold; letter-spacing: 3px; display: block; margin-bottom: 8px;">✦ NOCTIS 試營運準則 ✦</span>
+                    為守護靈魂共鳴的純粹，每位公關在同一時段僅能款待一位賓客。<br>
+                    無論您選擇 STANDARD 或 MIDNIGHT 服務，公關的世界都將只為您一人存在。<br>
+                    正式營運後，我們將視情況開放更多人數選項，敬請期待未來的多元體驗！
+                </p>
+            </div>
+        </div> <!-- 左區結束 -->
+
+        <!-- 🔴 右邊區域：指名與結帳 -->
+        <div class="booking-right-panel">
+            <!-- 5. 指名公關 -->
+            <div class="form-group">
+                <label>✦ 指名公關 <span style="font-size: 0.75rem; color: #555;">(若反灰代表該時段已預約)</span></label>
+                <div id="dynamic-pr-container" class="pr-group"></div>
+            </div>
+
+            <!-- 💥 4. 包廂偏好選擇 -->
+<div class="form-group" id="room-preference-group">
+    <label>✦ 包廂偏好 / ROOM PREFERENCE</label>
+    <select id="room-preference" name="roomPreference" class="custom-select">
+        <option value="dancefloor">舞池 - 半開放式包廂</option>
+        <option value="loft">舞池 - 閣樓</option>
+        <option value="mezzanine">二樓雅座 (適合喜歡遠離人群，安靜氛圍的客人)</option>
+    </select>
+<p class="room-notice-hint" style="color: #888; font-size: 0.8rem; margin-top: 8px; letter-spacing: 1px; line-height: 1.5;">
+        ※ 現場座位有限，預約將依<span style="color: #d4af37;">提交先後順序</span>進行劃位。我們會盡全力根據您的偏好進行安排，若遇滿座將由店內人員主動聯繫告知。
+    </p>
+</div>
+
+            <!-- 6. 備註 -->
+            <div class="form-group">
+                <label>✦ 特別要求 / 備註</label>
+                <textarea id="notes" name="note" rows="3" placeholder="如您偏好友誼向純交流談心，請務必留下「不需要調情」的備註"></textarea>
+            </div>
+
+            <!-- 7. 結帳面板 -->
+            <div class="price-summary-box">
+                <div class="price-row">已選時段數：<span id="display-periods">0</span></div>
+                <div class="price-row">指名公關數：<span id="display-cats">0</span></div>
+                <hr style="border-top: 1px dashed rgba(212, 175, 55, 0.3); margin: 15px 0;">
+                <div class="price-total" style="color: #d4af37; font-size: 1.2rem; font-weight: bold; display: flex; justify-content: space-between;">
+                    <span>預計總金額：</span>
+                    <div><span id="total-amount">0</span> Gil</div>
+                </div>
+            </div>
+
+            <!-- 8. 提交按鈕 -->
+            <button type="submit" id="submitBtn" class="submit-btn">送 出 預 約 申 請</button>
+        </div> <!-- 右區結束 -->
+
+    </div> <!-- 雙欄容器結束 -->
+</form>
+            </div>
+        </section>
+       
+
+    </div>
+<script src="booking.js"></script>
+</body>
+</html>
