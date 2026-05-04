@@ -41,8 +41,8 @@ const staffDatabase = [
         id: 'andda', category: 'host', image: 'Image/1.png', serviceType: 'midnight', name: '安怛',
         race: 'aura', height: '217cm', tags: ['隨心所欲', '色氣', '慵懶'],
         motto: '「甜心，你願意和我一起做夢嗎？」', rpStyle: '鏡像', sexualPref: 'Any', rolePref: 'Top', filterRoles: ['TOP'],
-        story: '很小便離開了家鄉和部族，跟著父親輾轉流浪各地。 \n\n和父親旅行至烏爾達哈，落腳當地的旅店，由於某種原因選擇留在當地的鬥技場，以舞劍術維生，過著放蕩且縱慾的日子。 \n\n在龍蛇混雜的環境裡因為抽過太多奇奇怪怪的東西，有時候會流鼻血。 ',
-        kinks: '體格差、牙印、寫字、口球、瀕死', limits: '排泄物'
+        story: '很小便離開了家鄉和部族，跟著父親輾轉流浪各地。 \n\n和父親旅行至烏爾達哈，落腳當地的旅店，由於某種原因選擇留在當地的鬥技場，以舞劍術維生，過著放蕩且縱慾的日子。 \n\n在龍蛇混雜的環境裡因為抽過太多奇奇怪怪的東西，有時候會流鼻血。\n偶爾似乎會有哪裡怪怪的…… ',
+        kinks: '體格差、牙印、寫字、口球、瀕死', limits: '排泄物、辱罵'
     },
     { 
         id: 'baichai', category: 'host', image: 'Image/1.png', serviceType: 'midnight', name: '白柴小狗狗',
@@ -83,14 +83,14 @@ const staffDatabase = [
         id: 'longting', category: 'host', image: 'Image/1.png', serviceType: 'midnight', name: '龍霆',
         race: 'miqote', height: '174cm', tags: ['開朗', '活潑', '熱情'],
         motto: '「你剛剛在看我吧！我不介意你再多靠近我一些喔？」', rpStyle: '重', sexualPref: 'Male (Standard/Midnight)<br>Female (Standard Only)', rolePref: 'Top', filterRoles: ['TOP'],
-        story: '來自遠東之國的貓魅族男性，無論何時都笑咪咪的，會親切地對待身邊所有人，但那好像只是表面上。 \n\n本職為商人，以及某家按摩店的店長，喜歡與各式各樣帥氣的男性交流，特別是敖龍族，稍不留神可能就會被他拐進不為人知的小角落。 ',
+        story: '來自遠東之國的貓魅族男性，\n無論何時都笑咪咪的，會親切對待身邊所有人，\n但那好像只是表面上。\n\n本職為商人，以及某家按摩店的店長，\n喜歡與各式各樣帥氣的男性交流，\n特別是敖龍族，稍不留神可能就會被他拐進不為人知的小角落。\n\n如果問他甚麼是最重要的，\n想必他只會笑笑的說出金錢與男人這兩個答案，\n龍霆藏在心裡的真正想法究竟是甚麼，可能沒有人能得知，\n以及手握資金與人脈的他為何會來到「NOCTIS」成為其中的一員呢？\n\n「五彩斑斕的美夢終將化為泡影，何不在那之前與我一同踏入無止盡的黑夜。」',
         kinks: '道具、強制、調教、控制', limits: '搶走主導權、排泄物、血腥、魯加族'
     },
     { 
         id: 'maogao', category: 'host', image: 'Image/1.png', serviceType: 'standard', name: '貓糕',
         race: 'miqote', height: '159cm', tags: ['溫柔', '天然', '慢熱', '反差'],
         motto: '「不用逞強，我會在這裡陪你。」', rpStyle: '鏡像 / 輕 / 中', sexualPref: 'Male', rolePref: 'Bottom, Soft Dom', filterRoles: ['BOTTOM'],
-        story: '目前為 Vespera 旗下的員工，同時經營著一間只對熟人開放的畫室。 不擅長與人相處，個性略顯怕生，多半時間只是安靜地待在一旁觀察著。 \n只有在察覺到誰感到低落或孤單時，才會悄然靠近，輕輕陪在身邊。 \n\n唯有在熟識的人面前，才會露出任性、甚至有些驕縱的一面。 \n但——平時溫和待人的他，若被觸碰到某個開關的話，似乎會變得……不太一樣？ ',
+        story: '目前為 Vespera 旗下的員工，同時經營著一間只對熟人開放的畫室。 不擅長與人相處，個性略顯怕生，多半時間只是安靜地待在一旁觀察著。 \n只有在察覺到誰感到低落或孤單時，才會悄然靠近，輕輕陪在身邊。 \n\n唯有在熟識的人面前，才會露出任性、甚至有些驕縱的一面。 \n但——平時溫和待人的他，\n若被觸碰到某個開關的話，似乎會變得……不太一樣？ ',
         kinks: '無', limits: '無'
     },
     { 
@@ -145,7 +145,7 @@ const staffDatabase = [
     { 
         id: 'elenos', category: 'host', image: 'Image/1.png', serviceType: 'standard', name: '伊萊諾斯',
         race: 'viera', height: '188.5cm', tags: ['斯文', '溫柔', '悶騷', '表裡不一', '佔有慾強'],
-        motto: ' 「哪一面的我才是真正的我，這問題有很重要嗎？」', rpStyle: '鏡像', sexualPref: 'ANY', rolePref: 'Switch, Soft Dom', filterRoles: ['SWITCH'],
+        motto: ' 「哪一面的我才是真正的我，這問題有很重要嗎？」', rpStyle: '鏡像', sexualPref: 'Any', rolePref: 'Switch, Soft Dom', filterRoles: ['SWITCH'],
         story: '伊萊諾斯是在伊修加爾德郊外的雪地裡被撿到的孤兒，發現他的是一位年邁的神職人員。\n他在修道院的圖書室裡長大，與書本和窗台上的花為伴，自神學院畢業後本應走上神職之路，卻在養父過世後離開了那座終年積雪的城市。 \n\n遊歷四方期間，他以兼職偶像的身分在小型場地獻唱。\n\n被問起為何總是忙碌於各式各樣的工作之中，他總笑著說是為了籌措團體的活動資金——只是熟識的人偶爾會疑惑，他似乎並不缺錢，真正的目的也從未有人探得。 \n\n在俱樂部裡，他始終蒙著眼睛，被指認身分時只是溫和地搖頭否認。\n對於席間的歡笑言談，他總像隔著一層薄霧般置身事外。\n雖然溫柔，卻極少展現自己真正的心情。',
         kinks: '體溫差、耳朵敏感點、言語誘導 / 低語調教、束縛、鎖骨/後頸標記、邊緣控制、隱藏的佔有慾、蒙眼。', limits: '未成年、血腥/重傷害、排泄物、強制非自願、羞辱性人格貶低、硌獅族、魯加族、拉拉菲爾族'
     }
@@ -364,20 +364,29 @@ document.addEventListener('DOMContentLoaded', () => {
         }, 4000);
     }
 
-    // F. BGM 開關切換邏輯
-    if (bgmControlBtn && bgMusic) {
-        bgmControlBtn.addEventListener('click', () => {
-            if (bgMusic.paused) {
-                bgMusic.play();
-                if (bgmStatusText) bgmStatusText.innerText = 'BGM: ON';
-                bgmControlBtn.classList.remove('muted');
-            } else {
-                bgMusic.pause();
-                if (bgmStatusText) bgmStatusText.innerText = 'BGM: OFF';
-                bgmControlBtn.classList.add('muted');
-            }
-        });
+    // --- F. BGM 開關切換邏輯 (全域同步版) ---
+if (bgmControlBtn && bgMusic) {
+    // 初始化按鈕狀態：檢查之前是否有手動關閉過
+    if (localStorage.getItem('bgm_manual_stop') === 'true') {
+        bgMusic.pause();
+        if (bgmStatusText) bgmStatusText.innerText = 'BGM: OFF';
+        bgmControlBtn.classList.add('muted');
     }
+
+    bgmControlBtn.addEventListener('click', () => {
+        if (bgMusic.paused) {
+            bgMusic.play();
+            if (bgmStatusText) bgmStatusText.innerText = 'BGM: ON';
+            bgmControlBtn.classList.remove('muted');
+            localStorage.setItem('bgm_manual_stop', 'false'); // 💥 紀錄：開啟
+        } else {
+            bgMusic.pause();
+            if (bgmStatusText) bgmStatusText.innerText = 'BGM: OFF';
+            bgmControlBtn.classList.add('muted');
+            localStorage.setItem('bgm_manual_stop', 'true'); // 💥 紀錄：手動關閉
+        }
+    });
+}
 
     // G. 入口啟動邏輯 (NOCTIS Welcome 展開版)
     if (enterBtn && mainContent) {
@@ -396,7 +405,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     sessionStorage.setItem('noctisEntered', 'true');
                     if (bgMusic) {
                         bgMusic.currentTime = 52;
-                        bgMusic.volume = 0.05;
+                        bgMusic.volume = 0.03;
                         bgMusic.play().catch(e => console.log("音樂播放被阻擋：", e));
                     }
 
@@ -464,7 +473,7 @@ document.addEventListener('DOMContentLoaded', () => {
         
         if (bgMusic) {
             bgMusic.currentTime = 52;
-            bgMusic.volume = 0.01;
+            bgMusic.volume = 0.03;
             bgMusic.play().catch(() => console.log("等待用戶點擊以播放音樂"));
         }
     }
