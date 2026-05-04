@@ -396,7 +396,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     sessionStorage.setItem('noctisEntered', 'true');
                     if (bgMusic) {
                         bgMusic.currentTime = 52;
-                        bgMusic.volume = 0.5;
+                        bgMusic.volume = 0.05;
                         bgMusic.play().catch(e => console.log("音樂播放被阻擋：", e));
                     }
 
