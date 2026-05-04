@@ -2679,3 +2679,29 @@ input[name="prs"]:disabled + .select-box {
     font-family: inherit;
     cursor: pointer;
 }
+/* LAPDANCE遮罩 */
+/* 遮罩容器 */
+.soft-opening-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.7); /* 深色透明背景 */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 100;
+}
+
+/* 斜向印章樣式 */
+.overlay-text {
+    color: #d4af37; /* 金色 */
+    border: 2px solid #d4af37;
+    padding: 15px 25px;
+    background: rgba(0, 0, 0, 0.8);
+    transform: rotate(-12deg); /* 打斜 */
+    box-shadow: 0 0 20px rgba(212, 175, 55, 0.4);
+    text-align: center;
+    line-height: 1.5;
+}
