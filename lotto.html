@@ -1,0 +1,491 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@700&display=swap" rel="stylesheet">
+    <meta charset="UTF-8">
+    <title>NOCTIS - 月相契約 LUNAR PACT</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        /* =========================================
+   🌙 NOCTIS 月相契約 (LUNAR PACT) 專屬樣式
+   ========================================= */
+
+/* 1. 頂部標題強化：讓 LUNAR PACT 更有史詩感 */
+.fame-title {
+    font-family: 'Cinzel', serif; /* 建議引入 Google Fonts */
+    letter-spacing: 8px !important;
+    text-shadow: 0 0 20px rgba(212, 175, 55, 0.6), 0 0 40px rgba(212, 175, 55, 0.2);
+    color: #d4af37 !important;
+}
+
+/* 2. 倒計時區塊：營造緊迫的科技感 */
+#countdown {
+    font-family: 'Courier New', Courier, monospace;
+    font-weight: bold;
+    background: rgba(255, 255, 255, 0.05);
+    padding: 15px;
+    border-radius: 4px;
+    border: 1px dashed rgba(255, 255, 255, 0.2);
+    display: inline-block;
+    box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.5);
+}
+
+/* 3. 號碼球進化：外發光與內部深邃感 */
+.lotto-number-circle {
+    width: 45px;
+    height: 45px;
+    border-radius: 50%;
+    background: radial-gradient(circle at 30% 30%, rgba(184, 107, 255, 0.2), rgba(10, 10, 10, 1));
+    border: 2px solid #b86bff;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+    font-size: 1.1rem;
+    margin: 6px;
+    color: #fff;
+    box-shadow: 0 0 15px rgba(184, 107, 255, 0.4), inset 0 0 8px rgba(184, 107, 255, 0.2);
+    transition: transform 0.3s ease;
+}
+
+.lotto-number-circle:hover {
+    transform: scale(1.1); /* 滑鼠移上去會微微放大 */
+}
+
+/* 特別號碼球：金色榮耀 */
+.special-number {
+    border-color: #d4af37;
+    background: radial-gradient(circle at 30% 30%, rgba(212, 175, 55, 0.2), rgba(10, 10, 10, 1));
+    box-shadow: 0 0 20px rgba(212, 175, 55, 0.5), inset 0 0 10px rgba(212, 175, 55, 0.3);
+}
+
+/* 4. 獎金派彩紀錄區塊：左側紫色發光邊框 */
+.price-summary-box {
+    border-left: 4px solid #b86bff !important;
+    background: linear-gradient(90deg, rgba(184, 107, 255, 0.1), transparent) !important;
+    backdrop-filter: blur(5px);
+}
+
+/* 5. 中獎規則表格：極簡奢華風 */
+.lotto-rules-container {
+    overflow-x: auto; /* 確保手機版不會破圖 */
+}
+
+.lotto-table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0 8px; /* 讓每一行中間有一點空隙 */
+}
+
+.lotto-table th {
+    text-transform: uppercase;
+    font-size: 0.75rem;
+    letter-spacing: 2px;
+    color: #888;
+    padding: 10px 15px;
+}
+
+.lotto-table tr {
+    background: rgba(255, 255, 255, 0.03);
+    transition: background 0.3s;
+}
+
+.lotto-table tr:hover {
+    background: rgba(212, 175, 55, 0.05); /* 移上去有淡淡金光 */
+}
+
+.lotto-table td {
+    padding: 18px 15px;
+    border-top: 1px solid rgba(255, 255, 255, 0.05);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+/* 表格左圓角 */
+.lotto-table td:first-child {
+    border-left: 1px solid rgba(255, 255, 255, 0.05);
+    border-top-left-radius: 4px;
+    border-bottom-left-radius: 4px;
+}
+
+/* 表格右圓角 */
+.lotto-table td:last-child {
+    border-right: 1px solid rgba(255, 255, 255, 0.05);
+    border-top-right-radius: 4px;
+    border-bottom-right-radius: 4px;
+}
+#noctis-loader {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: #0a0a0a; /* 純黑背景 */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 9999; /* 確保在最上層 */
+    transition: opacity 0.8s ease, visibility 0.8s;
+}
+
+.loader-content {
+    text-align: center;
+}
+
+.loader-logo {
+    font-family: 'Cinzel', serif;
+    font-size: 2.5rem;
+    color: #d4af37;
+    letter-spacing: 10px;
+    margin-bottom: 20px;
+    animation: loader-glow 2s infinite alternate;
+}
+
+.loader-content p {
+    color: #888;
+    letter-spacing: 3px;
+    font-size: 0.8rem;
+}
+
+/* 呼吸燈效果 */
+@keyframes loader-glow {
+    from { text-shadow: 0 0 10px rgba(212, 175, 55, 0.3); }
+    to { text-shadow: 0 0 30px rgba(212, 175, 55, 0.8); }
+}
+
+/* 隱藏狀態 */
+.loader-hidden {
+    opacity: 0;
+    visibility: hidden;
+}
+#noctis-loader {
+    position: fixed;
+    /* 💥 修正點 1：如果您的導覽列高度是 80px，這裡就填 80px */
+    /* 這樣遮罩就只會從導覽列下方開始擋住內容 */
+    top: 80px; 
+    left: 0;
+    width: 100%;
+    /* 💥 修正點 2：高度要減去導覽列的高度，確保底部不會多出空白 */
+    height: calc(100% - 80px); 
+    background: #0a0a0a;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    /* 💥 修正點 3：確保這個數字比導覽列的 z-index 小 */
+    z-index: 900; 
+    transition: opacity 0.8s ease, visibility 0.8s;
+}
+/* 購買說明區塊微光動畫 */
+.purchase-instruction {
+    transition: all 0.3s ease;
+    cursor: default;
+}
+
+.purchase-instruction:hover {
+    background: rgba(212, 175, 55, 0.08) !important;
+    border-color: rgba(212, 175, 55, 0.4) !important;
+    box-shadow: 0 0 15px rgba(212, 175, 55, 0.1);
+}
+.nav-checker-btn {
+    display: inline-block;
+    padding: 12px 30px;
+    background: transparent;
+    color: #d4af37;
+    border: 1px solid #d4af37;
+    border-radius: 4px;
+    text-decoration: none;
+    font-family: 'Cinzel', serif;
+    font-size: 0.9rem;
+    letter-spacing: 2px;
+    transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    position: relative;
+    overflow: hidden;
+}
+
+.nav-checker-btn:hover {
+    color: #fff;
+    border-color: #b86bff; /* 懸停時變為螢光紫 */
+    background: rgba(184, 107, 255, 0.1);
+    box-shadow: 0 0 20px rgba(184, 107, 255, 0.4), inset 0 0 10px rgba(184, 107, 255, 0.2);
+    transform: translateY(-2px);
+}
+
+/* 按鈕內的小裝飾細節 */
+.nav-checker-btn::before {
+    content: '';
+    position: absolute;
+    top: 0; left: -100%;
+    width: 100%; height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(212, 175, 55, 0.2), transparent);
+    transition: 0.5s;
+}
+
+.nav-checker-btn:hover::before {
+    left: 100%;
+}
+    </style>
+</head>
+<body>
+    <!-- 🌙 NOCTIS 加載遮罩 -->
+<div id="noctis-loader">
+    <div class="loader-content">
+        <div class="loader-logo">NOCTIS</div>
+        <p>月相觀測中 (載中入，請稍候...)</p>
+    </div>
+</div>
+     <div id="noctis-main">
+        <header class="top-dandy-nav">
+            <div class="nav-container">
+                <div class="brand">NOCTIS</div>
+                <ul class="nav-menu">
+    <li><a href="index.html">首頁</a></li>
+    <li><a href="notice.html">注意事項</a></li>
+    <li><a href="general.html">各項服務</a></li> 
+    <li><a href="service.html">指名服務</a></li> 
+    <li><a href="staff.html">公關陣容</a></li>
+    <li><a href="members.html">職員一覽</a></li>
+    <li><a href="lotto.html">月相觀測</a></li>
+    <li><a href="booking.html">預約</a></li>
+    <li><a href="gallery.html">活動花絮</a></li>
+</ul>
+            </div>
+        </header>
+
+        
+        <section class="reservation-section">
+            <div class="booking-container">
+                <div style="text-align: center; margin-bottom: 40px;">
+                    <h1 class="fame-title" style="font-size: 2.2rem; border: none;">月相觀測</h1>
+                    <p style="color: #888; letter-spacing: 4px; font-size: 0.85rem;">NOCTIS 月相觀測（翻譯：樂透大抽獎）</p>
+                </div>
+
+                <!-- 1. 雙欄容器 (左右面板並排) -->
+                <div class="booking-split-layout">
+                    <!-- 左面板：當期資訊 -->
+                    <div class="booking-left-panel">
+                        <!-- 1. 頭獎獎金 -->
+                        <div class="form-group">
+                            <label>✦ 本期累積頭獎獎金</label>
+                            <div id="jackpot-amount" style="font-size: 3rem; color: #d4af37; font-family: 'Cinzel', serif; text-shadow: 0 0 20px rgba(212, 175, 55, 0.5);">
+                                1,000,000 <span style="font-size: 1rem;">Gil</span>
+                            </div>
+                        </div>
+
+                        <div style="font-size: 0.75rem; color: rgba(212, 175, 55, 0.6); margin-top: 5px; letter-spacing: 1px; font-weight: 300;">
+        ※ 若當期無人獲獎，累積金額將悉數撥入下期獎池。
+    </div>
+
+                        <!-- 2. 開獎倒計時 -->
+                        <div class="form-group" style="margin-top: 30px;">
+                            <label>✦ 距下次月相觀測 (開獎倒計時)</label>
+                            <div id="countdown" style="font-size: 1.5rem; letter-spacing: 5px; color: #fff;">
+                                00D 00H 00M 00S
+                            </div>
+                        </div>
+
+                        <!-- 3. 💰 購買說明區塊 (新增) -->
+                        <!-- 💰 購買說明區塊 (更新版：加入 1-24 選號規則) -->
+<div class="purchase-instruction" style="margin-top: 40px; padding: 20px; background: rgba(212, 175, 55, 0.05); border: 1px solid rgba(212, 175, 55, 0.2); border-radius: 4px;">
+    <div style="display: flex; align-items: flex-start; gap: 15px;">
+        <div style="color: #d4af37; font-size: 1.2rem; margin-top: 2px;">✦</div>
+        <div>
+            <div style="color: #fff; font-weight: bold; letter-spacing: 2px; margin-bottom: 8px; font-size: 0.95rem;">參 與 指 南 (ACQUISITION)</div>
+            <p style="color: #ccc; font-size: 0.85rem; line-height: 1.6; margin: 0;">
+                從 <span style="color: #d4af37; font-weight: bold;">01 至 24</span> 中任選六個數字作為您的命運組合。<br>
+                每注定價 <span style="color: #d4af37; font-weight: bold;">10,000 Gil</span>，單次購買最多10注，不設購買次數上限。<br>
+                如欲參與，請親臨 <span style="color: #fff; border-bottom: 1px solid #888;">NOCTIS 櫃檯</span> 聯繫職員辦理。
+            </p>
+        </div>
+    </div>
+</div>
+                    </div> <!-- 左面板結束 -->
+
+                    <!-- 右面板：上期回顧 -->
+                    <div class="booking-right-panel">
+                        <div class="form-group">
+                            <label>✦ 上期開獎結果 (THE PAST ECHOES)</label>
+                            <div id="last-result" style="margin-top: 20px; display: flex; flex-wrap: wrap; justify-content: flex-start;">
+                                <div class="lotto-number-circle">04</div>
+                                <div class="lotto-number-circle">07</div>
+                                <div class="lotto-number-circle">12</div>
+                                <div class="lotto-number-circle">15</div>
+                                <div class="lotto-number-circle">21</div>
+                                <div class="lotto-number-circle">23</div>
+                                <div style="width: 10px;"></div>
+                                <div class="lotto-number-circle special-number">08</div>
+                            </div>
+                        </div>
+
+                        <!-- 🔍 導向核對網站的按鈕 -->
+<!-- 🔍 導向核對網站的按鈕 (開啟新分頁版) -->
+<div style="margin-top: 25px; text-align: center;">
+    <a href="Lunaresult.html" class="nav-checker-btn" target="_blank" rel="noopener noreferrer">
+        <span style="margin-right: 8px;">✧</span> 立即核對您的數字組合 <span style="margin-left: 8px;">✧</span>
+    </a>
+</div>
+
+                        <div class="price-summary-box" style="margin-top: 30px; background: rgba(184, 107, 255, 0.05); border-left: 3px solid #b86bff;">
+                            <div style="margin-bottom: 15px;">
+                                <span style="color: #d4af37; font-weight: bold; letter-spacing: 2px;">✦ 當期派彩紀錄</span>
+                            </div>
+                            <div class="price-row" style="display: flex; justify-content: space-between; margin-bottom: 12px;">
+                                <span style="color: #fff;">頭獎：</span>
+                                <span style="color: #d4af37;"><span id="last-jackpot-winners">0</span> 注</span>
+                            </div>
+                            <div class="price-row" style="display: flex; justify-content: space-between; margin-bottom: 12px; border-top: 1px solid rgba(255,255,255,0.1); padding-top: 12px;">
+                                <span style="color: #ccc;">二獎：</span>
+                                <span><span id="last-second-winners">0</span> 注</span>
+                            </div>
+                            <div class="price-row" style="display: flex; justify-content: space-between; border-top: 1px solid rgba(255,255,255,0.1); padding-top: 12px;">
+                                <span style="color: #ccc;">三獎：</span>
+                                <span><span id="last-third-winners">2</span> 注</span>
+                            </div>
+                        </div>
+                    </div>
+                </div> <!-- 💥 關鍵：在這裡把雙欄容器關掉 -->
+
+                <!-- 2. 📜 中獎規則表格 (獨立在下方，自動橫跨全寬) -->
+                <div style="margin-top: 40px; background: rgba(255, 255, 255, 0.02); border: 1px solid rgba(212, 175, 55, 0.1); padding: 30px; border-radius: 4px;">
+                    <h3 style="color: #d4af37; letter-spacing: 3px; font-size: 1rem; margin-bottom: 20px;">✦ 中獎規則與派彩說明 (TERMS OF FATE)</h3>
+                    
+                    <table class="lotto-table">
+                        <thead>
+                            <tr style="border-bottom: 2px solid rgba(212, 175, 55, 0.3);">
+                                <th style="padding: 12px;">獎項名稱</th>
+                                <th style="padding: 12px;">中獎條件</th>
+                                <th style="padding: 12px;">每注預計派彩</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr style="border-bottom: 1px solid rgba(255,255,255,0.05);">
+                                <td style="padding: 15px; color: #fff; font-weight: bold;">頭 獎</td>
+                                <td style="padding: 15px;">選中 6 個正字</td>
+                                <td style="padding: 15px; color: #d4af37;">當期累積獎池</td>
+                            </tr>
+                            <tr style="border-bottom: 1px solid rgba(255,255,255,0.05);">
+                                <td style="padding: 15px; color: #fff;">二 獎</td>
+                                <td style="padding: 15px;">選中 5 個正字 (其中一個數字為特別號碼)</td>
+                                <td style="padding: 15px;">當期累積獎池的50%</td>
+                            </tr>
+                            <tr style="border-bottom: 1px solid rgba(255,255,255,0.05);">
+                                <td style="padding: 15px; color: #fff;">三 獎</td>
+                                <td style="padding: 15px;">選中 5 個正字</td>
+                                <td style="padding: 15px;">當期累積獎池的10%</td>
+                            </tr>
+                            <tr style="border-bottom: 1px solid rgba(255,255,255,0.05);">
+                                <td style="padding: 15px; color: #fff;">四 獎</td>
+                                <td style="padding: 15px;">選中 4 個正字 (其中一個數字為特別號碼)</td>
+                                <td style="padding: 15px;">20,000 Gil</td>
+                            </tr>
+                            <tr>
+                                <td style="padding: 15px; color: #fff;">五 獎</td>
+                                <td style="padding: 15px;">選中 3 個正字</td>
+                                <td style="padding: 15px;">10,000 Gil</td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+                    <div style="margin-top: 25px; padding: 15px; background: rgba(184, 107, 255, 0.05); border-radius: 4px; font-size: 0.8rem; color: #888;">
+                        <p>※ 每一注定價為 10,000 Gil。頭獎、二獎及三獎如有多於一人中獎，將平均瓜分累積獎池。<br>※ 所有派彩將於開獎後直接於店內櫃檯進行兌換，請攜同票尾向當值職員查詢。</p>
+                    </div>
+                </div>
+        </section>
+    </div>
+
+    <!-- 這裡放連接 GAS 的 script -->
+    <script>
+      // 💥 填入您的 GAS 網址
+const GAS_URL = "https://script.google.com/macros/s/AKfycbwudPjnrQzKMKsIHrvm0boqptRyVSfoZDF0aGbZw4ksZqknpuxfYDGCD4AyRMEb21TdhQ/exec"; 
+
+// 安全更新函數：放在外面
+const safeSet = (id, value, isHTML = false) => {
+    const el = document.getElementById(id);
+    if (el) {
+        if (isHTML) el.innerHTML = value;
+        else el.innerText = value;
+    } else {
+        console.warn(`找不到網頁欄位: ${id}`);
+    }
+};
+
+async function fetchLottoData() {
+    try {
+        console.log("嘗試連接數據中樞...");
+        const response = await fetch(GAS_URL);
+        const data = await response.json();
+        console.log("數據抓取成功:", data);
+
+        // 1. 更新頭獎金額
+        const formattedJackpot = `${Number(data.jackpot).toLocaleString()} <span style="font-size: 1rem;">Gil</span>`;
+        safeSet('jackpot-amount', formattedJackpot, true);
+
+        // 2. 更新上期號碼
+        const lastResultContainer = document.getElementById('last-result');
+        if (lastResultContainer && data.lastNumbers) {
+            let numbersHTML = '';
+            data.lastNumbers.forEach(num => {
+                const displayNum = num.trim();
+                const opacity = displayNum === '-' ? '0.3' : '1';
+                numbersHTML += `<div class="lotto-number-circle" style="opacity: ${opacity}">${displayNum}</div>`;
+            });
+            numbersHTML += `<div style="width: 10px;"></div>`;
+            const specialOpacity = data.lastSpecial === '-' ? '0.3' : '1';
+            numbersHTML += `<div class="lotto-number-circle special-number" style="opacity: ${specialOpacity}">${data.lastSpecial}</div>`;
+            lastResultContainer.innerHTML = numbersHTML;
+        }
+
+        // 3. 更新派彩紀錄
+        safeSet('last-jackpot-winners', data.winners1);
+        safeSet('last-second-winners', data.winners2);
+        safeSet('last-third-winners', data.winners3);
+        safeSet('last-other-winners', data.winnersOther);
+
+        // 4. 啟動倒計時
+        if (data.countdown) {
+            startCountdown(data.countdown);
+        }
+
+        // 💥 關鍵：所有數據填寫完成後，才讓遮罩淡出
+        setTimeout(() => {
+            const loader = document.getElementById('noctis-loader');
+            if (loader) loader.classList.add('loader-hidden');
+        }, 500);
+
+    } catch (error) {
+        console.error("NOCTIS Data Error:", error);
+        // 如果發生錯誤，也要強行移除遮罩，以免客人卡死
+        setTimeout(() => {
+            const loader = document.getElementById('noctis-loader');
+            if (loader) loader.classList.add('loader-hidden');
+        }, 3000);
+    }
+}
+
+function startCountdown(targetDate) {
+    const target = new Date(targetDate.replace(/-/g, "/").replace("T", " ")).getTime();
+    if (window.lottoInterval) clearInterval(window.lottoInterval);
+
+    window.lottoInterval = setInterval(() => {
+        const now = new Date().getTime();
+        const diff = target - now;
+        const countdownEl = document.getElementById('countdown');
+        if (!countdownEl) return;
+
+        if (diff <= 0) {
+            countdownEl.innerText = "月相觀測中 (DRAWING...)";
+            clearInterval(window.lottoInterval);
+            return;
+        }
+
+        const d = Math.floor(diff / (1000 * 60 * 60 * 24));
+        const h = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+        const m = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+        const s = Math.floor((diff % (1000 * 60)) / 1000);
+
+        countdownEl.innerText = `${String(d).padStart(2,'0')}D ${String(h).padStart(2,'0')}H ${String(m).padStart(2,'0')}M ${String(s).padStart(2,'0')}S`;
+    }, 1000);
+}
+
+window.onload = fetchLottoData;
+    </script>
+</body>
+</html>
