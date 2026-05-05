@@ -46,7 +46,7 @@ const staffDatabase = [
     },
     { 
         id: 'baichai', category: 'host', image: 'Image/1.png', serviceType: 'midnight', name: '白柴小狗狗',
-        race: 'viera', height: '173cm', tags: ['溫柔', '強勢', '色氣'],
+        race: 'viera', height: '183cm', tags: ['溫柔', '強勢', '色氣'],
         motto: '「與其死在戰鬥，不如讓我死在你懷裡。」', rpStyle: '中', sexualPref: 'Any', rolePref: 'Switch, Submissive', filterRoles: ['SWITCH'],
         story: '離開部族後輾轉來到水晶都，本以為只是暫時停留，卻在夜晚被這座城市徹底吞沒。\n\n光影變成情緒的延伸；音樂低頻在地面與身體之間來回震盪，像是某種被放大的心跳。他第一次踏入酒館時，站在邊緣觀察人群笑聲、靠近、試探與退開，在節奏裡反覆交錯。\n\n他很快察覺到自己對這些變化異常敏銳，甚至能預判情緒的流動，在哪個瞬間有人會轉身、誰會在音樂高點失去防備。 \n\n久而久之，他不再只是觀察者，而開始介入那股流動之中。站在燈影與人群之間，用距離、眼神與節奏細微地改變氛圍，讓空氣變得更慢，或更危險；讓某些人靠近，也讓某些人無法離開。\n\n他不屬於任何固定位置，卻總在關鍵時刻出現，像一段無法被抓住的旋律。對他而言，這不只是享樂，而是一種確認自我存在的方式，在混亂與曖昧之中，他終於找到了屬於自己的節拍。 ',
         kinks: '項圈、窒息、受控制', limits: '血腥、污穢、過度貶低'
@@ -67,7 +67,7 @@ const staffDatabase = [
     },
     { 
         id: 'heersen', category: 'host', image: 'Image/1.png', serviceType: 'standard', name: '赫爾森',
-        race: 'aura', height: '185cm', tags: ['寡言', '騎士道', '從屬'],
+        race: 'aura', height: '210cm', tags: ['寡言', '騎士道', '從屬'],
         motto: '「今夜，您想如何折服一名騎士？<br>那身優雅的束縛，將只為一人卸下。」', rpStyle: '中 / 重', sexualPref: 'Any', rolePref: 'Top, Submissive', filterRoles: ['TOP'],
         story: '翠水鄉的居民，離開故鄉後在黃金港結識大方的傭兵雇主，追隨其輾轉於東西方，在傭兵契約結束後在艾奧傑亞開始冒險者的旅途。\n\n為了生活便利在艾奧傑亞另外取了赫爾森這個名字，實際上另有真名。\n他將過往在黃金港輾轉流離的歲月，妥帖地藏在得體的禮節之下。\n\n他平時是沈默寡言的，彷彿只敢趁著夜色從指尖流露出一絲熾熱。\n低垂的眼眸，彷彿在無聲地渴求一份比契約更沈重的牽絆。',
         kinks: 'Deep/Story/Kanshu/Beloved', limits: 'R-18G相關'
