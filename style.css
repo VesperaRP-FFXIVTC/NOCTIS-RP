@@ -1354,7 +1354,7 @@ body, html { margin: 0; padding: 0; box-sizing: border-box; }
 #grid-manager {
     display: flex;
     justify-content: center;
-    margin: 40px 0;
+    margin: 10px 0;
 }
 .boss-rank {
     color: #d4af37 !important;
