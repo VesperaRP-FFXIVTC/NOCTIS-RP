@@ -26,14 +26,17 @@ window.addEventListener('DOMContentLoaded', async () => {
                 const currentTier = radio.value;
 
                 if (currentTier === 'midnight') {
-                    // 選 Midnight 時，把包廂區變暗並鎖定
                     if (roomGroup) roomGroup.style.opacity = '0.4';
                     if (roomSelect) roomSelect.disabled = true;
-                    // ... 這裡保留您原本的 Midnight Notice 顯示邏輯
                 } else {
-                    // 選 Standard 時，恢復正常
                     if (roomGroup) roomGroup.style.opacity = '1';
                     if (roomSelect) roomSelect.disabled = false;
+                }
+
+                // 💥 切換 tier 時立刻更新公關可選狀態
+                const selectedDate = document.querySelector('input[name="date"]:checked');
+                if (selectedDate) {
+                    checkAvailability();
                 }
                 calculateTotal();
             });
@@ -245,15 +248,14 @@ document.getElementById('bookingForm').addEventListener('submit', async (e) => {
     const selectedDate = document.querySelector('input[name="date"]:checked')?.value;
     const selectedTimes = Array.from(document.querySelectorAll('input[name="time"]:checked')).map(cb => cb.value).join(', ');
     const selectedPRs = Array.from(document.querySelectorAll('input[name="prs"]:checked')).map(cb => cb.value);
-    const roomPref = (tierInput === 'MIDNIGHT') ? "私密房間 (預設)" : document.getElementById('room-preference').value;
-    formData.append('roomPreference', roomPref);
+    const tierInput = document.querySelector('input[name="serviceTier"]:checked').value;
+    const roomPref = (tierInput === 'midnight') ? "私密房間 (預設)" : document.getElementById('room-preference').value;
     if (!selectedDate || !selectedTimes || selectedPRs.length === 0) {
         alert("✦ 預約失敗：請完整選擇日期、時段與指名公關。");
         return;
     }
 
     const guestCount = parseInt(document.getElementById('guest-count').value);
-    const tierInput = document.querySelector('input[name="serviceTier"]:checked').value;
     const requiredPRs = (tierInput === 'midnight') ? 1 : Math.ceil(guestCount / 3);
 
     if (selectedPRs.length !== requiredPRs) {
@@ -266,6 +268,7 @@ document.getElementById('bookingForm').addEventListener('submit', async (e) => {
     submitBtn.disabled = true;
 
     const formData = new FormData();
+    formData.append('roomPreference', roomPref);
     formData.append('name', document.getElementById('name').value);
     formData.append('contact', document.getElementById('contact-info').value);
     formData.append('serviceTier', tierInput.toUpperCase());

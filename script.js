@@ -19,7 +19,7 @@ const staffDatabase = [
         id: 'inu', category: 'manager', image: 'Image/Inu.png', serviceType: 'midnight', name: 'Inu',
         profileImage: 'Image/Inu_profile.png',
         race: 'miqote', height: '165cm', tags: ['可愛', '色氣', '腹黑', '傲嬌'],
-        motto: '「NOCTIS 的夜晚，由我為您守護。」',
+        motto: '「歡迎來到NOCTIS，想要觸摸更深處更無人知曉我嗎？」',
         story: ' 關於店長 Inu 的長篇背景故事...寫在這裡就不會重覆了。',
         rpStyle: '鏡像 / 輕 / 中', sexualPref: 'MALE', rolePref: 'Bottom / Submissive', filterRoles: ['BOTTOM'],
         kinks: '親吻，Spanking，項圈，言語羞辱', limits: '血腥、排泄物'
