@@ -74,7 +74,7 @@ const staffDatabase = [
     },
     { 
         id: 'leier', category: 'host', image: 'Image/雷爾.png', serviceType: 'standard', name: '伊斯雷爾',
-        profileImage: 'Image/伊斯雷爾_profile.png',
+        profileImage: 'Image/雷爾_profile.png',
         race: 'miqote', height: '173cm', tags: ['陽光', '熱情', '直率', '心思細膩'],
         motto: '「眼觀八方財，心繫一人憂。」', rpStyle: '輕 / 中', sexualPref: 'Male', rolePref: 'Bottom', filterRoles: ['BOTTOM'],
         story: '出身於遠東之國，自幼無雙親在黃金港的街頭長大，長大後受到了烏爾達哈商會的漢考克賞識，成為了黃金港的港口商人，因熱愛助人，久而久之成為港口的「萬事屋」。 \n\n某天在港口認識了某位光之戰士，受到了光之戰士旅途故事的影響，為了拓展眼界及幫助更多人，與商會的漢考克先生道別後，揹起了行李，朝向大海的另一端展開了「NEW FOUND ADVENTURE」。 ',
@@ -106,7 +106,7 @@ const staffDatabase = [
     },
     { 
         id: 'selfor', category: 'host', image: 'Image/菲爾.png', serviceType: 'standard', name: '瑟歐菲爾',
-        profileImage: 'Image/瑟歐菲爾_profile.png',
+        profileImage: 'Image/菲爾_profile.png',
         race: 'viera', height: '183.8cm (不包含耳朵)', tags: ['溫和', '敏銳', '略帶疏離感的優雅'],
         motto: '「旅途教會我如何忍受孤獨，卻沒教我如何在黑夜裡，<br>拒絕一個同樣寂寞的靈魂。」', rpStyle: '鏡像 / 輕', sexualPref: 'Any', rolePref: 'Switch', filterRoles: ['SWITCH'],
         story: '出生於森林的維艾拉族，是一名浪跡於世界各地的旅人。因為長年的漂泊而習慣了孤獨，也練就了感受他人情緒的敏銳直覺。\n\n為了籌措下一段旅程的旅費而在 NOCTIS 暫時停駐。\n\n不擅長花言巧語，有時說話帶著些許拘謹的迂迴，溫和卻不易深交。對他而言，這裡只是漫長旅途中的一個驛站，他並不尋求歸宿，只願在離去前的每一場相遇中，為那些同樣寂寞的人提供一絲能驅散寒冷的溫暖。',
@@ -122,7 +122,7 @@ const staffDatabase = [
     },
     { 
         id: 'tuzhi', category: 'host', image: 'Image/兔紙.png', serviceType: 'midnight', name: '兔紙不吃紙',
-        profileImage: 'Image/兔紙不吃紙_profile.png',
+        profileImage: 'Image/兔紙_profile.png',
         race: 'viera', height: '186.5cm', tags: ['直球', '隨性', '無厘頭'],
         motto: '「如果你覺得有點熱，我可以幫你降溫一下，<br>但等一下想打人的時候，還請你手下留情（輕笑）。」', rpStyle: '輕', sexualPref: 'Any', rolePref: 'Switch', filterRoles: ['SWITCH'],
         story: '為了蒐集笑話而在某間酒吧打工，在這期間認識了許許多多不同的人們，與其中某些人締交了深刻的情誼成為了家人，在領養了許多小孩後，為了賺錢而在尋找不同店的打工機會。\n\n終於在因緣際會之下看見了NOCTIS的傳單——— \n黑色的長靴慢悠悠地踏在走向貓咖的路上，維艾拉的長耳微微的晃動著，轉頭一瞥見到了店長張貼的招募，隱藏在面具之下的嘴角微微上揚著\n「欸……公關嗎？好像……挺有意思的。」\n帶著一抹耐人尋味的笑容推開了店門走向店長\n\n「請問，這裡有收不想當人的人嗎？」 ',
@@ -154,7 +154,7 @@ const staffDatabase = [
     },
     { 
         id: 'elenos', category: 'host', image: 'Image/伊萊.png', serviceType: 'midnight', name: '伊萊諾斯',
-        profileImage: 'Image/伊萊諾斯_profile.png',
+        profileImage: 'Image/伊萊_profile.png',
         race: 'viera', height: '188.5cm', tags: ['斯文', '溫柔', '悶騷', '表裡不一', '佔有慾強'],
         motto: ' 「哪一面的我才是真正的我，這問題有很重要嗎？」', rpStyle: '鏡像', sexualPref: 'Any', rolePref: 'Switch, Soft Dom', filterRoles: ['SWITCH'],
         story: '伊萊諾斯是在伊修加爾德郊外的雪地裡被撿到的孤兒，發現他的是一位年邁的神職人員。\n他在修道院的圖書室裡長大，與書本和窗台上的花為伴，自神學院畢業後本應走上神職之路，卻在養父過世後離開了那座終年積雪的城市。 \n\n遊歷四方期間，他以兼職偶像的身分在小型場地獻唱。\n\n被問起為何總是忙碌於各式各樣的工作之中，他總笑著說是為了籌措團體的活動資金——只是熟識的人偶爾會疑惑，他似乎並不缺錢，真正的目的也從未有人探得。 \n\n在俱樂部裡，他始終蒙著眼睛，被指認身分時只是溫和地搖頭否認。\n對於席間的歡笑言談，他總像隔著一層薄霧般置身事外。\n雖然溫柔，卻極少展現自己真正的心情。',
