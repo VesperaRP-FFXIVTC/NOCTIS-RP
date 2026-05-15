@@ -21,7 +21,7 @@ const staffDatabase = [
         race: 'miqote', height: '165cm', tags: ['可愛', '色氣', '腹黑', '傲嬌'],
         motto: '「歡迎來到NOCTIS，想要觸摸更深處更無人知曉我嗎？」',
         story: '店長Inu的故事...... <br>就由你來一層一層，像脫衣服一樣，慢慢剝開他的神秘面紗吧 ❤',
-        rpStyle: '鏡像 / 輕 / 中', sexualPref: 'Male', rolePref: 'Bottom / Submissive', filterRoles: ['BOTTOM'],
+        rpStyle: '鏡像 / 輕 / 中', sexualPref: 'Male', rolePref: 'Bottom, Submissive', filterRoles: ['BOTTOM'],
         kinks: '親吻，Spanking，項圈，言語羞辱', limits: '血腥、排泄物'
     },
     { id: 'enki', category: 'support', name: '恩奇', role: 'RECEPTIONIST/ 接待員', image: 'Image/1.png' },
