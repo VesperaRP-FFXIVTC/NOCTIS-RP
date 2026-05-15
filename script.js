@@ -46,7 +46,7 @@ const staffDatabase = [
         race: 'aura', height: '217cm', tags: ['隨心所欲', '色氣', '慵懶'],
         motto: '「甜心，你願意和我一起做夢嗎？」', rpStyle: '鏡像', sexualPref: 'Any', rolePref: 'Top', filterRoles: ['TOP'],
         story: '很小便離開了家鄉和部族，跟著父親輾轉流浪各地。 \n\n和父親旅行至烏爾達哈，落腳當地的旅店，由於某種原因選擇留在當地的鬥技場，以舞劍術維生，過著放蕩且縱慾的日子。 \n\n在龍蛇混雜的環境裡因為抽過太多奇奇怪怪的東西，有時候會流鼻血。\n偶爾似乎會有哪裡怪怪的…… ',
-        kinks: '體格差、牙印、寫字、口球、瀕死', limits: '排泄物、辱罵'
+        kinks: '體格差、牙印、寫字、口球', limits: '排泄物、辱罵'
     },
     { 
         id: 'cyan', category: 'host', image: 'Image/賽安.png', serviceType: 'standard', name: '賽安',
