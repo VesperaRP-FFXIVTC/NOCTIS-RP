@@ -265,6 +265,9 @@ body, html { margin: 0; padding: 0; box-sizing: border-box; }
     list-style: none;
     gap: 40px;
     margin: 0; padding: 0;
+    flex: 1;
+    justify-content: flex-end;
+    margin-right: 20px;
 }
 
 .nav-menu a {
@@ -2716,4 +2719,132 @@ input[name="prs"]:disabled + .select-box {
     box-shadow: 0 0 20px rgba(212, 175, 55, 0.4);
     text-align: center;
     line-height: 1.5;
+}
+/* ===== 撕裂效果 (公關陣容卡片) ===== */
+.cast-img-wrapper {
+    position: relative;
+    overflow: hidden;
+}
+
+.cast-img-wrapper .img-naked {
+    position: absolute;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    object-fit: cover;
+    object-position: top;
+    z-index: 1;
+}
+
+.cast-img-wrapper .tear-left,
+.cast-img-wrapper .tear-right {
+    position: absolute;
+    top: 0;
+    width: 50%;
+    height: 100%;
+    z-index: 2;
+    overflow: hidden;
+    transition: transform 0.45s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+.cast-img-wrapper .tear-left  { left: 0;  transform-origin: left center; }
+.cast-img-wrapper .tear-right { right: 0; transform-origin: right center; }
+
+.cast-img-wrapper .tear-left  img,
+.cast-img-wrapper .tear-right img {
+    position: absolute;
+    top: 0;
+    width: 200%;
+    height: 100%;
+    object-fit: cover;
+    object-position: top;
+}
+
+.cast-img-wrapper .tear-left  img { left: 0; }
+.cast-img-wrapper .tear-right img { right: 0; }
+
+.cast-img-wrapper .tear-left  { clip-path: polygon(0 0, calc(100% - 12px) 0, calc(100% - 8px) 6%, calc(100% - 16px) 12%, calc(100% - 4px) 18%, calc(100% - 14px) 24%, calc(100% - 6px) 30%, calc(100% - 18px) 36%, calc(100% - 2px) 42%, calc(100% - 16px) 48%, calc(100% - 8px) 54%, calc(100% - 20px) 60%, calc(100% - 4px) 66%, calc(100% - 14px) 72%, calc(100% - 6px) 78%, calc(100% - 18px) 84%, calc(100% - 8px) 90%, calc(100% - 12px) 96%, calc(100% - 6px) 100%, 0 100%); }
+.cast-img-wrapper .tear-right { clip-path: polygon(12px 0, 100% 0, 100% 100%, 6px 100%, 10px 96%, 18px 90%, 4px 84%, 16px 78%, 6px 72%, 14px 66%, 2px 60%, 18px 54%, 6px 48%, 20px 42%, 4px 36%, 16px 30%, 8px 24%, 14px 18%, 2px 12%, 14px 6%, 8px 0); }
+
+.staff-card:hover .tear-left  { transform: translateX(-108%) rotate(-2deg); }
+.staff-card:hover .tear-right { transform: translateX(108%)  rotate(2deg);  }
+
+/* ===== Discord 按鈕 ===== */
+.discord-nav-btn {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    color: #fff;
+    text-decoration: none;
+    font-size: 0.8rem;
+    letter-spacing: 2px;
+    padding: 6px 14px;
+    border: 1px solid rgba(88, 101, 242, 0.5);
+    background: rgba(88, 101, 242, 0.15);
+    border-radius: 2px;
+    transition: all 0.3s ease;
+    white-space: nowrap;
+    margin-left: 20px;
+}
+.discord-nav-btn:hover {
+    background: rgba(88, 101, 242, 0.4);
+    border-color: #5865f2;
+    box-shadow: 0 0 15px rgba(88, 101, 242, 0.4);
+    color: #fff;
+}
+
+.discord-loc-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    color: #fff;
+    text-decoration: none;
+    font-size: 0.8rem;
+    letter-spacing: 2px;
+    padding: 6px 14px;
+    border: 1px solid rgba(88, 101, 242, 0.5);
+    background: rgba(88, 101, 242, 0.15);
+    border-radius: 2px;
+    transition: all 0.3s ease;
+    white-space: nowrap;
+}
+.discord-loc-btn:hover {
+    background: rgba(88, 101, 242, 0.4);
+    border-color: #5865f2;
+    box-shadow: 0 0 15px rgba(88, 101, 242, 0.4);
+    color: #fff;
+}
+
+/* 地址 + Discord 並排容器 */
+.hero-location-row {
+    display: inline-flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 12px;
+    margin-top: 25px;
+}
+
+.hero-location-row .hero-location {
+    margin-top: 0;
+}
+
+.discord-loc-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  color: #fff;
+  text-decoration: none;
+  font-size: 0.8rem;
+  letter-spacing: 2px;
+  padding: 6px 14px;
+  border: 1px solid rgba(88, 101, 242, 0.5);
+  background: rgba(88, 101, 242, 0.15);
+  border-radius: 2px;
+  transition: all 0.3s ease;
+  white-space: nowrap;
+}
+.discord-loc-btn:hover {
+  background: rgba(88, 101, 242, 0.4);
+  border-color: #5865f2;
+  box-shadow: 0 0 15px rgba(88, 101, 242, 0.4);
+  color: #fff;
 }
