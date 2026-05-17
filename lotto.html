@@ -405,6 +405,10 @@
                                 <span style="color: #ccc;">五獎：</span>
                                 <span><span id="last-fifth-winners">-</span> 注</span>
                             </div>
+                            <div class="price-row" style="display: flex; justify-content: space-between; border-top: 1px solid rgba(255,255,255,0.1); padding-top: 12px;">
+                                <span style="color: rgba(192,132,252,0.8);">星塵獎：</span>
+                                <span><span id="last-stardust-winners">-</span> 注</span>
+                            </div>
                         </div>
                     </div>
                 </div> <!-- 💥 關鍵：在這裡把雙欄容器關掉 -->
@@ -469,7 +473,7 @@
                                 <td style="padding: 15px;">10,000 Gil</td>
                             </tr>
                             <tr>
-                                <td style="padding: 15px; color: #fff;">星屑獎</td>
+                                <td style="padding: 15px; color: #fff;">星塵獎</td>
                                 <td style="padding: 15px;">選中 2 個正字</td>
                                 <td style="padding: 15px;">2,000 Gil</td>
                             </tr>
@@ -531,6 +535,7 @@ async function fetchLottoData() {
         safeSet('last-third-winners', data.winners3);
         safeSet('last-fourth-winners', data.winners4 || '-');
         safeSet('last-fifth-winners', data.winners5 || '-');
+        safeSet('last-stardust-winners', data.winners6 || '-');
 
         // 4. 啟動倒計時
         if (data.countdown) {
