@@ -36,7 +36,7 @@ const staffDatabase = [
         profileImage: 'Image/艾里_profile.png',
         race: 'miqote', height: '160cm', tags: ['溫柔', '紳士', '神秘'],
         motto: '「每一次心意相通的瞬間都是如此珍貴，<br>我無法將其當作偶然而視而不見。」',
-        story: ' 雲遊四海的吟遊詩人，流連於不同男人的溫柔鄉之中。\n\n廣大的心胸如星海一般遼闊，是爲每一位戀人都能擁有一顆專屬的星星。 \n\n透過將每一段緣份寫成詩歌以獲得更強大的力量，並將每一個令人銘記的瞬間永恆的傳唱下去。 \n\n像風一樣隨遇而安、也像風一樣無法被抓住，沒有真正的屬於誰、卻也可以同時屬於任何人，是女士最可靠的情感支柱、是男士心頭上的一點硃砂痣。 \n\n對貓魅族男性有著不可抗拒的迷戀，對其他種族男性則是友善的喜愛。 \n\n為了能夠再次踏上旅行而來到NOCTIS打工，聽聞店長是貓男又更不想離開了。 \n\n討厭任何不紳士的行為，路見不平會拔弓嚴逞。',
+        story: ' 雲遊四海的吟遊詩人，流連於不同男人的溫柔鄉之中。\n\n廣大的心胸如星海一般遼闊，是爲每一位戀人都能擁有一顆專屬的星星。 \n\n透過將每一段緣份寫成詩歌以獲得更強大的力量，並將每一個令人銘記的瞬間永恆的傳唱下去。 \n\n像風一樣隨遇而安、也像風一樣無法被抓住，沒有真正的屬於誰、卻也可以同時屬於任何人，是女士最可靠的情感支柱、是男士心頭上的一點硃砂痣。 \n\n對貓魅族男性有著不可抗拒的迷戀，對其他種族男性則是友善的喜愛。 \n\n為了能夠再次踏上旅行而來到NOCTIS打工，聽聞店長是貓男又更不想離開了。 \n\n討厭任何不紳士的行為，路見不平會拔弓嚴懲。',
         rpStyle: '鏡像', sexualPref: 'Male', rolePref: 'Top', filterRoles: ['TOP'],
         kinks: 'N/A', limits: '全裸、排泄、非人、血腥暴力、言詞羞辱'
     },
@@ -153,7 +153,7 @@ const staffDatabase = [
         kinks: '胸腰癖好、支配、言語羞辱、感官刺激', limits: '不接待魯加族的客人、血腥獵奇、排泄物、客人自虐 '
     },
     { 
-        id: 'elenos', category: 'host', image: 'Image/伊萊.png', serviceType: 'midnight', name: '伊萊諾斯',
+        id: 'elenos', category: 'host', image: 'Image/伊萊.png', serviceType: 'standard', name: '伊萊諾斯',
         profileImage: 'Image/伊萊_profile.png',
         race: 'viera', height: '188.5cm', tags: ['斯文', '溫柔', '悶騷', '表裡不一', '佔有慾強'],
         motto: ' 「哪一面的我才是真正的我，這問題有很重要嗎？」', rpStyle: '鏡像', sexualPref: 'Any', rolePref: 'Switch, Soft Dom', filterRoles: ['SWITCH'],
