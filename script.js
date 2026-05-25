@@ -113,7 +113,7 @@ const staffDatabase = [
         kinks: '西裝/制服、修長的手指、動物耳朵、近距離的氣味嗅聞', limits: '深吻、血腥 、不對等關係。'
     },
     { 
-        id: 'silas', category: 'host', image: 'Image/Silas.png', serviceType: 'standard', name: 'Silas',
+        id: 'silas', category: 'host', image: 'Image/Silas.png', serviceType: 'standard', name: 'Caleb',
         profileImage: 'Image/Silas_profile.png',
         race: 'hyur', height: '178cm', tags: ['溫柔', '小笨蛋', '大狗系', '反差感', '純愛'],
         motto: '「沒關係，你可以慢慢說，我會一直在這裡聽。」', rpStyle: '鏡像 / 輕', sexualPref: 'Male', rolePref: 'Switch, Soft Dom', filterRoles: ['SWITCH'],
@@ -129,7 +129,7 @@ const staffDatabase = [
         kinks: '制服', limits: '兒童、血腥、排泄物'
     },
     { 
-        id: 'uighur', category: 'host', image: 'Image/維梧爾.png', serviceType: 'midnight', name: '維梧爾',
+        id: 'uighur', category: 'host', image: 'Image/維梧爾.png', serviceType: 'midnight', name: 'Moderato',
         profileImage: 'Image/維梧爾_profile.png',
         race: 'miqote', height: '180cm', tags: ['紳士', '悶騷'],
         motto: '「燈火闌珊處，此刻，我的心對你不再掩藏。」', rpStyle: '鏡像 / 中', sexualPref: 'Male', rolePref: 'Top', filterRoles: ['TOP'],
