@@ -24,12 +24,12 @@ const staffDatabase = [
         rpStyle: '鏡像 / 輕 / 中', sexualPref: 'Male', rolePref: 'Bottom, Submissive', filterRoles: ['BOTTOM'],
         kinks: '親吻，Spanking，項圈，言語羞辱', limits: '血腥、排泄物'
     },
-    { id: 'enki', category: 'support', name: '恩奇', role: 'RECEPTIONIST/ 接待員', image: 'Image/1.png' },
-    { id: 'eating', category: 'support', name: 'E', role: 'RECEPTIONIST/ 接待員', image: 'Image/1.png' },
-    { id: 'jian', category: 'support', name: '蒔健', role: 'RECEPTIONIST / 接待員', image: 'Image/1.png' },
-    { id: 'chiyu', category: 'support', name: '赤羽', role: 'RECEPTIONIST / 接待員', image: 'Image/1.png' },
-    { id: 'laio', category: 'support', name: '燎', role: 'BARTENDER / 調酒師', image: 'Image/1.png' },
-    { id: 'miko', category: 'support', name: '咪子', role: 'BARTENDER / 調酒師', image: 'Image/1.png' },
+    { id: 'enki', category: 'support', name: '恩奇', role: 'RECEPTIONIST/ 接待員', image: 'Image/倒頭.png' },
+    { id: 'eating', category: 'support', name: 'E', role: 'RECEPTIONIST/ 接待員', image: 'Image/EATING.png' },
+    { id: 'jian', category: 'support', name: '蒔健', role: 'RECEPTIONIST / 接待員', image: 'Image/阿健.png' },
+    { id: 'chiyu', category: 'support', name: '赤羽', role: 'RECEPTIONIST / 接待員', image: 'Image/赤羽.png' },
+    { id: 'laio', category: 'support', name: '燎', role: 'BARTENDER / 調酒師', image: 'Image/燎.png' },
+    { id: 'miko', category: 'support', name: '咪子', role: 'BARTENDER / 調酒師', image: 'Image/咪子.png' },
     // --- 公關陣容 (Host) ---
     { 
         id: 'aly', category: 'host', image: 'Image/艾里.png', serviceType: 'standard', name: '艾里',
@@ -317,7 +317,7 @@ function renderMembersPage() {
         card.innerHTML = `
             <div class="cast-img-wrapper"><img src="${support.image}" alt="${support.name}"></div>
             <div class="staff-info">
-                <span class="rank" style="color:#8a2be2; font-size:0.7rem;">${support.role || 'STAFF'}</span>
+                <span class="rank" style="color:#b86bff; font-size:0.75rem; letter-spacing:1px; font-weight:bold; text-shadow: 0 0 8px rgba(184,107,255,0.8);">${support.role || 'STAFF'}</span>
                 <h3 class="name">${support.name}</h3>
             </div>
         `;

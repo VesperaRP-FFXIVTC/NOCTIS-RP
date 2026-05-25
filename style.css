@@ -495,7 +495,7 @@ body, html { margin: 0; padding: 0; box-sizing: border-box; }
     width: 100%; height: 100%;
     
     /* 💥 核心修改：使用純色半透明黑，取代漸層光圈 */
-    background: rgba(0, 0, 0, 0.4); 
+    background:  rgba(0, 0, 0, 0.2);
     
     z-index: 5;
     pointer-events: none;
