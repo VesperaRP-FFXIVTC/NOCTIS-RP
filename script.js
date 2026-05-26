@@ -364,7 +364,9 @@ document.addEventListener('DOMContentLoaded', () => {
     function initHeroSlider() {
         const slides = document.querySelectorAll('.hero-slider .slide');
         if (slides.length === 0) return;
-        let currentSlide = 0;
+       let currentSlide = Math.floor(Math.random() * slides.length);
+slides.forEach(s => s.classList.remove('active'));
+slides[currentSlide].classList.add('active');
         setInterval(() => {
             const prevSlide = currentSlide;
             slides[prevSlide].classList.remove('active');
