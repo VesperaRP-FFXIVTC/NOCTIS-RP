@@ -106,14 +106,6 @@ const staffDatabase = [
         kinks: '撩人語氣、稱呼變化、慢慢靠近的過程', limits: '拉拉菲爾族'
     },
     { 
-        id: 'selfor', category: 'host', image: 'Image/菲爾.png', serviceType: 'standard', name: '瑟歐菲爾',
-        profileImage: 'Image/菲爾_profile.png',
-        race: 'viera', height: '183.8cm (不包含耳朵)', tags: ['溫和', '敏銳', '略帶疏離感的優雅'],
-        motto: '「旅途教會我如何忍受孤獨，卻沒教我如何在黑夜裡，<br>拒絕一個同樣寂寞的靈魂。」', rpStyle: '鏡像 / 輕', sexualPref: 'Any', rolePref: 'Switch', filterRoles: ['SWITCH'],
-        story: '出生於森林的維艾拉族，是一名浪跡於世界各地的旅人。因為長年的漂泊而習慣了孤獨，也練就了感受他人情緒的敏銳直覺。\n\n為了籌措下一段旅程的旅費而在 NOCTIS 暫時停駐。\n\n不擅長花言巧語，有時說話帶著些許拘謹的迂迴，溫和卻不易深交。對他而言，這裡只是漫長旅途中的一個驛站，他並不尋求歸宿，只願在離去前的每一場相遇中，為那些同樣寂寞的人提供一絲能驅散寒冷的溫暖。',
-        kinks: '西裝/制服、修長的手指、動物耳朵、近距離的氣味嗅聞', limits: '深吻、血腥 、不對等關係。'
-    },
-    { 
         id: 'silas', category: 'host', image: 'Image/Silas.png', serviceType: 'standard', name: 'Caleb',
         profileImage: 'Image/Silas_profile.png',
         race: 'hyur', height: '178cm', tags: ['溫柔', '小笨蛋', '大狗系', '反差感', '純愛'],
@@ -137,30 +129,6 @@ const staffDatabase = [
         story: '他隱身在人群與燈火之間。 \n細框眼鏡後的目光溫和而專注。在酒館裡常常遇見他的身影，輕抿一口威士忌，閱讀那屬於艾奧傑亞的篇章，他對香氛也有些講究，乾淨而不張揚的禮節紳士。 \n\n生於利姆薩·羅敏薩，為了尋找詩歌與生命意義而走上了旅途，外表年輕的他卻擁有者沉著的老靈魂。 \n沉著背後似乎帶著秘密，讓人不知不覺渴望探索。 \n\n等你起身離開時，大概也不會立刻察覺—— 只是過了一段時間，你想起在那金絲眼鏡下炙熱的眼眸。',
         kinks: '輕BDSM、氣味', limits: '獵奇、排泄、逆位'
     },
-    { 
-        id: 'saltedfish', category: 'host', image: 'Image/鹹魚.png', serviceType: 'standard', name: '鹹魚',
-        profileImage: 'Image/鹹魚_profile.png',
-        race: 'hyur', height: '200cm', tags: ['沉穩', '溫柔', '神祕'],
-        motto: '「別怕，星辰的指引或許冷冽，但我的手心並非如此……靠近點。」', rpStyle: '輕', sexualPref: 'Any', rolePref: 'Switch', filterRoles: ['SWITCH'],
-        story: '出身於北境的高地之民，擁有著足以令人屏息的精實體魄與寬闊背影。\n\n曾遠赴薩雷安深造神秘學，在那裡習得瞭解星辰與靈魂波長的技法。\n\n結束深造後，他平日裡深居簡出，專研命運的盈虧與月相。\n唯有在特定的深夜，才會出現在店內，為尋求指引的旅人撥開迷霧。 ',
-        kinks: '體型差、眼鏡', limits: '血腥'
-    },
-    { 
-        id: 'yanluo', category: 'host', image: 'Image/閻羅.png', serviceType: 'midnight', name: '閻羅',
-        profileImage: 'Image/閻羅_profile.png',
-        race: 'elezen', height: '209cm', tags: ['斯文敗類', '強烈佔有慾', '危險神祕'],
-        motto: '「不用緊張，在這裡，我只帶走你的寂寞。」', rpStyle: '鏡像', sexualPref: 'Any', rolePref: 'Switch', filterRoles: ['SWITCH'],
-        story: ' 他從有記憶以來就在伊修加爾德成長，身為孤兒的他被異端審問局收留，也被培養成「清道夫」，一雙手沾滿鮮血。 \n\n在一次違抗審問局的命令，被追殺的時候，他苟延殘喘、身負重傷地來到利姆薩．羅敏薩，他被一位不知名的恩人救下，身體復原後，已不見恩人的蹤影。 \n\n如今的他換上筆挺的西裝，隱藏在高級俱樂部中擔任接待。\n一邊替客人沒收寂寞，一邊在黑夜中無聲地等待那個或許永遠不會出現的救命恩人。 ',
-        kinks: '胸腰癖好、支配、言語羞辱、感官刺激', limits: '不接待魯加族的客人、血腥獵奇、排泄物、客人自虐 '
-    },
-    { 
-        id: 'elenos', category: 'host', image: 'Image/伊萊.png', serviceType: 'standard', name: '伊萊諾斯',
-        profileImage: 'Image/伊萊_profile.png',
-        race: 'viera', height: '188.5cm', tags: ['斯文', '溫柔', '悶騷', '表裡不一', '佔有慾強'],
-        motto: ' 「哪一面的我才是真正的我，這問題有很重要嗎？」', rpStyle: '鏡像', sexualPref: 'Any', rolePref: 'Switch, Soft Dom', filterRoles: ['SWITCH'],
-        story: '伊萊諾斯是在伊修加爾德郊外的雪地裡被撿到的孤兒，發現他的是一位年邁的神職人員。\n他在修道院的圖書室裡長大，與書本和窗台上的花為伴，自神學院畢業後本應走上神職之路，卻在養父過世後離開了那座終年積雪的城市。 \n\n遊歷四方期間，他以兼職偶像的身分在小型場地獻唱。\n\n被問起為何總是忙碌於各式各樣的工作之中，他總笑著說是為了籌措團體的活動資金——只是熟識的人偶爾會疑惑，他似乎並不缺錢，真正的目的也從未有人探得。 \n\n在俱樂部裡，他始終蒙著眼睛，被指認身分時只是溫和地搖頭否認。\n對於席間的歡笑言談，他總像隔著一層薄霧般置身事外。\n雖然溫柔，卻極少展現自己真正的心情。',
-        kinks: '體溫差、耳朵、調教、束縛、鎖骨/後頸、邊緣控制、隱藏的佔有慾、蒙眼', limits: '未成年、血腥、排泄物、強制、貶低'
-    }
 ];
 
 // --- 2. 核心渲染函數 ---
