@@ -114,14 +114,6 @@ const staffDatabase = [
         kinks: '無', limits: 'ERP、血腥、排泄、極端暴力、未成年、非合意行為、羞辱、獵奇內容'
     },
     { 
-        id: 'tuzhi', category: 'host', image: 'Image/兔紙.png', serviceType: 'midnight', name: '兔紙不吃紙',
-        profileImage: 'Image/兔紙_profile.png',
-        race: 'viera', height: '186.5cm', tags: ['直球', '隨性', '無厘頭'],
-        motto: '「如果你覺得有點熱，我可以幫你降溫一下，<br>但等一下想打人的時候，還請你手下留情（輕笑）。」', rpStyle: '輕', sexualPref: 'Any', rolePref: 'Switch', filterRoles: ['SWITCH'],
-        story: '為了蒐集笑話而在某間酒吧打工，在這期間認識了許許多多不同的人們，與其中某些人締交了深刻的情誼成為了家人，在領養了許多小孩後，為了賺錢而在尋找不同店的打工機會。\n\n終於在因緣際會之下看見了NOCTIS的傳單——— \n黑色的長靴慢悠悠地踏在走向貓咖的路上，維艾拉的長耳微微的晃動著，轉頭一瞥見到了店長張貼的招募，隱藏在面具之下的嘴角微微上揚著\n「欸……公關嗎？好像……挺有意思的。」\n帶著一抹耐人尋味的笑容推開了店門走向店長\n\n「請問，這裡有收不想當人的人嗎？」 ',
-        kinks: '制服', limits: '兒童、血腥、排泄物'
-    },
-    { 
         id: 'uighur', category: 'host', image: 'Image/維梧爾.png', serviceType: 'midnight', name: 'Moderato',
         profileImage: 'Image/維梧爾_profile.png',
         race: 'miqote', height: '180cm', tags: ['紳士', '悶騷'],
