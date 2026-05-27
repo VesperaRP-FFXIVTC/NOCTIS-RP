@@ -66,14 +66,6 @@ const staffDatabase = [
         kinks: '輕度壓迫或請託', limits: '髒髒的東西'
     },
     { 
-        id: 'heersen', category: 'host', image: 'Image/赫爾森.png', serviceType: 'standard', name: '赫爾森',
-        profileImage: 'Image/赫爾森_profile.png',
-        race: 'aura', height: '210cm', tags: ['寡言', '騎士道', '從屬'],
-        motto: '「今夜，您想如何折服一名騎士？<br>那身優雅的束縛，將只為一人卸下。」', rpStyle: '中 / 重', sexualPref: 'Any', rolePref: 'Top, Submissive', filterRoles: ['TOP'],
-        story: '翠水鄉的居民，離開故鄉後在黃金港結識大方的傭兵雇主，追隨其輾轉於東西方，在傭兵契約結束後在艾奧傑亞開始冒險者的旅途。\n\n為了生活便利在艾奧傑亞另外取了赫爾森這個名字，實際上另有真名。\n他將過往在黃金港輾轉流離的歲月，妥帖地藏在得體的禮節之下。\n\n他平時是沈默寡言的，彷彿只敢趁著夜色從指尖流露出一絲熾熱。\n低垂的眼眸，彷彿在無聲地渴求一份比契約更沈重的牽絆。',
-        kinks: 'Deep/Story/Kanshu/Beloved', limits: 'R-18G相關'
-    },
-    { 
         id: 'leier', category: 'host', image: 'Image/雷爾.png', serviceType: 'standard', name: '伊斯雷爾',
         profileImage: 'Image/雷爾_profile.png',
         race: 'miqote', height: '173cm', tags: ['陽光', '熱情', '直率', '心思細膩'],
