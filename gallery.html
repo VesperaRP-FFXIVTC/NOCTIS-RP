@@ -3,7 +3,331 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>NOCTIS - 頁面名稱</title> <link rel="stylesheet" href="style.css">
+    <title>NOCTIS - 活動花絮</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        /* ── Gallery Page Styles ── */
+        .gallery-hero {
+            padding: 120px 40px 60px;
+            text-align: center;
+        }
+        .gallery-hero .section-eyebrow {
+            font-size: 0.75rem;
+            letter-spacing: 0.4em;
+            color: var(--accent, #a78bfa);
+            text-transform: uppercase;
+            margin-bottom: 12px;
+        }
+        .gallery-hero h1 {
+            font-size: clamp(2rem, 5vw, 3.5rem);
+            letter-spacing: 0.2em;
+            color: var(--text-primary, #e2d9f3);
+            font-weight: 300;
+            margin: 0 0 16px;
+        }
+        .gallery-hero p {
+            color: var(--text-muted, #888);
+            font-size: 0.9rem;
+            letter-spacing: 0.1em;
+        }
+
+        /* ── Event Grid ── */
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+            gap: 32px;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 40px 100px;
+        }
+
+        .event-card {
+            position: relative;
+            border-radius: 4px;
+            overflow: hidden;
+            cursor: pointer;
+            background: #0d0d14;
+            border: 1px solid rgba(167, 139, 250, 0.12);
+            transition: border-color 0.3s ease, transform 0.3s ease;
+        }
+        .event-card:hover {
+            border-color: rgba(167, 139, 250, 0.45);
+            transform: translateY(-4px);
+        }
+
+        .event-card-cover {
+            width: 100%;
+            aspect-ratio: 16 / 9;
+            object-fit: cover;
+            display: block;
+            transition: transform 0.5s ease, filter 0.5s ease;
+            filter: brightness(0.85);
+        }
+        .event-card:hover .event-card-cover {
+            transform: scale(1.04);
+            filter: brightness(1);
+        }
+
+        .event-card-overlay {
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(to top, rgba(5,4,12,0.92) 0%, rgba(5,4,12,0.2) 55%, transparent 100%);
+            pointer-events: none;
+        }
+
+        .event-card-info {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            padding: 20px 22px;
+        }
+        .event-card-date {
+            font-size: 0.7rem;
+            letter-spacing: 0.3em;
+            color: var(--accent, #a78bfa);
+            margin-bottom: 6px;
+        }
+        .event-card-title {
+            font-size: 1.05rem;
+            letter-spacing: 0.12em;
+            color: #e2d9f3;
+            font-weight: 400;
+            margin: 0 0 8px;
+        }
+        .event-card-count {
+            font-size: 0.72rem;
+            color: #666;
+            letter-spacing: 0.15em;
+        }
+
+        .event-card-btn {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%) scale(0.85);
+            opacity: 0;
+            background: rgba(167, 139, 250, 0.15);
+            border: 1px solid rgba(167, 139, 250, 0.6);
+            color: #e2d9f3;
+            padding: 10px 24px;
+            font-size: 0.75rem;
+            letter-spacing: 0.3em;
+            transition: opacity 0.3s ease, transform 0.3s ease;
+            pointer-events: none;
+            white-space: nowrap;
+        }
+        .event-card:hover .event-card-btn {
+            opacity: 1;
+            transform: translate(-50%, -50%) scale(1);
+        }
+
+        /* ── Empty State ── */
+        .gallery-empty {
+            text-align: center;
+            padding: 80px 40px;
+            color: #444;
+            letter-spacing: 0.3em;
+            font-size: 0.85rem;
+            grid-column: 1 / -1;
+        }
+        .gallery-empty .empty-icon {
+            font-size: 2rem;
+            margin-bottom: 16px;
+            opacity: 0.3;
+        }
+
+        /* ── Lightbox ── */
+        .lightbox-overlay {
+            position: fixed;
+            inset: 0;
+            background: rgba(4, 3, 10, 0.96);
+            z-index: 9999;
+            display: flex;
+            flex-direction: column;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.35s ease;
+        }
+        .lightbox-overlay.active {
+            opacity: 1;
+            pointer-events: all;
+        }
+
+        .lightbox-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 24px 36px;
+            border-bottom: 1px solid rgba(167, 139, 250, 0.1);
+            flex-shrink: 0;
+        }
+        .lightbox-title-wrap .lb-date {
+            font-size: 0.7rem;
+            letter-spacing: 0.35em;
+            color: var(--accent, #a78bfa);
+            margin-bottom: 4px;
+        }
+        .lightbox-title-wrap .lb-title {
+            font-size: 1.1rem;
+            letter-spacing: 0.15em;
+            color: #e2d9f3;
+            font-weight: 300;
+        }
+        .lightbox-close {
+            background: none;
+            border: 1px solid rgba(167, 139, 250, 0.3);
+            color: #888;
+            width: 40px;
+            height: 40px;
+            cursor: pointer;
+            font-size: 1.1rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: color 0.2s, border-color 0.2s;
+            flex-shrink: 0;
+        }
+        .lightbox-close:hover {
+            color: #e2d9f3;
+            border-color: rgba(167, 139, 250, 0.7);
+        }
+
+        .lightbox-body {
+            flex: 1;
+            overflow-y: auto;
+            padding: 36px;
+        }
+
+        /* ── 雜誌混排網格 ── */
+        .lightbox-photos-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            grid-auto-rows: 180px;
+            gap: 10px;
+            max-width: 1100px;
+            margin: 0 auto;
+        }
+
+        .lb-photo-item {
+            border-radius: 3px;
+            overflow: hidden;
+            cursor: pointer;
+            background: #111;
+            position: relative;
+        }
+        .lb-photo-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+            transition: transform 0.4s ease, filter 0.4s ease;
+            filter: brightness(0.88);
+        }
+        .lb-photo-item:hover img {
+            transform: scale(1.05);
+            filter: brightness(1);
+        }
+
+        /* 直式一般：佔 1欄 × 2行 */
+        .lb-photo-item.portrait {
+            grid-column: span 1;
+            grid-row: span 2;
+        }
+        /* 橫式：佔 2欄 × 1行 */
+        .lb-photo-item.landscape {
+            grid-column: span 2;
+            grid-row: span 1;
+        }
+        /* Featured 大圖：佔 2欄 × 2行 */
+        .lb-photo-item.featured {
+            grid-column: span 2;
+            grid-row: span 2;
+        }
+
+        /* ── Full Image Viewer ── */
+        .fullview-overlay {
+            position: fixed;
+            inset: 0;
+            background: rgba(2, 1, 6, 0.98);
+            z-index: 10000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.25s ease;
+        }
+        .fullview-overlay.active {
+            opacity: 1;
+            pointer-events: all;
+        }
+        .fullview-overlay img {
+            max-width: 90vw;
+            max-height: 90vh;
+            object-fit: contain;
+            border: 1px solid rgba(167, 139, 250, 0.15);
+        }
+        .fullview-close {
+            position: absolute;
+            top: 24px;
+            right: 28px;
+            background: none;
+            border: 1px solid rgba(167, 139, 250, 0.3);
+            color: #888;
+            width: 40px;
+            height: 40px;
+            cursor: pointer;
+            font-size: 1.1rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: color 0.2s, border-color 0.2s;
+        }
+        .fullview-close:hover {
+            color: #e2d9f3;
+            border-color: rgba(167, 139, 250, 0.7);
+        }
+        .fullview-nav {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background: rgba(167, 139, 250, 0.08);
+            border: 1px solid rgba(167, 139, 250, 0.25);
+            color: #888;
+            width: 44px;
+            height: 44px;
+            cursor: pointer;
+            font-size: 1.2rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.2s;
+        }
+        .fullview-nav:hover { color: #e2d9f3; border-color: rgba(167,139,250,0.7); background: rgba(167,139,250,0.15); }
+        .fullview-prev { left: 20px; }
+        .fullview-next { right: 20px; }
+        .fullview-counter {
+            position: absolute;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 0.75rem;
+            letter-spacing: 0.25em;
+            color: #555;
+        }
+
+        /* ── Responsive ── */
+        @media (max-width: 600px) {
+            .gallery-grid { padding: 0 20px 80px; gap: 20px; }
+            .gallery-hero { padding: 100px 20px 40px; }
+            .lightbox-header { padding: 18px 20px; }
+            .lightbox-body { padding: 20px; }
+            .lightbox-photos-grid { grid-template-columns: repeat(2, 1fr); grid-auto-rows: 130px; gap: 8px; }
+            .lb-photo-item.featured { grid-column: span 2; grid-row: span 2; }
+            .lb-photo-item.landscape { grid-column: span 2; grid-row: span 1; }
+        }
+    </style>
 </head>
 <body>
     <div id="noctis-main">
@@ -11,27 +335,250 @@
             <div class="nav-container">
                 <div class="brand">NOCTIS</div>
                 <ul class="nav-menu">
-    <li><a href="index.html">首頁</a></li>
-    <li><a href="notice.html">注意事項</a></li>
-    <!-- 💥 將「關於我們」改為「一般服務」 -->
-    <li><a href="general.html">各項服務</a></li> 
-    <!-- 💥 將「服務與收費」改為「指名服務」 -->
-    <li><a href="service.html">指名服務</a></li> 
-    <li><a href="staff.html">公關陣容</a></li>
-    <li><a href="members.html">職員一覽</a></li>
-    <li><a href="lotto.html">月相觀測</a></li>
-    <li><a href="booking.html">預約</a></li>
-    <li><a href="gallery.html">活動花絮</a></li>
-</ul>
-                <a href="https://discord.gg/Uk8znggbCP" target="_blank" class="discord-nav-btn"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M20.317 4.37a19.791 19.791 0 0 0-4.885-1.515.074.074 0 0 0-.079.037c-.21.375-.444.864-.608 1.25a18.27 18.27 0 0 0-5.487 0 12.64 12.64 0 0 0-.617-1.25.077.077 0 0 0-.079-.037A19.736 19.736 0 0 0 3.677 4.37a.07.07 0 0 0-.032.027C.533 9.046-.32 13.58.099 18.057a.082.082 0 0 0 .031.057 19.9 19.9 0 0 0 5.993 3.03.078.078 0 0 0 .084-.028 14.09 14.09 0 0 0 1.226-1.994.076.076 0 0 0-.041-.106 13.107 13.107 0 0 1-1.872-.892.077.077 0 0 1-.008-.128 10.2 10.2 0 0 0 .372-.292.074.074 0 0 1 .077-.01c3.928 1.793 8.18 1.793 12.062 0a.074.074 0 0 1 .078.01c.12.098.246.198.373.292a.077.077 0 0 1-.006.127 12.299 12.299 0 0 1-1.873.892.077.077 0 0 0-.041.107c.36.698.772 1.362 1.225 1.993a.076.076 0 0 0 .084.028 19.839 19.839 0 0 0 6.002-3.03.077.077 0 0 0 .032-.054c.5-5.177-.838-9.674-3.549-13.66a.061.061 0 0 0-.031-.03zM8.02 15.33c-1.183 0-2.157-1.085-2.157-2.419 0-1.333.956-2.419 2.157-2.419 1.21 0 2.176 1.096 2.157 2.42 0 1.333-.956 2.418-2.157 2.418zm7.975 0c-1.183 0-2.157-1.085-2.157-2.419 0-1.333.955-2.419 2.157-2.419 1.21 0 2.176 1.096 2.157 2.42 0 1.333-.946 2.418-2.157 2.418z"/></svg>加入我們</a>
+                    <li><a href="index.html">首頁</a></li>
+                    <li><a href="notice.html">注意事項</a></li>
+                    <li><a href="general.html">各項服務</a></li>
+                    <li><a href="service.html">指名服務</a></li>
+                    <li><a href="staff.html">公關陣容</a></li>
+                    <li><a href="members.html">職員一覽</a></li>
+                    <li><a href="lotto.html">月相觀測</a></li>
+                    <li><a href="booking.html">預約</a></li>
+                    <li><a href="gallery.html">活動花絮</a></li>
+                </ul>
+                <a href="https://discord.gg/Uk8znggbCP" target="_blank" class="discord-nav-btn">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M20.317 4.37a19.791 19.791 0 0 0-4.885-1.515.074.074 0 0 0-.079.037c-.21.375-.444.864-.608 1.25a18.27 18.27 0 0 0-5.487 0 12.64 12.64 0 0 0-.617-1.25.077.077 0 0 0-.079-.037A19.736 19.736 0 0 0 3.677 4.37a.07.07 0 0 0-.032.027C.533 9.046-.32 13.58.099 18.057a.082.082 0 0 0 .031.057 19.9 19.9 0 0 0 5.993 3.03.078.078 0 0 0 .084-.028 14.09 14.09 0 0 0 1.226-1.994.076.076 0 0 0-.041-.106 13.107 13.107 0 0 1-1.872-.892.077.077 0 0 1-.008-.128 10.2 10.2 0 0 0 .372-.292.074.074 0 0 1 .077-.01c3.928 1.793 8.18 1.793 12.062 0a.074.074 0 0 1 .078.01c.12.098.246.198.373.292a.077.077 0 0 1-.006.127 12.299 12.299 0 0 1-1.873.892.077.077 0 0 0-.041.107c.36.698.772 1.362 1.225 1.993a.076.076 0 0 0 .084.028 19.839 19.839 0 0 0 6.002-3.03.077.077 0 0 0 .032-.054c.5-5.177-.838-9.674-3.549-13.66a.061.061 0 0 0-.031-.03zM8.02 15.33c-1.183 0-2.157-1.085-2.157-2.419 0-1.333.956-2.419 2.157-2.419 1.21 0 2.176 1.096 2.157 2.42 0 1.333-.956 2.418-2.157 2.418zm7.975 0c-1.183 0-2.157-1.085-2.157-2.419 0-1.333.955-2.419 2.157-2.419 1.21 0 2.176 1.096 2.157 2.42 0 1.333-.946 2.418-2.157 2.418z"/></svg>
+                    加入我們
+                </a>
             </div>
         </header>
 
-        <section style="height: 100vh; display: flex; align-items: center; justify-content: center;">
-            <h2 style="color: #333; letter-spacing: 10px;">COMING SOON</h2>
+        <!-- Hero -->
+        <section class="gallery-hero">
+            <div class="section-eyebrow">NOCTIS by VESPERA</div>
+            <h1>活 動 花 絮</h1>
+            <p>每一個夜晚，都值得被記住</p>
         </section>
+
+        <!-- Event Grid -->
+        <div class="gallery-grid" id="galleryGrid">
+            <!-- JS 動態生成 -->
+        </div>
 
     </div>
 
+    <!-- Lightbox（活動照片牆） -->
+    <div class="lightbox-overlay" id="lightboxOverlay">
+        <div class="lightbox-header">
+            <div class="lightbox-title-wrap">
+                <div class="lb-date" id="lbDate"></div>
+                <div class="lb-title" id="lbTitle"></div>
+            </div>
+            <button class="lightbox-close" id="lightboxClose">✕</button>
+        </div>
+        <div class="lightbox-body">
+            <div class="lightbox-photos-grid" id="lbPhotosGrid"></div>
+        </div>
+    </div>
+
+    <!-- Full Image Viewer -->
+    <div class="fullview-overlay" id="fullviewOverlay">
+        <button class="fullview-close" id="fullviewClose">✕</button>
+        <button class="fullview-nav fullview-prev" id="fullviewPrev">‹</button>
+        <img id="fullviewImg" src="" alt="">
+        <button class="fullview-nav fullview-next" id="fullviewNext">›</button>
+        <div class="fullview-counter" id="fullviewCounter"></div>
+    </div>
+
+    <script>
+    // ════════════════════════════════════════════════
+    //  活動相簿資料庫
+    //  新增活動：在 galleryDatabase 陣列加一筆即可
+    // ════════════════════════════════════════════════
+    const galleryDatabase = [
+        {
+            id: "20260529",
+            title: "試營運之夜",
+            date: "2026.05.29",
+            cover: "image/gallery/20260529/cover.png",
+            photos: [
+                { src: "image/gallery/20260529/01.png" },
+                { src: "image/gallery/20260529/02.png" },
+                { src: "image/gallery/20260529/03.png" },
+                { src: "image/gallery/20260529/04.png" },
+                { src: "image/gallery/20260529/25.png", landscape: true },
+                { src: "image/gallery/20260529/05.png" },
+                { src: "image/gallery/20260529/06.png" },
+                { src: "image/gallery/20260529/07.png" },
+                { src: "image/gallery/20260529/08.png" },
+                { src: "image/gallery/20260529/09.png" },
+                { src: "image/gallery/20260529/26.png", landscape: true },
+                { src: "image/gallery/20260529/10.png" },
+                { src: "image/gallery/20260529/11.png" },
+                { src: "image/gallery/20260529/12.png" },
+                { src: "image/gallery/20260529/13.png" },
+                { src: "image/gallery/20260529/27.png", landscape: true },
+                { src: "image/gallery/20260529/14.png" },
+                { src: "image/gallery/20260529/15.png" },
+                { src: "image/gallery/20260529/16.png" },
+                { src: "image/gallery/20260529/17.png" },
+                { src: "image/gallery/20260529/28.png", landscape: true },
+                { src: "image/gallery/20260529/18.png" },
+                { src: "image/gallery/20260529/19.png" },
+                { src: "image/gallery/20260529/20.png" },
+                { src: "image/gallery/20260529/21.png" },
+                { src: "image/gallery/20260529/29.png", landscape: true },
+                { src: "image/gallery/20260529/22.png" },
+                { src: "image/gallery/20260529/23.png" },
+                { src: "image/gallery/20260529/24.png" },
+            ]
+        },
+    ];
+
+    // ════════════════════════════════════════════════
+    //  渲染活動卡片
+    // ════════════════════════════════════════════════
+    function renderGallery() {
+        const grid = document.getElementById('galleryGrid');
+        grid.innerHTML = '';
+
+        if (galleryDatabase.length === 0) {
+            grid.innerHTML = `
+                <div class="gallery-empty">
+                    <div class="empty-icon">◈</div>
+                    <div>活動花絮即將上線</div>
+                </div>`;
+            return;
+        }
+
+        galleryDatabase.forEach((event, idx) => {
+            const card = document.createElement('div');
+            card.className = 'event-card';
+            card.innerHTML = `
+                <img class="event-card-cover" src="${event.cover}" alt="${event.title}" loading="lazy">
+                <div class="event-card-overlay"></div>
+                <div class="event-card-info">
+                    <div class="event-card-date">${event.date}</div>
+                    <div class="event-card-title">${event.title}</div>
+                    <div class="event-card-count">${event.photos.length} 張照片</div>
+                </div>
+                <div class="event-card-btn">瀏 覽 相 簿</div>
+            `;
+            card.addEventListener('click', () => openLightbox(idx));
+            grid.appendChild(card);
+        });
+    }
+
+    // ════════════════════════════════════════════════
+    //  Lightbox
+    // ════════════════════════════════════════════════
+    let currentEventIdx = 0;
+    let currentPhotoIdx = 0;
+
+    function openLightbox(eventIdx) {
+        currentEventIdx = eventIdx;
+        const event = galleryDatabase[eventIdx];
+
+        document.getElementById('lbDate').textContent = event.date;
+        document.getElementById('lbTitle').textContent = event.title;
+
+        const grid = document.getElementById('lbPhotosGrid');
+        grid.innerHTML = '';
+
+        // 統一轉成物件格式
+        const photos = event.photos.map(p => typeof p === 'string' ? { src: p } : p);
+
+        // 若沒有任何 featured，自動每隔4張挑一張設為 featured
+        const hasManualFeatured = photos.some(p => p.featured);
+        if (!hasManualFeatured) {
+            photos.forEach((p, i) => {
+                if (i % 5 === 2) p.featured = true;
+            });
+        }
+
+        photos.forEach((photo, i) => {
+            const item = document.createElement('div');
+            const src = photo.src || photo;
+
+            let cls = 'lb-photo-item';
+            if (photo.featured)       cls += ' featured';
+            else if (photo.landscape) cls += ' landscape';
+            else                      cls += ' portrait';
+
+            item.className = cls;
+            item.innerHTML = `<img src="${src}" alt="${event.title} ${i+1}" loading="lazy">`;
+            item.addEventListener('click', () => openFullview(i));
+            grid.appendChild(item);
+        });
+
+        document.getElementById('lightboxOverlay').classList.add('active');
+        document.body.style.overflow = 'hidden';
+    }
+
+    function closeLightbox() {
+        document.getElementById('lightboxOverlay').classList.remove('active');
+        document.body.style.overflow = '';
+    }
+
+    // ════════════════════════════════════════════════
+    //  Full Image Viewer
+    // ════════════════════════════════════════════════
+    function openFullview(photoIdx) {
+        currentPhotoIdx = photoIdx;
+        updateFullview();
+        document.getElementById('fullviewOverlay').classList.add('active');
+    }
+
+    function closeFullview() {
+        document.getElementById('fullviewOverlay').classList.remove('active');
+    }
+
+    function updateFullview() {
+        const photos = galleryDatabase[currentEventIdx].photos;
+        const photo = photos[currentPhotoIdx];
+        const src = (typeof photo === 'string') ? photo : photo.src;
+        document.getElementById('fullviewImg').src = src;
+        document.getElementById('fullviewCounter').textContent =
+            `${currentPhotoIdx + 1} / ${photos.length}`;
+    }
+
+    // ── 事件綁定 ──
+    document.getElementById('lightboxClose').addEventListener('click', closeLightbox);
+    document.getElementById('fullviewClose').addEventListener('click', closeFullview);
+
+    document.getElementById('fullviewPrev').addEventListener('click', () => {
+        const len = galleryDatabase[currentEventIdx].photos.length;
+        currentPhotoIdx = (currentPhotoIdx - 1 + len) % len;
+        updateFullview();
+    });
+    document.getElementById('fullviewNext').addEventListener('click', () => {
+        const len = galleryDatabase[currentEventIdx].photos.length;
+        currentPhotoIdx = (currentPhotoIdx + 1) % len;
+        updateFullview();
+    });
+
+    // 點擊背景關閉
+    document.getElementById('lightboxOverlay').addEventListener('click', e => {
+        if (e.target === e.currentTarget) closeLightbox();
+    });
+    document.getElementById('fullviewOverlay').addEventListener('click', e => {
+        if (e.target === e.currentTarget) closeFullview();
+    });
+
+    // 鍵盤操作
+    document.addEventListener('keydown', e => {
+        const fv = document.getElementById('fullviewOverlay').classList.contains('active');
+        const lb = document.getElementById('lightboxOverlay').classList.contains('active');
+        if (fv) {
+            if (e.key === 'ArrowLeft') document.getElementById('fullviewPrev').click();
+            if (e.key === 'ArrowRight') document.getElementById('fullviewNext').click();
+            if (e.key === 'Escape') closeFullview();
+        } else if (lb) {
+            if (e.key === 'Escape') closeLightbox();
+        }
+    });
+
+    // ── 初始化 ──
+    renderGallery();
+    </script>
 </body>
 </html>
